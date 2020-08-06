@@ -25,7 +25,7 @@
     "eslint-plugin-import-helpers"
   ],
   "rules": {
-    "func-names":"off",
+    "func-names": "off",
     "no-new": "off",
     "no-prototype-builtins": "off",
     "no-restricted-syntax": "off",
@@ -53,12 +53,14 @@
       }
     ],
     "@typescript-eslint/explicit-module-boundary-types": [
-      "warn",
+      "off",
       {
-        "allowArgumentsExplicitlyTypedAsAny": true
+        "allowArgumentsExplicitlyTypedAsAny": true,
+        "allowHighOrderFunctions": true
       }
     ],
     "no-underscore-dangle": "off",
+    "camelcase": "off",
     "@typescript-eslint/camelcase": "off",
     "prettier/prettier": "error",
     "class-methods-use-this": "off",
