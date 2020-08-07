@@ -1,14 +1,11 @@
 import { Request, Response } from "express";
 
+import FlashcardService from "@src/services/FlashcardService";
+
 import db from "../database/connection";
+import { Flashcard } from "../interfaces/FlashcardInterface";
 
-interface Flashcard {
-  user_id: number;
-  question: string;
-  answer: string;
-}
-
-class UserController {
+class FlashcardController {
   public async create(request: Request, response: Response) {
     const { user_id, question, answer } = request.body;
 
@@ -18,7 +15,7 @@ class UserController {
       answer,
     };
 
-    const [flashcard_id] = await db("flashcards").insert(flashcard);
+    const [flashcard_id] = await FlashcardService.create(flashcard);
 
     return response.status(201).json({
       flashcard_id,
@@ -26,7 +23,7 @@ class UserController {
   }
 
   public async index(request: Request, response: Response) {
-    const { user_id } = request.query;
+    const user_id = (request.query.user_id as unknown) as number;
 
     if (!user_id) {
       return response.status(400).json({
@@ -34,12 +31,24 @@ class UserController {
       });
     }
 
-    const flashcards = await db("flashcards")
-      .where("flashcards.user_id", "=", user_id)
-      .select(["flashcards.*"]);
+    const flashcards = await FlashcardService.index(user_id);
+
+    return response.status(201).json({ flashcards });
+  }
+
+  public async getRandom(request: Request, response: Response) {
+    const user_id = (request.query.user_id as unknown) as number;
+
+    if (!user_id) {
+      return response.status(400).json({
+        error: "Missing user_id",
+      });
+    }
+
+    const flashcards = await FlashcardService.getRandom(user_id);
 
     return response.status(201).json({ flashcards });
   }
 }
 
-export default new UserController();
+export default new FlashcardController();

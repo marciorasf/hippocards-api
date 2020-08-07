@@ -11,6 +11,7 @@ routes.get("/", (req, res) => {
 
 routes.post("/user", UserController.create);
 
+routes.get("/flashcards/random", FlashcardController.getRandom);
 routes.get("/flashcards", FlashcardController.index);
 routes.post("/flashcard", FlashcardController.create);
 
