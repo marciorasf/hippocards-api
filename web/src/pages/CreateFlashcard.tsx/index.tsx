@@ -3,8 +3,6 @@ import React, { useState, ChangeEvent, FormEvent } from "react"
 import api from "../../api"
 import Header from "../../components/Header"
 
-import "./styles.css"
-
 const emptyFlashcard = {
   question: "",
   answer: ""
