@@ -45,9 +45,9 @@ class FlashcardController {
       });
     }
 
-    const flashcards = await FlashcardService.getRandom(user_id);
+    const [flashcard] = await FlashcardService.getRandom(user_id);
 
-    return response.status(201).json({ flashcards });
+    return response.status(201).json({ flashcard });
   }
 }
 

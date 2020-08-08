@@ -14,7 +14,7 @@ class FlashcardService {
     return query;
   }
 
-  public async getRandom(user_id) {
+  public async getRandom(user_id: number) {
     const query = db("flashcards")
       .where("flashcards.user_id", "=", user_id)
       .orderByRaw("RANDOM()")
