@@ -7,6 +7,7 @@ const routes = express.Router();
 
 routes.post("/user", UserController.create);
 
+routes.put("/flashcard", FlashcardController.update);
 routes.get("/flashcard/random", FlashcardController.getRandom);
 routes.get("/flashcards", FlashcardController.index);
 routes.post("/flashcard", FlashcardController.create);

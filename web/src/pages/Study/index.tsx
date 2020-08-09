@@ -84,9 +84,12 @@ export default function Study() {
       <Content>
         <Card>
           <CardTitle>
-            Card: {card?.id}
-            <br />
-            Views: {card?.views}
+            <p>
+              Card: {card?.id}
+            </p>
+            <p>
+              Views: {card?.views}
+            </p>
           </CardTitle>
           <CardContent>
             <CardQuestion>

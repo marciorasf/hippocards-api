@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 
-import { Flashcard } from "../interfaces/FlashcardInterface";
+import { Flashcard, UpdateFlashcard } from "../interfaces/FlashcardInterface";
 import FlashcardService from "../services/FlashcardService";
 import convertBooleanToNumber from "../utils/convertBooleanToNumber";
 
@@ -8,7 +8,7 @@ class FlashcardController {
   public async create(request: Request, response: Response) {
     const { user_id, question, answer } = request.body;
 
-    const flashcard: Flashcard = {
+    const payload: Flashcard = {
       user_id,
       question,
       answer,
@@ -17,7 +17,7 @@ class FlashcardController {
       views: 0,
     };
 
-    const [flashcard_id] = await FlashcardService.create(flashcard);
+    const [flashcard_id] = await FlashcardService.create(payload);
 
     return response.status(201).json({
       flashcard_id,
@@ -35,7 +35,7 @@ class FlashcardController {
 
     const flashcards = await FlashcardService.index(user_id);
 
-    return response.status(201).json({ flashcards });
+    return response.status(200).json({ flashcards });
   }
 
   public async getRandom(request: Request, response: Response) {
@@ -70,7 +70,23 @@ class FlashcardController {
       console.log(error);
     }
 
-    return response.status(201).json({ flashcard });
+    return response.status(200).json({ flashcard });
+  }
+
+  public async update(request: Request, response: Response) {
+    const { question, answer, is_bookmarked, is_known } = request.body;
+    const flashcard_id = (request.query.flashcard_id as unknown) as number;
+
+    const payload: UpdateFlashcard = {
+      question,
+      answer,
+      is_bookmarked,
+      is_known,
+    };
+
+    await FlashcardService.update(flashcard_id, payload);
+
+    return response.status(200).json({});
   }
 }
 

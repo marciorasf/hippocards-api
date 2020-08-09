@@ -1,7 +1,7 @@
 import knex from "knex";
 
 import db from "../database/connection";
-import { Flashcard, FlashcardFilters } from "../interfaces/FlashcardInterface";
+import { Flashcard, FlashcardFilters, UpdateFlashcard } from "../interfaces/FlashcardInterface";
 
 class FlashcardService {
   private readonly attrsToSelect = [
@@ -13,8 +13,8 @@ class FlashcardService {
     "views",
   ];
 
-  public async create(flashcard: Flashcard) {
-    return db("flashcards").insert(flashcard);
+  public async create(data: Flashcard) {
+    return db("flashcards").insert(data);
   }
 
   public async index(user_id: number) {
@@ -37,7 +37,7 @@ class FlashcardService {
     return query;
   }
 
-  public async update(flashcard_id: number, data: Flashcard) {
+  public async update(flashcard_id: number, data: UpdateFlashcard) {
     const query = db("flashcards").where("flashcards.id", "=", flashcard_id).update(data);
 
     return query;

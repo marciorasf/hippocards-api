@@ -36,6 +36,7 @@ export const CardTitle = styled.div`
   display: flex;
   padding: 1.6rem;
   font-weight: 600;
+  justify-content: space-between;
 `
 
 export const CardContent = styled.div`
