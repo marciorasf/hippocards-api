@@ -5,10 +5,6 @@ import UserController from "./controllers/UserController";
 
 const routes = express.Router();
 
-routes.get("/", (req, res) => {
-  return res.send("Hello");
-});
-
 routes.post("/user", UserController.create);
 
 routes.get("/flashcard/random", FlashcardController.getRandom);
