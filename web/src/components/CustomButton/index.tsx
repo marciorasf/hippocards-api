@@ -9,7 +9,7 @@ const CustomButton = styled.button`
   line-height: 1;
   font-weight: 500;
   text-transform: uppercase;
-  cursor: pointer
+  cursor: pointer;
 `
 
 export default CustomButton

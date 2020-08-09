@@ -8,7 +8,7 @@ const CustomIconButton = styled.button`
   text-transform: uppercase;
   display: flex;
   align-items: center;
-  cursor: pointer
+  cursor: pointer;
 
   svg {
     width: 2.4rem;
