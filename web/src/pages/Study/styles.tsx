@@ -9,12 +9,18 @@ export const Container = styled.div`
   height: 100vh;
   background-color: ${colors.primary};
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
 `
 
 export const Content = styled.main`
-width: 90%;
+  margin-top: 4.8rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: calc(100% - 4.8rem);
 `
 
 export const Card = styled.div`
@@ -34,7 +40,7 @@ export const CardTitle = styled.div`
 `
 
 export const CardContent = styled.div`
-  min-height: 32rem;
+  min-height: 24rem;
   display: flex;
   justify-content: center;
   align-items:center;

@@ -9,6 +9,9 @@ const CustomButton = styled.button`
   line-height: 1;
   font-weight: 500;
   text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
 `
 

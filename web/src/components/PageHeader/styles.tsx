@@ -3,9 +3,10 @@ import colors from "../../assets/styles/colors"
 
 export const Header = styled.header`
   width: 100%;
-  height: 13.2rem;
+  height: 12rem;
   background-color: ${colors.primaryDark};
   padding: 2.4rem;
+  position: relative;
 
 
   > nav {

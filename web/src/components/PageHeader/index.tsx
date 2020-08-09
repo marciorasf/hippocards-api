@@ -15,11 +15,11 @@ const PageHeader: FunctionComponent<PageHeaderProps> = ({ children }) => {
     <Header>
       <nav>
         <h1 className="brand">
-          <Link className="nav-item" to="/create-flashcard">Flashcards</Link>
+          <Link className="nav-item" to="/">Flashcards</Link>
         </h1>
         <ul>
           <li>
-            <Link className="nav-item" to="/create-flashcard">Study</Link>
+            <Link className="nav-item" to="/study">Study</Link>
           </li>
           <li>
             <CustomIconButton>
@@ -28,6 +28,7 @@ const PageHeader: FunctionComponent<PageHeaderProps> = ({ children }) => {
           </li>
         </ul>
       </nav>
+      {children}
     </Header>
   )
 }

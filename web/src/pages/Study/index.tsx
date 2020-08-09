@@ -20,6 +20,10 @@ import {
   Flip as FlipIcon
 } from "@material-ui/icons"
 
+import PageHeader from "../../components/PageHeader"
+import AddCardFab from "../../components/AddCardFab"
+import { useHistory } from "react-router-dom"
+
 interface Flashcard {
   id: string,
   question: string,
@@ -27,35 +31,46 @@ interface Flashcard {
 }
 
 export default function Study() {
-  const [flashcard, setFlashcard] = useState<Flashcard>()
+  const history = useHistory();
 
-  async function getRandomFlashcard() {
+  const [card, setCard] = useState<Flashcard>()
+
+  async function getRandomCard() {
     const user_id = 1
     const response = (await api.get(`/flashcard/random?user_id=${user_id}`))
 
     return response.data.flashcard
   }
 
-  async function changeFlashcard() {
-    const randomFlashcard = await getRandomFlashcard()
+  async function changeCard() {
+    const randomFlashcard = await getRandomCard()
     console.log(randomFlashcard)
-    setFlashcard(randomFlashcard)
+    setCard(randomFlashcard)
+  }
+
+  function handleNavigateAddCardPage(){
+    history.push("/add-card")
   }
 
   useEffect(() => {
-    changeFlashcard()
+    changeCard()
   }, [])
 
   return (
     <Container>
+      <PageHeader >
+        <AddCardFab onClick={handleNavigateAddCardPage}>
+          Add card
+        </AddCardFab>
+      </PageHeader>
       <Content>
         <Card>
           <CardTitle>
-            Card: {flashcard?.id}
+            Card: {card?.id}
           </CardTitle>
           <CardContent>
             <CardQuestion>
-              {flashcard?.question}
+              {card?.question}
             </CardQuestion>
           </CardContent>
 
@@ -74,7 +89,7 @@ export default function Study() {
             </RightButton>
           </CardFooter>
         </Card>
-        <NextButton color="secondary" onClick={changeFlashcard}>
+        <NextButton color="secondary" onClick={changeCard}>
           Next
         </NextButton>
       </Content>
