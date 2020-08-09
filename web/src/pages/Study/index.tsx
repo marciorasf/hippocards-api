@@ -34,6 +34,7 @@ export default function Study() {
   const history = useHistory();
 
   const [card, setCard] = useState<Flashcard>()
+  const [isShowingQuestion, setIsShowingQuestion] = useState(true)
 
   async function getRandomCard() {
     const user_id = 1
@@ -43,13 +44,21 @@ export default function Study() {
   }
 
   async function changeCard() {
-    const randomFlashcard = await getRandomCard()
-    console.log(randomFlashcard)
-    setCard(randomFlashcard)
+    try {
+      const randomFlashcard = await getRandomCard()
+      setIsShowingQuestion(true)
+      setCard(randomFlashcard)
+    } catch (error) {
+      alert("Could not get another card")
+    }
   }
 
-  function handleNavigateAddCardPage(){
+  function handleNavigateAddCardPage() {
     history.push("/add-card")
+  }
+
+  function handleToggleQuestion() {
+    setIsShowingQuestion(!isShowingQuestion);
   }
 
   useEffect(() => {
@@ -70,7 +79,11 @@ export default function Study() {
           </CardTitle>
           <CardContent>
             <CardQuestion>
-              {card?.question}
+              {
+                isShowingQuestion
+                  ? card?.question
+                  : card?.answer
+              }
             </CardQuestion>
           </CardContent>
 
@@ -80,7 +93,7 @@ export default function Study() {
                 <BookmarkBorderIcon />
               </IconButton>
 
-              <IconButton>
+              <IconButton onClick={handleToggleQuestion}>
                 <FlipIcon />
               </IconButton>
             </LeftIconButtons>
