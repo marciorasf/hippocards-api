@@ -1,4 +1,5 @@
 export interface Flashcard {
+  id?: number;
   user_id: number;
   question: string;
   answer: string;

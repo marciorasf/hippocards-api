@@ -34,11 +34,16 @@ class FlashcardService {
   public async getRandom(user_id: number, filters: FlashcardFilters) {
     const query = db("flashcards")
       .where("flashcards.user_id", "=", user_id)
-      .andWhere("flashcards.is_bookmarked", "=", filters.is_bookmarked)
-      .andWhere("flashcards.is_known", "=", filters.is_known)
       .orderByRaw("RANDOM()")
       .select(...this.attrsToSelect)
       .limit(1);
+
+    if (filters.is_bookmarked !== undefined) {
+      query.andWhere("flashcards.is_bookmarked", "=", filters.is_bookmarked);
+    }
+    if (filters.is_known !== undefined) {
+      query.andWhere("flashcards.is_known", "=", filters.is_known);
+    }
 
     return query;
   }

@@ -50,9 +50,10 @@ class FlashcardController {
     const { query } = request;
     const user_id = (query.user_id as unknown) as number;
 
-    const is_bookmarked = convertBooleanToNumber(query.is_bookmarked === "true");
+    const is_bookmarked =
+      query.is_bookmarked && convertBooleanToNumber(query.is_bookmarked === "true");
 
-    const is_known = convertBooleanToNumber(query.is_known === "true");
+    const is_known = query.is_known && convertBooleanToNumber(query.is_known === "true");
 
     const filters = {
       is_bookmarked,
@@ -65,7 +66,7 @@ class FlashcardController {
       });
     }
 
-    let flashcard: any;
+    let flashcard: Flashcard;
     try {
       [flashcard] = await FlashcardService.getRandom(user_id, filters);
     } catch (error) {
@@ -73,7 +74,9 @@ class FlashcardController {
     }
 
     try {
-      FlashcardService.incrementViews(flashcard.id);
+      if (flashcard) {
+        FlashcardService.incrementViews(flashcard.id);
+      }
     } catch (error) {
       console.log(error);
     }
