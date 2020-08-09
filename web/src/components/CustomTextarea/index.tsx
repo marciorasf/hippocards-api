@@ -1,8 +1,8 @@
-import React, { FunctionComponent, InputHTMLAttributes } from "react"
+import React, { FunctionComponent, TextareaHTMLAttributes } from "react"
 
 import { TextareaBlock} from "./styles"
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+interface InputProps extends TextareaHTMLAttributes<HTMLTextAreaElement>{
   name: string;
   label: string;
 }
@@ -11,7 +11,7 @@ const Input: FunctionComponent<InputProps> = ({ name, label, className, ...rest 
   return (
     <TextareaBlock className={className}>
       <label htmlFor={name}>{label}</label>
-      <textarea id={name} />
+      <textarea name={name} id={name} {...rest}/>
     </TextareaBlock>
   );
 }

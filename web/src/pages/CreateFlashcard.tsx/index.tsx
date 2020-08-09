@@ -1,8 +1,7 @@
 import React, { useState, ChangeEvent, FormEvent } from "react"
+import { useHistory } from "react-router-dom"
 
 import api from "../../api"
-import Header from "../../components/Header"
-
 
 import { Container, Content, QuestionTextarea, AnswerTextarea, ButtonsContainer, CancelButton, AddCardButton } from "./styles"
 
@@ -11,13 +10,17 @@ const emptyFlashcard = {
   answer: ""
 }
 
+// TODO remove this mock
 const user_id = 1
 
 export default function CreateFlashcard() {
+
+  const history = useHistory()
+
   const [flashcard, setFlashcard] = useState(emptyFlashcard)
-  function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
+
+  function handleInputChange(event: ChangeEvent<HTMLTextAreaElement>) {
     const { name, value } = event.target;
-    console.log(event.target)
     setFlashcard({
       ...flashcard,
       [name]: value
@@ -31,23 +34,35 @@ export default function CreateFlashcard() {
       ...flashcard
     }
 
-    const response = await api.post("/flashcard", payload)
+    try {
+      const response = await api.post("/flashcard", payload);
+      alert(`Card ${response?.data?.flashcard_id} created`)
+    } catch (error) {
+      console.log({ error })
+      alert("Could not create card")
+    }
+  }
+
+  function handleGoBack() {
+    history.push("/study");
   }
 
   return (
     <Container>
       <Content>
-        <QuestionTextarea label="Question" name="question" />
-        <AnswerTextarea label="Answer" name="answer" />
-        <ButtonsContainer>
-          <CancelButton>
-            Cancel
-        </CancelButton>
+        <form onSubmit={handleFormSubmit}>
+          <QuestionTextarea label="Question" name="question" onChange={handleInputChange} />
+          <AnswerTextarea label="Answer" name="answer" onChange={handleInputChange} />
+          <ButtonsContainer>
+            <CancelButton type="button" onClick={handleGoBack}>
+              Cancel
+            </CancelButton>
 
-          <AddCardButton>
-            Add card
-        </AddCardButton>
-        </ButtonsContainer>
+            <AddCardButton type="submit">
+              Add card
+            </AddCardButton>
+          </ButtonsContainer>
+        </form>
       </Content>
     </Container>
   )

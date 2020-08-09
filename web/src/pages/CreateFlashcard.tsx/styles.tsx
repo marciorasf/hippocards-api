@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 import CustomTextarea from '../../components/CustomTextarea'
-import { TextareaBlock as CustomTextareaBlock } from "../../components/CustomTextarea/styles"
 import CustomButton from '../../components/CustomButton'
 
 import colors from "../../assets/styles/colors"

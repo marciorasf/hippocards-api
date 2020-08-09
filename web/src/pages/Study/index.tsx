@@ -27,7 +27,6 @@ interface Flashcard {
 }
 
 export default function Study() {
-
   const [flashcard, setFlashcard] = useState<Flashcard>()
 
   async function getRandomFlashcard() {
@@ -37,14 +36,14 @@ export default function Study() {
     return response.data.flashcard
   }
 
-  async function updateFlashcard() {
+  async function changeFlashcard() {
     const randomFlashcard = await getRandomFlashcard()
     console.log(randomFlashcard)
     setFlashcard(randomFlashcard)
   }
 
   useEffect(() => {
-    updateFlashcard()
+    changeFlashcard()
   }, [])
 
   return (
@@ -52,11 +51,11 @@ export default function Study() {
       <Content>
         <Card>
           <CardTitle>
-            Card: 111
+            Card: {flashcard?.id}
           </CardTitle>
           <CardContent>
             <CardQuestion>
-              What is the question ?
+              {flashcard?.question}
             </CardQuestion>
           </CardContent>
 
@@ -75,7 +74,7 @@ export default function Study() {
             </RightButton>
           </CardFooter>
         </Card>
-        <NextButton color="secondary">
+        <NextButton color="secondary" onClick={changeFlashcard}>
           Next
         </NextButton>
       </Content>
