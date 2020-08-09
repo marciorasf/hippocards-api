@@ -4,12 +4,11 @@ const CustomIconButton = styled.button`
   background-color: transparent;
   border: 0;
   padding: 0.8rem;
-  line-height: 1.75;
-  font-size: 1.6rem;
-  font-weight: 700;
+  font-weight: 500;
   text-transform: uppercase;
   display: flex;
   align-items: center;
+  cursor: pointer
 
   svg {
     width: 2.4rem;
