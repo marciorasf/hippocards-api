@@ -32,3 +32,12 @@ textarea {
     font-size: 62.5%;
   }
 }
+
+ul,li {
+  list-style: none;
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+}
