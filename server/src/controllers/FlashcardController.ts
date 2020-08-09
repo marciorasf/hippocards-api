@@ -24,6 +24,14 @@ class FlashcardController {
     });
   }
 
+  public async getById(request: Request, response: Response) {
+    const flashcard_id = (request.query.flashcard_id as unknown) as number;
+
+    const flashcard = await FlashcardService.getById(flashcard_id);
+
+    return response.status(200).json({ flashcard });
+  }
+
   public async index(request: Request, response: Response) {
     const user_id = (request.query.user_id as unknown) as number;
 

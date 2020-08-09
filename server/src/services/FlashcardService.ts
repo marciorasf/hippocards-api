@@ -1,5 +1,3 @@
-import knex from "knex";
-
 import db from "../database/connection";
 import { Flashcard, FlashcardFilters, UpdateFlashcard } from "../interfaces/FlashcardInterface";
 
@@ -15,6 +13,14 @@ class FlashcardService {
 
   public async create(data: Flashcard) {
     return db("flashcards").insert(data);
+  }
+
+  public async getById(flashcard_id: number) {
+    const query = db("flashcards")
+      .where("flashcards.id", "=", flashcard_id)
+      .select(...this.attrsToSelect);
+
+    return query;
   }
 
   public async index(user_id: number) {
