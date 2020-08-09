@@ -6,6 +6,9 @@ export async function up(knex: Knex) {
 
     table.string("question").notNullable();
     table.string("answer").notNullable();
+    table.boolean("is_bookmarked").notNullable();
+    table.boolean("is_known").notNullable();
+    table.integer("views").notNullable();
 
     table
       .integer("user_id")

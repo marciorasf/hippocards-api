@@ -20,7 +20,7 @@ export const TextareaBlock = styled.div`
     outline: 0;
     border: 0;
     resize: vertical;
-    padding: 1.2rem 1.6rem;
+    padding: 1.6rem;
     font-size: 1.6rem;
   }
 `

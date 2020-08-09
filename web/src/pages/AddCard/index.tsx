@@ -37,13 +37,14 @@ export default function CreateFlashcard() {
     try {
       const response = await api.post("/flashcard", payload);
       alert(`Card ${response?.data?.flashcard_id} created`)
+      handleNavigateToStudy();
     } catch (error) {
       console.log({ error })
       alert("Could not create card")
     }
   }
 
-  function handleGoBack() {
+  function handleNavigateToStudy() {
     history.push("/study");
   }
 
@@ -54,7 +55,7 @@ export default function CreateFlashcard() {
           <QuestionTextarea label="Question" name="question" onChange={handleInputChange} />
           <AnswerTextarea label="Answer" name="answer" onChange={handleInputChange} />
           <ButtonsContainer>
-            <CancelButton type="button" onClick={handleGoBack}>
+            <CancelButton type="button" onClick={handleNavigateToStudy}>
               Cancel
             </CancelButton>
 

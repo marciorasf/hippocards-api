@@ -27,7 +27,10 @@ import { useHistory } from "react-router-dom"
 interface Flashcard {
   id: string,
   question: string,
-  answer: string
+  answer: string,
+  is_bookmarked: boolean,
+  is_known: boolean,
+  views: number
 }
 
 export default function Study() {
@@ -38,7 +41,13 @@ export default function Study() {
 
   async function getRandomCard() {
     const user_id = 1
-    const response = (await api.get(`/flashcard/random?user_id=${user_id}`))
+    const response = await api.get("/flashcard/random", {
+      params: {
+        user_id: user_id,
+        is_bookmarked: false,
+        is_known: false
+      }
+    })
 
     return response.data.flashcard
   }
@@ -53,7 +62,7 @@ export default function Study() {
     }
   }
 
-  function handleNavigateAddCardPage() {
+  function handleNavigateToAddCardPage() {
     history.push("/add-card")
   }
 
@@ -68,7 +77,7 @@ export default function Study() {
   return (
     <Container>
       <PageHeader >
-        <AddCardFab onClick={handleNavigateAddCardPage}>
+        <AddCardFab onClick={handleNavigateToAddCardPage}>
           Add card
         </AddCardFab>
       </PageHeader>
@@ -76,6 +85,8 @@ export default function Study() {
         <Card>
           <CardTitle>
             Card: {card?.id}
+            <br />
+            Views: {card?.views}
           </CardTitle>
           <CardContent>
             <CardQuestion>

@@ -14,11 +14,10 @@ export const Container = styled.div`
 `
 
 export const Content = styled.main`
-  margin-top: 4.8rem;
+  margin-top: 7.2rem;
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   width: calc(100% - 4.8rem);
 `

@@ -7,12 +7,14 @@
   "scripts": {
     "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files --no-copy-ignored",
     "start": "node dist/server.js",
-    "dev": "NODE_ENV='development' ts-node-dev --ignore-diagnostics --transpile-only --clear -r tsconfig-paths/register --respawn --ignore-watch node_modules --no-notify ./src/server.ts",
-    "debug": "NODE_ENV='development' ts-node-dev --transpile-only --clear --inspect=0.0.0.0:8001 -r tsconfig-paths/register --respawn --ignore-watch node_modules --no-notify ./src/server.ts",
+    "dev": "NODE_ENV='development' ts-node-dev --transpile-only --clear --inspect=0.0.0.0:8001 -r tsconfig-paths/register --respawn --ignore-watch node_modules --no-notify ./src/server.ts",
     "test": "NODE_ENV='test' mocha -r ts-node/register ./tests/**/*.ts --timeout 2000",
     "coverage": "nyc npm run test",
-    "knex:migrate": "knex --knexfile knexfile.ts migrate:latest",
-    "knex:migrate:rollback": "knex --knexfile knexfile.ts migrate:rollback"
+    "db:migrate": "knex --knexfile knexfile.ts migrate:latest",
+    "db:migrate:rollback": "knex --knexfile knexfile.ts migrate:rollback",
+    "db:populate": "ts-node ./src/database/populate.ts",
+    "db:drop": "rm -f ./src/database/database.sqlite",
+    "db:renew": "yarn db:drop && yarn db:migrate && yarn db:populate"
   },
   "dependencies": {
     "cors": "^2.8.5",
