@@ -31,11 +31,16 @@ function getTemplateFlashcards(nCards: number): Flashcard[] {
 async function populate(nFlashcards: number) {
   const user = getTemplateUser();
 
-  console.log("Start populating users");
+  let user_id: number;
+  try {
+    console.log("Start populating users");
 
-  const [user_id] = await db("users").insert(user);
+    [user_id] = await db("users").insert(user);
 
-  console.log("End populating users");
+    console.log("End populating users");
+  } catch (error) {
+    console.log(error);
+  }
 
   console.log("Start populating flashcards");
 

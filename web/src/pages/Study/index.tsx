@@ -25,7 +25,7 @@ import AddCardFab from "../../components/AddCardFab"
 import { useHistory } from "react-router-dom"
 
 interface Flashcard {
-  id: string,
+  id: number,
   question: string,
   answer: string,
   is_bookmarked: boolean,
@@ -33,10 +33,19 @@ interface Flashcard {
   views: number
 }
 
+const blankCard: Flashcard = {
+  id: 0,
+  question: "",
+  answer: "",
+  is_bookmarked: false,
+  is_known: false,
+  views: 0
+}
+
 export default function Study() {
   const history = useHistory();
 
-  const [card, setCard] = useState<Flashcard>()
+  const [card, setCard] = useState<Flashcard>(blankCard)
   const [isShowingQuestion, setIsShowingQuestion] = useState(true)
 
   async function getRandomCard() {
@@ -50,6 +59,36 @@ export default function Study() {
     })
 
     return response.data.flashcard
+  }
+
+  async function handleSetKnownTrue() {
+    api.put("/flashcard", {
+      is_known: true,
+    }, {
+      params: {
+        flashcard_id: card?.id,
+      }
+    });
+
+    changeCard();
+  }
+
+  async function handleToggleBookmark() {
+    const newValue = !card?.is_bookmarked
+
+    setCard({
+      ...card,
+      is_bookmarked: newValue
+    })
+    console.log(card.is_bookmarked)
+
+    api.put("/flashcard", {
+      is_bookmarked: newValue,
+    }, {
+      params: {
+        flashcard_id: card?.id,
+      }
+    });
   }
 
   async function changeCard() {
@@ -103,15 +142,18 @@ export default function Study() {
 
           <CardFooter>
             <LeftIconButtons>
-              <IconButton>
-                <BookmarkBorderIcon />
+              <IconButton onClick={handleToggleBookmark}>
+                {card.is_bookmarked
+                  ? <BookmarkIcon />
+                  : <BookmarkBorderIcon />
+                }
               </IconButton>
 
               <IconButton onClick={handleToggleQuestion}>
                 <FlipIcon />
               </IconButton>
             </LeftIconButtons>
-            <RightButton>
+            <RightButton onClick={handleSetKnownTrue}>
               I know it
             </RightButton>
           </CardFooter>
