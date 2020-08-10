@@ -1,61 +1,79 @@
-import db from "../database/connection";
-import { Flashcard, FlashcardFilters, UpdateFlashcard } from "../interfaces/FlashcardInterface";
+import { PrismaClient, FlashcardCreateInput } from "@prisma/client";
+
+import { FlashcardFilters, FlashcardUpdate } from "../interfaces/FlashcardInterface";
+
+const prisma = new PrismaClient();
 
 class FlashcardService {
-  private readonly attrsToSelect = [
-    "id",
-    "question",
-    "answer",
-    "is_bookmarked",
-    "is_known",
-    "views",
-  ];
+  private readonly attrsToSelect = ["id", "question", "answer", "isBookmarked", "isKnown", "views"];
 
-  public async create(data: Flashcard) {
-    return db("flashcards").insert(data);
+  public async create(data: FlashcardCreateInput) {
+    return prisma.flashcard.create({
+      data,
+    });
   }
 
-  public async getById(flashcard_id: number) {
-    const query = db("flashcards")
-      .where("flashcards.id", "=", flashcard_id)
-      .select(...this.attrsToSelect);
-
-    return query;
+  public async getById(flashcardId: number) {
+    return prisma.user.findOne({ where: { id: flashcardId } });
   }
 
-  public async index(user_id: number) {
-    const query = db("flashcards")
-      .where("flashcards.user_id", "=", user_id)
-      .select(...this.attrsToSelect);
-
-    return query;
+  public async index(userId: number) {
+    return prisma.flashcard.findMany({
+      where: {
+        userId,
+      },
+    });
   }
 
-  public async getRandom(user_id: number, filters: FlashcardFilters) {
-    const query = db("flashcards")
-      .where("flashcards.user_id", "=", user_id)
-      .orderByRaw("RANDOM()")
-      .select(...this.attrsToSelect)
-      .limit(1);
+  public async getRandom(userId: number, filters: FlashcardFilters) {
+    const nFlashcards = await prisma.flashcard.count({
+      where: {
+        userId,
+        isBookmarked: filters.isBookmarked,
+        isKnown: filters.isKnown,
+      },
+    });
 
-    if (filters.is_bookmarked !== undefined) {
-      query.andWhere("flashcards.is_bookmarked", "=", filters.is_bookmarked);
-    }
-    if (filters.is_known !== undefined) {
-      query.andWhere("flashcards.is_known", "=", filters.is_known);
-    }
+    const skip = Math.floor(Math.random() * nFlashcards);
 
-    return query;
+    const [flashcard] = await prisma.flashcard.findMany({
+      take: 1,
+      skip,
+      where: {
+        userId,
+        isBookmarked: filters.isBookmarked,
+        isKnown: filters.isKnown,
+      },
+    });
+
+    return flashcard;
   }
 
-  public async update(flashcard_id: number, data: UpdateFlashcard) {
-    const query = db("flashcards").where("flashcards.id", "=", flashcard_id).update(data);
-
-    return query;
+  public async update(flashcardId: number, data: FlashcardUpdate) {
+    return prisma.flashcard.update({
+      where: { id: flashcardId },
+      data,
+    });
   }
 
-  public async incrementViews(flashcard_id: number) {
-    return db("flashcards").where("id", "=", flashcard_id).increment("views", 1);
+  public async incrementViews(flashcardId: number) {
+    const flashcard = await prisma.flashcard.findOne({
+      where: {
+        id: flashcardId,
+      },
+      select: {
+        views: true,
+      },
+    });
+
+    return prisma.flashcard.update({
+      where: {
+        id: flashcardId,
+      },
+      data: {
+        views: flashcard.views + 1,
+      },
+    });
   }
 }
 

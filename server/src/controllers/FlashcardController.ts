@@ -1,78 +1,82 @@
 import { Request, Response } from "express";
 
-import { Flashcard, UpdateFlashcard } from "../interfaces/FlashcardInterface";
+import { FlashcardCreateInput } from "@prisma/client";
+
+import { Flashcard, FlashcardUpdate } from "../interfaces/FlashcardInterface";
 import FlashcardService from "../services/FlashcardService";
 import convertBooleanToNumber from "../utils/convertBooleanToNumber";
 
 class FlashcardController {
   public async create(request: Request, response: Response) {
-    const { user_id, question, answer } = request.body;
+    const { userId, question, answer } = request.body;
 
-    const payload: Flashcard = {
-      user_id,
+    const payload: FlashcardCreateInput = {
       question,
       answer,
-      is_bookmarked: false,
-      is_known: false,
+      isBookmarked: false,
+      isKnown: false,
       views: 0,
+      user: {
+        connect: {
+          id: userId,
+        },
+      },
     };
 
-    const [flashcard_id] = await FlashcardService.create(payload);
+    const flashcard = await FlashcardService.create(payload);
 
     return response.status(201).json({
-      flashcard_id,
+      flashcard,
     });
   }
 
   public async getById(request: Request, response: Response) {
-    const flashcard_id = (request.query.flashcard_id as unknown) as number;
+    const flashcardId = Number(request.query.flashcardId);
 
-    const flashcard = await FlashcardService.getById(flashcard_id);
+    const flashcard = await FlashcardService.getById(flashcardId);
 
     return response.status(200).json({ flashcard });
   }
 
   public async index(request: Request, response: Response) {
-    const user_id = (request.query.user_id as unknown) as number;
+    const userId = Number(request.query.userId);
 
-    if (!user_id) {
+    if (!userId) {
       return response.status(400).json({
-        error: "Missing user_id",
+        error: "Missing userId",
       });
     }
 
-    const flashcards = await FlashcardService.index(user_id);
+    const flashcards = await FlashcardService.index(userId);
 
     return response.status(200).json({ flashcards });
   }
 
   public async getRandom(request: Request, response: Response) {
     const { query } = request;
-    const user_id = (query.user_id as unknown) as number;
+    const userId = Number(query.userId);
 
-    const is_bookmarked =
-      query.is_bookmarked && convertBooleanToNumber(query.is_bookmarked === "true");
+    const isBookmarked = query.isBookmarked && query.isBookmarked === "true";
 
-    const is_known = query.is_known && convertBooleanToNumber(query.is_known === "true");
+    const isKnown = query.isKnown && query.isKnown === "true";
 
     const filters = {
-      is_bookmarked,
-      is_known,
+      isBookmarked,
+      isKnown,
     };
 
-    if (!user_id) {
+    if (!userId) {
       return response.status(400).json({
-        error: "Missing user_id",
+        error: "Missing userId",
       });
     }
 
     let flashcard: Flashcard;
     try {
-      [flashcard] = await FlashcardService.getRandom(user_id, filters);
+      flashcard = await FlashcardService.getRandom(userId, filters);
     } catch (error) {
       console.log(error);
     }
-
     try {
       if (flashcard) {
         FlashcardService.incrementViews(flashcard.id);
@@ -85,19 +89,19 @@ class FlashcardController {
   }
 
   public async update(request: Request, response: Response) {
-    const { question, answer, is_bookmarked, is_known } = request.body;
-    const flashcard_id = (request.query.flashcard_id as unknown) as number;
+    const { question, answer, isBookmarked, isKnown } = request.body;
+    const flashcardId = Number(request.query.flashcardId);
 
-    const payload: UpdateFlashcard = {
+    const payload: FlashcardUpdate = {
       question,
       answer,
-      is_bookmarked,
-      is_known,
+      isBookmarked,
+      isKnown,
     };
 
-    await FlashcardService.update(flashcard_id, payload);
+    const flashcard = await FlashcardService.update(flashcardId, payload);
 
-    return response.status(200).json({});
+    return response.status(200).json({ flashcard });
   }
 }
 

@@ -1,0 +1,55 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "tag": "CreateField",
+      "model": "Flashcard",
+      "field": "is_bookmarked",
+      "type": "Boolean",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateField",
+      "model": "Flashcard",
+      "field": "is_known",
+      "type": "Boolean",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateField",
+      "model": "Flashcard",
+      "field": "user_id",
+      "type": "Int",
+      "arity": "Required"
+    },
+    {
+      "tag": "DeleteField",
+      "model": "Flashcard",
+      "field": "isBookmarked"
+    },
+    {
+      "tag": "DeleteField",
+      "model": "Flashcard",
+      "field": "isKnown"
+    },
+    {
+      "tag": "DeleteField",
+      "model": "Flashcard",
+      "field": "userId"
+    },
+    {
+      "tag": "UpdateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "Flashcard",
+          "field": "user"
+        },
+        "directive": "relation"
+      },
+      "argument": "fields",
+      "newValue": "[user_id]"
+    }
+  ]
+}

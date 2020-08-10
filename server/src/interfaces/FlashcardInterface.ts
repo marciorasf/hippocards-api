@@ -1,21 +1,21 @@
 export interface Flashcard {
   id?: number;
-  user_id: number;
   question: string;
   answer: string;
-  is_bookmarked: boolean;
-  is_known: boolean;
+  isBookmarked: boolean;
+  isKnown: boolean;
   views: number;
+  userId: number;
 }
 
-export interface UpdateFlashcard {
+export interface FlashcardUpdate {
   question?: string;
   answer?: string;
-  is_bookmarked?: boolean;
-  is_known?: boolean;
+  isBookmarked?: boolean;
+  isKnown?: boolean;
 }
 
 export interface FlashcardFilters {
-  is_bookmarked: number;
-  is_known: number;
+  isBookmarked: boolean;
+  isKnown: boolean;
 }

@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+ postgres:
+    image: postgres
+    ports:
+      - "3344:5432"
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: 123
+      POSTGRES_USER: marciorasf
+      POSTGRES_DB: flashcards
+    volumes:
+      - ./resources/postgresql:/var/lib/postgresql/data

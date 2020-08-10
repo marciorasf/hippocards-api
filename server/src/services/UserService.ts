@@ -1,9 +1,14 @@
-import db from "../database/connection";
-import { User } from "../interfaces/UserInterface";
+import { PrismaClient } from "@prisma/client";
+
+import { UserCreate } from "../interfaces/UserInterface";
+
+const prisma = new PrismaClient();
 
 class UserService {
-  public async create(user: User) {
-    return db("users").insert(user);
+  public async create(user: UserCreate) {
+    return prisma.user.create({
+      data: user,
+    });
   }
 }
 

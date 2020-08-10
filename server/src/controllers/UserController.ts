@@ -1,18 +1,18 @@
 import { Request, Response } from "express";
 
-import { User } from "../interfaces/UserInterface";
+import { UserCreate } from "../interfaces/UserInterface";
 import UserService from "../services/UserService";
 
 class UserController {
   public async create(request: Request, response: Response) {
-    const { email } = request.body;
+    const { email, password } = request.body;
 
-    const user: User = { email };
+    const payload: UserCreate = { email, password };
 
-    const [user_id] = await UserService.create(user);
+    const user = await UserService.create(payload);
 
     return response.status(201).json({
-      user_id,
+      user_id: user.id,
     });
   }
 }

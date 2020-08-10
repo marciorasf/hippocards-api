@@ -1,21 +1,21 @@
-import { Flashcard } from "../interfaces/FlashcardInterface";
-import { User } from "../interfaces/UserInterface";
-import db from "./connection";
+import { PrismaClient, UserCreateInput, FlashcardCreateInput } from "@prisma/client";
 
-function getTemplateUser(): User {
+const prisma = new PrismaClient();
+
+function getTemplateUser(): UserCreateInput {
   return {
     email: "marciorasf@gmail.com",
     password: "1234",
   };
 }
 
-function getTemplateFlashcards(nCards: number): Flashcard[] {
+function getTemplateFlashcards(nCards: number): FlashcardCreateInput[] {
   function generateTemplateFlashcard(id: number) {
     return {
       question: `This is a template question ${id}`,
       answer: `This is a template answer ${id}`,
-      is_bookmarked: id % 5 === 0,
-      is_known: id % 5 === 1,
+      isBookmarked: id % 5 === 0,
+      isKnown: id % 5 === 1,
       views: 0,
     };
   }
@@ -35,7 +35,13 @@ async function populate(nFlashcards: number) {
   try {
     console.log("Start populating users");
 
-    [user_id] = await db("users").insert(user);
+    const createdUser = await prisma.user.create({
+      data: {
+        ...user,
+      },
+    });
+
+    user_id = createdUser.id;
 
     console.log("End populating users");
   } catch (error) {
@@ -45,16 +51,21 @@ async function populate(nFlashcards: number) {
   console.log("Start populating flashcards");
 
   const flashcards = getTemplateFlashcards(nFlashcards);
-  await Promise.all(
-    flashcards.map(async (flashcard) => {
-      return db("flashcards").insert({
-        user_id,
+
+  for (const flashcard of flashcards) {
+    await prisma.flashcard.create({
+      data: {
         ...flashcard,
-      });
-    })
-  );
+        user: {
+          connect: {
+            id: user_id,
+          },
+        },
+      },
+    });
+  }
 
   console.log("End populating flashcards");
 }
 
-populate(10).then(() => process.exit());
+populate(50).then(() => process.exit());
