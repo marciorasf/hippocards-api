@@ -10,7 +10,7 @@
     "dev": "NODE_ENV='development' ts-node-dev --transpile-only --clear --inspect=0.0.0.0:8001 -r tsconfig-paths/register --respawn --ignore-watch node_modules --no-notify ./src/server.ts",
     "test": "NODE_ENV='test' mocha -r ts-node/register ./tests/**/*.ts --timeout 2000",
     "coverage": "nyc npm run test",
-    "prisma: rebuild": "npx prisma generate",
+    "prisma:rebuild": "npx prisma generate",
     "db:migrate:save": "yarn prisma migrate save --name init --experimental",
     "db:migrate:up": "yarn prisma migrate up --experimental",
     "db:migrate": "yarn db:migrate:save && yarn db:migrate:up",
