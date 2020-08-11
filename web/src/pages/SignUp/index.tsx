@@ -1,42 +1,38 @@
-import React, { useState, FormEvent, ChangeEvent } from "react"
+import React, { useState, FormEvent, ChangeEvent } from "react";
 
-import CustomInput from "../../components/CustomInput"
-import { Container, Content, SubmitButton, Title } from "./styles"
-import api from "../../services/api"
-import Divider from "../../components/Divider"
+import CustomInput from "../../components/CustomInput";
+import Divider from "../../components/Divider";
+import api from "../../services/api";
+import { Container, Content, SubmitButton, Title } from "./styles";
 
 const blankFormData = {
   email: "",
-  password: ""
-}
+  password: "",
+};
 
 function SignUp() {
-  const [formData, setFormData] = useState(blankFormData)
+  const [formData, setFormData] = useState(blankFormData);
 
   function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
-    const { name, value } = event.target
+    const { name, value } = event.target;
     setFormData({
       ...formData,
-      [name]: value
-    })
+      [name]: value,
+    });
   }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    await api.post("/user", formData)
+    await api.post("/user", formData);
   }
 
   return (
     <Container>
       <Content>
         <Title>
-          <p>
-            Sign up for
-          </p>
-          <p>
-            Flashcards
-          </p>
+          <p>Sign up for</p>
+          <p>Flashcards</p>
         </Title>
 
         <Divider height="8.8rem" />
@@ -50,11 +46,11 @@ function SignUp() {
 
           <Divider height="4.8rem" />
 
-          <SubmitButton type='submit'>Sign up</SubmitButton>
+          <SubmitButton type="submit">Sign up</SubmitButton>
         </form>
       </Content>
     </Container>
-  )
+  );
 }
 
-export default SignUp
+export default SignUp;

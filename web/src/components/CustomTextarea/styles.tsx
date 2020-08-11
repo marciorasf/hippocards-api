@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 import colors from "../../assets/styles/colors";
 
 export const TextareaBlock = styled.div`
@@ -23,4 +24,4 @@ export const TextareaBlock = styled.div`
     padding: 1.6rem;
     font-size: 1.6rem;
   }
-`
+`;

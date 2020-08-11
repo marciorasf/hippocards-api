@@ -1,47 +1,52 @@
-import React, { useState, ChangeEvent, FormEvent } from "react"
-import { useHistory } from "react-router-dom"
+import React, { useState, ChangeEvent, FormEvent } from "react";
+import { useHistory } from "react-router-dom";
 
-import api from "../../services/api"
-
-import { Container, Content, QuestionTextarea, AnswerTextarea, ButtonsContainer, CancelButton, AddCardButton } from "./styles"
-import Divider from "../../components/Divider"
-import AuthService from "../../services/AuthService"
+import Divider from "../../components/Divider";
+import api from "../../services/api";
+import AuthService from "../../services/AuthService";
+import {
+  Container,
+  Content,
+  QuestionTextarea,
+  AnswerTextarea,
+  ButtonsContainer,
+  CancelButton,
+  AddCardButton,
+} from "./styles";
 
 const emptyFlashcard = {
   question: "",
-  answer: ""
-}
+  answer: "",
+};
 
 export default function CreateFlashcard() {
+  const history = useHistory();
 
-  const history = useHistory()
+  const [flashcard, setFlashcard] = useState(emptyFlashcard);
 
-  const [flashcard, setFlashcard] = useState(emptyFlashcard)
+  function handleNavigateToStudy() {
+    history.push("/study");
+  }
 
   function handleInputChange(event: ChangeEvent<HTMLTextAreaElement>) {
     const { name, value } = event.target;
     setFlashcard({
       ...flashcard,
-      [name]: value
-    })
+      [name]: value,
+    });
   }
 
   async function handleFormSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault()
+    event.preventDefault();
 
     try {
-      const response = await api.post("/flashcard", flashcard, {
-        headers: AuthService.getAuthHeader()
+      await api.post("/flashcard", flashcard, {
+        headers: AuthService.getAuthHeader(),
       });
-      alert(`Card ${response?.data?.flashcard_id} created`)
       handleNavigateToStudy();
     } catch (error) {
-      console.log({ error })
+      console.log({ error });
     }
-  }
-
-  function handleNavigateToStudy() {
-    history.push("/study");
   }
 
   return (
@@ -56,12 +61,10 @@ export default function CreateFlashcard() {
               Cancel
             </CancelButton>
 
-            <AddCardButton type="submit">
-              Add card
-            </AddCardButton>
+            <AddCardButton type="submit">Add card</AddCardButton>
           </ButtonsContainer>
         </form>
       </Content>
     </Container>
-  )
+  );
 }

@@ -3,12 +3,11 @@ export interface UserState {
   email: string;
 }
 
-export const SET_USER = 'SET_USER'
+export const SET_USER = "SET_USER";
 
 interface SetUserAction {
-  type: typeof SET_USER
-  payload: UserState
+  type: typeof SET_USER;
+  payload: UserState;
 }
 
-
-export type UserActionTypes = SetUserAction
+export type UserActionTypes = SetUserAction;

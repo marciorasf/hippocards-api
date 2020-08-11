@@ -4,6 +4,7 @@
     "node": true
   },
   "extends": [
+    "plugin:react/recommended",
     "airbnb-base",
     "plugin:@typescript-eslint/recommended",
     "prettier/@typescript-eslint",
@@ -19,12 +20,13 @@
     "sourceType": "module"
   },
   "plugins": [
+    "react",
     "@typescript-eslint",
     "prettier",
     "eslint-plugin-import-helpers"
   ],
   "rules": {
-    "func-names":"off",
+    "func-names": "off",
     "no-new": "off",
     "no-prototype-builtins": "off",
     "no-restricted-syntax": "off",
@@ -52,13 +54,14 @@
       }
     ],
     "@typescript-eslint/explicit-module-boundary-types": [
-      "warn",
+      "off",
       {
         "allowArgumentsExplicitlyTypedAsAny": true
       }
     ],
     "no-underscore-dangle": "off",
     "@typescript-eslint/camelcase": "off",
+    "@typescript-eslint/no-empty-interface": "off",
     "prettier/prettier": "error",
     "class-methods-use-this": "off",
     "import/extensions": [
@@ -66,10 +69,11 @@
       "ignorePackages",
       {
         "js": "never",
+        "jsx": "never",
         "ts": "never",
-        "": "never"
+        "tsx": "never"
       }
-    ],
+   ],
     "import-helpers/order-imports": [
       "warn",
       {
@@ -89,7 +93,8 @@
           "ignoreCase": true
         }
       }
-    ]
+    ],
+    "react/prop-types": "warn"
   },
   "settings": {
     "import/resolver": {
@@ -101,6 +106,29 @@
           ".tsx"
         ]
       }
-    }
+    },
+    "react": {
+      "createClass": "createReactClass",
+      "pragma": "React",
+      "version": "detect",
+      "flowVersion": "0.53"
+    },
+    "propWrapperFunctions": [
+      "forbidExtraProps",
+      {
+        "property": "freeze",
+        "object": "Object"
+      },
+      {
+        "property": "myFavoriteWrapper"
+      }
+    ],
+    "linkComponents": [
+      "Hyperlink",
+      {
+        "name": "Link",
+        "linkAttribute": "to"
+      }
+    ]
   }
 }

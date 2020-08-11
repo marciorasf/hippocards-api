@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import colors from "../../assets/styles/colors"
+
+import colors from "../../assets/styles/colors";
 
 const AddCardFab = styled.button`
   position: absolute;
@@ -14,6 +15,6 @@ const AddCardFab = styled.button`
   font-weight: 500;
   text-transform: uppercase;
   cursor: pointer;
-`
+`;
 
-export default AddCardFab
+export default AddCardFab;

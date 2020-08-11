@@ -11,6 +11,6 @@ const colors = {
 
   bgLight: "#DFD8C2",
   bgLighter: "#F4EDD5",
-}
+};
 
-export default colors
+export default colors;

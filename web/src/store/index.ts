@@ -1,12 +1,13 @@
-import { createStore, combineReducers } from "redux"
-import { userReducer } from "./user/reducers"
+import { createStore, combineReducers } from "redux";
+
+import { userReducer } from "./user/reducers";
 
 export const rootReducer = combineReducers({
-  user: userReducer
-})
+  user: userReducer,
+});
 
-const store = createStore(rootReducer)
+const store = createStore(rootReducer);
 
-export type RootState = ReturnType<typeof rootReducer>
+export type RootState = ReturnType<typeof rootReducer>;
 
-export default store
+export default store;

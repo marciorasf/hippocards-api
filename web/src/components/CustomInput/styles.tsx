@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 import colors from "../../assets/styles/colors";
 
 export const InputBlock = styled.div`
@@ -22,4 +23,4 @@ export const InputBlock = styled.div`
     padding: 1.6rem;
     font-size: 1.6rem;
   }
-`
+`;

@@ -14,6 +14,6 @@ const CustomIconButton = styled.button`
     width: 2.4rem;
     height: 2.4rem;
   }
-`
+`;
 
-export default CustomIconButton
+export default CustomIconButton;

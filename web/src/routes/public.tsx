@@ -1,9 +1,8 @@
-import React from "react"
-import { Route, Switch } from "react-router-dom"
+import React from "react";
+import { Route, Switch } from "react-router-dom";
 
-import SignIn from "../pages/SignIn"
-import SignUp from "../pages/SignUp"
-
+import SignIn from "../pages/SignIn";
+import SignUp from "../pages/SignUp";
 
 function PublicRoutes() {
   return (
@@ -11,7 +10,7 @@ function PublicRoutes() {
       <Route path="/sign-in" exact component={SignIn} />
       <Route path="/sign-up" exact component={SignUp} />
     </Switch>
-  )
+  );
 }
 
-export default PublicRoutes
+export default PublicRoutes;

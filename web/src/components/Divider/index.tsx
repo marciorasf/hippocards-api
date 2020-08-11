@@ -7,8 +7,8 @@ interface DividerProps {
 const Divider = styled.span<DividerProps>`
   width: 100%;
   display: block;
-  min-height: ${props => props.height};
-  max-height: ${props => props.height};
-`
+  min-height: ${(props) => props.height};
+  max-height: ${(props) => props.height};
+`;
 
-export default Divider
+export default Divider;

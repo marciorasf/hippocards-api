@@ -1,8 +1,8 @@
-import React from "react"
-import { BrowserRouter } from 'react-router-dom'
-import PrivateRoutes from "./private"
-import PublicRoutes from "./public"
+import React from "react";
+import { BrowserRouter } from "react-router-dom";
 
+import PrivateRoutes from "./private";
+import PublicRoutes from "./public";
 
 function Routes() {
   return (
@@ -10,7 +10,7 @@ function Routes() {
       <PrivateRoutes />
       <PublicRoutes />
     </BrowserRouter>
-  )
+  );
 }
 
-export default Routes
+export default Routes;

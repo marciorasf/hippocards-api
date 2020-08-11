@@ -1,5 +1,6 @@
-import styled from "styled-components"
-import colors from "../../assets/styles/colors"
+import styled from "styled-components";
+
+import colors from "../../assets/styles/colors";
 
 export const Header = styled.header`
   width: 100%;
@@ -8,16 +9,15 @@ export const Header = styled.header`
   padding: 2.4rem;
   position: relative;
 
-
   > nav {
     display: flex;
     justify-content: space-between;
-    align-items:center;
+    align-items: center;
     font-size: 1.8rem;
     text-transform: uppercase;
 
     a {
-      color: ${colors.textInPrimary}
+      color: ${colors.textInPrimary};
     }
 
     > .brand {
@@ -26,7 +26,6 @@ export const Header = styled.header`
 
     ul {
       display: flex;
-
     }
 
     li {
@@ -34,18 +33,15 @@ export const Header = styled.header`
       align-items: center;
 
       a {
-
       }
 
       svg {
-        color: ${colors.textInPrimary}
+        color: ${colors.textInPrimary};
       }
     }
 
     li + li {
-      margin-left: 1.6rem
+      margin-left: 1.6rem;
     }
   }
-
-
 `;

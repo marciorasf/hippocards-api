@@ -13,6 +13,6 @@ const CustomButton = styled.button`
   align-items: center;
   justify-content: center;
   cursor: pointer;
-`
+`;
 
-export default CustomButton
+export default CustomButton;

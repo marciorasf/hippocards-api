@@ -1,25 +1,29 @@
-import React, { FunctionComponent } from "react"
-import { Link } from "react-router-dom"
-import CustomIconButton from "../CustomIconButton"
+import React, { FunctionComponent, ReactNode } from "react";
+import { Link } from "react-router-dom";
 
-import { Menu as MenuIcon } from "@material-ui/icons"
+import { Menu as MenuIcon } from "@material-ui/icons";
 
-import { Header } from "./styles"
+import CustomIconButton from "../CustomIconButton";
+import { Header } from "./styles";
 
 interface PageHeaderProps {
-
+  children: ReactNode;
 }
 
-const PageHeader: FunctionComponent<PageHeaderProps> = ({ children }) => {
+const PageHeader: FunctionComponent<PageHeaderProps> = ({ children }: PageHeaderProps) => {
   return (
     <Header>
       <nav>
         <h1 className="brand">
-          <Link className="nav-item" to="/">Flashcards</Link>
+          <Link className="nav-item" to="/">
+            Flashcards
+          </Link>
         </h1>
         <ul>
           <li>
-            <Link className="nav-item" to="/study">Study</Link>
+            <Link className="nav-item" to="/study">
+              Study
+            </Link>
           </li>
           <li>
             <CustomIconButton>
@@ -30,7 +34,7 @@ const PageHeader: FunctionComponent<PageHeaderProps> = ({ children }) => {
       </nav>
       {children}
     </Header>
-  )
-}
+  );
+};
 
-export default PageHeader
+export default PageHeader;
