@@ -4,7 +4,7 @@ import CustomButton from '../../components/CustomButton'
 
 import colors from "../../assets/styles/colors"
 
-export const Container = styled.div`
+export const Container = styled.section`
   width: 100vw;
   height: 100vh;
   background-color: ${colors.primary};
@@ -25,8 +25,6 @@ export const QuestionTextarea = styled(CustomTextarea)`
 `
 
 export const AnswerTextarea = styled(CustomTextarea)`
-  margin-top: 4rem;
-
   > textarea{
     height: 20rem;
   }

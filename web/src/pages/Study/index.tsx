@@ -28,8 +28,8 @@ interface Flashcard {
   id: number,
   question: string,
   answer: string,
-  is_bookmarked: boolean,
-  is_known: boolean,
+  isBookmarked: boolean,
+  isKnown: boolean,
   views: number
 }
 
@@ -37,8 +37,8 @@ const blankCard: Flashcard = {
   id: 0,
   question: "",
   answer: "",
-  is_bookmarked: false,
-  is_known: false,
+  isBookmarked: false,
+  isKnown: false,
   views: 0
 }
 
@@ -49,12 +49,12 @@ export default function Study() {
   const [isShowingQuestion, setIsShowingQuestion] = useState(true)
 
   async function getRandomCard() {
-    const user_id = 1
+    const userId = 9
     const response = await api.get("/flashcard/random", {
       params: {
-        user_id: user_id,
-        is_bookmarked: false,
-        is_known: false
+        userId,
+        isBookmarked: false,
+        isKnown: false
       }
     })
 
@@ -63,7 +63,7 @@ export default function Study() {
 
   async function handleSetKnownTrue() {
     api.put("/flashcard", {
-      is_known: true,
+      isKnown: true,
     }, {
       params: {
         flashcard_id: card?.id,
@@ -74,16 +74,15 @@ export default function Study() {
   }
 
   async function handleToggleBookmark() {
-    const newValue = !card?.is_bookmarked
+    const newValue = !card?.isBookmarked
 
     setCard({
       ...card,
-      is_bookmarked: newValue
+      isBookmarked: newValue
     })
-    console.log(card.is_bookmarked)
 
     api.put("/flashcard", {
-      is_bookmarked: newValue,
+      isBookmarked: newValue,
     }, {
       params: {
         flashcard_id: card?.id,
@@ -143,7 +142,7 @@ export default function Study() {
           <CardFooter>
             <LeftIconButtons>
               <IconButton onClick={handleToggleBookmark}>
-                {card.is_bookmarked
+                {card.isBookmarked
                   ? <BookmarkIcon />
                   : <BookmarkBorderIcon />
                 }

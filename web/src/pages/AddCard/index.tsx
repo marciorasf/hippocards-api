@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom"
 import api from "../../api"
 
 import { Container, Content, QuestionTextarea, AnswerTextarea, ButtonsContainer, CancelButton, AddCardButton } from "./styles"
+import Divider from "../../components/Divider"
 
 const emptyFlashcard = {
   question: "",
@@ -11,7 +12,7 @@ const emptyFlashcard = {
 }
 
 // TODO remove this mock
-const user_id = 1
+const userId = 1
 
 export default function CreateFlashcard() {
 
@@ -30,7 +31,7 @@ export default function CreateFlashcard() {
   async function handleFormSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     const payload = {
-      user_id,
+      userId,
       ...flashcard
     }
 
@@ -53,6 +54,7 @@ export default function CreateFlashcard() {
       <Content>
         <form onSubmit={handleFormSubmit}>
           <QuestionTextarea label="Question" name="question" onChange={handleInputChange} />
+          <Divider height="4rem" />
           <AnswerTextarea label="Answer" name="answer" onChange={handleInputChange} />
           <ButtonsContainer>
             <CancelButton type="button" onClick={handleNavigateToStudy}>

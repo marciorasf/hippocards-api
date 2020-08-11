@@ -7,7 +7,7 @@ const CustomButton = styled.button`
   border-radius: 0.4rem;
   font-size: 1.6rem;
   line-height: 1;
-  font-weight: 500;
+  font-weight: bold;
   text-transform: uppercase;
   display: flex;
   align-items: center;
