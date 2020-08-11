@@ -1,13 +1,13 @@
-import { Request, Response } from "express";
+import { Response } from "express";
 
 import { FlashcardCreateInput } from "@prisma/client";
 
+import { AuthReq } from "../interfaces/AuthInterface";
 import { Flashcard, FlashcardUpdate } from "../interfaces/FlashcardInterface";
 import FlashcardService from "../services/FlashcardService";
-import convertBooleanToNumber from "../utils/convertBooleanToNumber";
 
 class FlashcardController {
-  public async create(request: Request, response: Response) {
+  public async create(request: AuthReq, response: Response) {
     const { userId, question, answer } = request.body;
 
     const payload: FlashcardCreateInput = {
@@ -36,7 +36,7 @@ class FlashcardController {
     }
   }
 
-  public async getById(request: Request, response: Response) {
+  public async getById(request: AuthReq, response: Response) {
     const flashcardId = Number(request.query.flashcardId);
 
     try {
@@ -50,8 +50,8 @@ class FlashcardController {
     }
   }
 
-  public async index(request: Request, response: Response) {
-    const userId = Number(request.query.userId);
+  public async index(request: AuthReq, response: Response) {
+    const { userId } = request;
 
     if (!userId) {
       return response.status(400).json({
@@ -70,9 +70,8 @@ class FlashcardController {
     }
   }
 
-  public async getRandom(request: Request, response: Response) {
-    const { query } = request;
-    const userId = Number(query.userId);
+  public async getRandom(request: AuthReq, response: Response) {
+    const { userId, query } = request;
 
     if (!userId) {
       return response.status(400).json({
@@ -90,6 +89,7 @@ class FlashcardController {
     };
 
     let flashcard: Flashcard;
+
     try {
       flashcard = await FlashcardService.getRandom(userId, filters);
     } catch (error) {
@@ -97,6 +97,7 @@ class FlashcardController {
         message: "Something happened",
       });
     }
+
     try {
       if (flashcard) {
         FlashcardService.incrementViews(flashcard.id);
@@ -110,7 +111,7 @@ class FlashcardController {
     return response.status(200).json({ flashcard });
   }
 
-  public async update(request: Request, response: Response) {
+  public async update(request: AuthReq, response: Response) {
     const { question, answer, isBookmarked, isKnown } = request.body;
     const flashcardId = Number(request.query.flashcardId);
 

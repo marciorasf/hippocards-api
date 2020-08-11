@@ -3,7 +3,9 @@ import jwt from "jsonwebtoken";
 
 const secret = process.env.SECRET;
 
-export function verifyToken(request: Request, response: Response, next: NextFunction) {
+function verifyToken(request) {}
+
+export default function Auth(request: Request, response: Response, next: NextFunction) {
   const token = request.headers["x-access-token"];
 
   if (!token) {
@@ -18,9 +20,7 @@ export function verifyToken(request: Request, response: Response, next: NextFunc
         message: "Unauthorized!",
       });
     }
-    request.userId = decoded.id;
+    request.userId = decoded.userId;
     next();
   });
 }
-
-export default process.env.SECRET;

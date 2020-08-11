@@ -27,7 +27,6 @@ class FlashcardService {
 
   public async getRandom(userId: number, filters: FlashcardFilters) {
     // TODO implement more efficient way https://www.gab.lc/articles/bigdata_postgresql_order_by_random/
-
     const nFlashcards = await prisma.flashcard.count({
       where: {
         userId,
