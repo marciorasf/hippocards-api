@@ -65,4 +65,4 @@ async function populate(nFlashcards: number) {
   console.log("End populating flashcards");
 }
 
-populate(50).then(() => process.exit());
+populate(5).then(() => process.exit());

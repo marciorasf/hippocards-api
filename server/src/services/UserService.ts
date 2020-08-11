@@ -7,12 +7,9 @@ import { UserAuth } from "../interfaces/UserInterface";
 
 const prisma = new PrismaClient();
 
-const saltRounds = 10;
-const secret = "secret";
-
 class UserService {
   public async create(user: UserAuth) {
-    const hashedPassword = await bcrypt.hash(user.password, saltRounds);
+    const hashedPassword = await bcrypt.hash(user.password, process.env.SALT_ROUNDS);
     return prisma.user.create({
       data: {
         ...user,
@@ -42,7 +39,7 @@ class UserService {
   }
 
   private generateToken(userId: number) {
-    return jwt.sign({ userId }, secret, {
+    return jwt.sign({ userId }, process.env.SECRET, {
       expiresIn: 86400,
     });
   }
