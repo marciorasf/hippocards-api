@@ -4,11 +4,11 @@ module.exports = {
       "@babel/preset-env",
       {
         targets: {
-          node: "current"
-        }
-      }
+          node: "current",
+        },
+      },
     ],
-    "@babel/preset-typescript"
+    "@babel/preset-typescript",
   ],
   plugins: [
     [
@@ -16,9 +16,9 @@ module.exports = {
       {
         alias: {
           "@src/*": "./src/*",
-        }
-      }
-    ]
+        },
+      },
+    ],
   ],
-  ignore: ["**/*.spec.ts"]
-}
+  ignore: ["**/*.spec.ts"],
+};
