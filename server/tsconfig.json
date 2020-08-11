@@ -20,9 +20,6 @@
     "strict": false,
     "sourceMap": true,
     "baseUrl": ".",
-    "paths": {
-      "@src/*": ["./src/*"],
-    }
   },
   "include": [
     "src/**/*"

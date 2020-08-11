@@ -1,5 +1,7 @@
 import { PrismaClient, UserCreateInput, FlashcardCreateInput } from "@prisma/client";
 
+import UserService from "../services/UserService";
+
 const prisma = new PrismaClient();
 
 function getTemplateUser(): UserCreateInput {
@@ -31,17 +33,12 @@ function getTemplateFlashcards(nCards: number): FlashcardCreateInput[] {
 async function populate(nFlashcards: number) {
   const user = getTemplateUser();
 
-  let user_id: number;
+  let userId: number;
   try {
     console.log("Start populating users");
+    const createdUser = await UserService.create(user);
 
-    const createdUser = await prisma.user.create({
-      data: {
-        ...user,
-      },
-    });
-
-    user_id = createdUser.id;
+    userId = createdUser.id;
 
     console.log("End populating users");
   } catch (error) {
@@ -58,7 +55,7 @@ async function populate(nFlashcards: number) {
         ...flashcard,
         user: {
           connect: {
-            id: user_id,
+            id: userId,
           },
         },
       },

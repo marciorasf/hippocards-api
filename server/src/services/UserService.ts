@@ -1,13 +1,49 @@
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+
 import { PrismaClient } from "@prisma/client";
 
-import { UserCreate } from "../interfaces/UserInterface";
+import { UserAuth } from "../interfaces/UserInterface";
 
 const prisma = new PrismaClient();
 
+const saltRounds = 10;
+const secret = "secret";
+
 class UserService {
-  public async create(user: UserCreate) {
+  public async create(user: UserAuth) {
+    const hashedPassword = await bcrypt.hash(user.password, saltRounds);
     return prisma.user.create({
-      data: user,
+      data: {
+        ...user,
+        password: hashedPassword,
+      },
+      select: {
+        id: true,
+        email: true,
+      },
+    });
+  }
+
+  public async authenticate({ email, password }: UserAuth) {
+    const user = await prisma.user.findOne({ where: { email } });
+    const isCorrect = await bcrypt.compare(password, user.password);
+    if (isCorrect) {
+      return {
+        user: {
+          id: user.id,
+          email: user.email,
+        },
+        token: this.generateToken(user.id),
+      };
+    }
+
+    throw new Error("Invalid credentials");
+  }
+
+  private generateToken(userId: number) {
+    return jwt.sign({ userId }, secret, {
+      expiresIn: 86400,
     });
   }
 }

@@ -6,6 +6,7 @@ import UserController from "./controllers/UserController";
 const routes = express.Router();
 
 routes.post("/user", UserController.create);
+routes.post("/authenticate", UserController.authenticate);
 
 routes.put("/flashcard", FlashcardController.update);
 routes.get("/flashcard", FlashcardController.getById);

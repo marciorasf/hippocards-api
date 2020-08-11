@@ -23,19 +23,31 @@ class FlashcardController {
       },
     };
 
-    const flashcard = await FlashcardService.create(payload);
+    try {
+      const flashcard = await FlashcardService.create(payload);
 
-    return response.status(201).json({
-      flashcard,
-    });
+      return response.status(201).json({
+        flashcard,
+      });
+    } catch (error) {
+      return response.status(400).json({
+        message: "Something happened",
+      });
+    }
   }
 
   public async getById(request: Request, response: Response) {
     const flashcardId = Number(request.query.flashcardId);
 
-    const flashcard = await FlashcardService.getById(flashcardId);
+    try {
+      const flashcard = await FlashcardService.getById(flashcardId);
 
-    return response.status(200).json({ flashcard });
+      return response.status(200).json({ flashcard });
+    } catch (error) {
+      return response.status(400).json({
+        message: "Something happened",
+      });
+    }
   }
 
   public async index(request: Request, response: Response) {
@@ -47,14 +59,26 @@ class FlashcardController {
       });
     }
 
-    const flashcards = await FlashcardService.index(userId);
+    try {
+      const flashcards = await FlashcardService.index(userId);
 
-    return response.status(200).json({ flashcards });
+      return response.status(200).json({ flashcards });
+    } catch (error) {
+      return response.status(400).json({
+        message: "Something happened",
+      });
+    }
   }
 
   public async getRandom(request: Request, response: Response) {
     const { query } = request;
     const userId = Number(query.userId);
+
+    if (!userId) {
+      return response.status(400).json({
+        error: "Missing userId",
+      });
+    }
 
     const isBookmarked = query.isBookmarked && query.isBookmarked === "true";
 
@@ -65,24 +89,22 @@ class FlashcardController {
       isKnown,
     };
 
-    if (!userId) {
-      return response.status(400).json({
-        error: "Missing userId",
-      });
-    }
-
     let flashcard: Flashcard;
     try {
       flashcard = await FlashcardService.getRandom(userId, filters);
     } catch (error) {
-      console.log(error);
+      return response.status(400).json({
+        message: "Something happened",
+      });
     }
     try {
       if (flashcard) {
         FlashcardService.incrementViews(flashcard.id);
       }
     } catch (error) {
-      console.log(error);
+      return response.status(400).json({
+        message: "Something happened",
+      });
     }
 
     return response.status(200).json({ flashcard });
@@ -99,9 +121,15 @@ class FlashcardController {
       isKnown,
     };
 
-    const flashcard = await FlashcardService.update(flashcardId, payload);
+    try {
+      const flashcard = await FlashcardService.update(flashcardId, payload);
 
-    return response.status(200).json({ flashcard });
+      return response.status(200).json({ flashcard });
+    } catch (error) {
+      return response.status(400).json({
+        message: "Something happened",
+      });
+    }
   }
 }
 
