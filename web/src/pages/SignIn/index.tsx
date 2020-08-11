@@ -24,7 +24,8 @@ function SignIn() {
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    await api.post("/sign-in", formData)
+    const response = await api.post("/authenticate", formData)
+    console.log(response)
   }
 
   return (
