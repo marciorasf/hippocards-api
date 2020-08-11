@@ -5,33 +5,33 @@ async function login(data: { email: string, password: string }) {
 
   const { user, token } = response?.data
   if (user && token) {
-    localStorage.setItem("@flashcards/user", JSON.stringify(user));
-    localStorage.setItem("@flashcards/token", JSON.stringify(token));
+    sessionStorage.setItem("@flashcards/user", JSON.stringify(user));
+    sessionStorage.setItem("@flashcards/token", JSON.stringify(token));
   }
 
   return user;
 };
 
 function logout() {
-  localStorage.removeItem("@flashcards/user");
+  sessionStorage.removeItem("@flashcards/user");
 }
 
 function getUser() {
-  const user = localStorage.getItem('@flashcards/user')
+  const user = sessionStorage.getItem('@flashcards/user')
   if (user) {
     return JSON.parse(user);
   }
 }
 
 function getToken() {
-  const token = localStorage.getItem('@flashcards/token')
+  const token = sessionStorage.getItem('@flashcards/token')
   if (token) {
     return JSON.parse(token);
   }
 }
 
 function isAuthenticated() {
-  return Boolean(getToken())
+  return Boolean(getToken() && getUser())
 }
 
 function getAuthHeader() {

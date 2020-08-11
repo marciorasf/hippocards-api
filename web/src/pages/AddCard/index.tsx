@@ -12,9 +12,6 @@ const emptyFlashcard = {
   answer: ""
 }
 
-// TODO remove this mock
-const userId = 13
-
 export default function CreateFlashcard() {
 
   const history = useHistory()
@@ -31,13 +28,9 @@ export default function CreateFlashcard() {
 
   async function handleFormSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    const payload = {
-      userId,
-      ...flashcard
-    }
 
     try {
-      const response = await api.post("/flashcard", payload, {
+      const response = await api.post("/flashcard", flashcard, {
         headers: AuthService.getAuthHeader()
       });
       alert(`Card ${response?.data?.flashcard_id} created`)

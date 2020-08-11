@@ -50,13 +50,10 @@ export default function Study() {
   const [isShowingQuestion, setIsShowingQuestion] = useState(true)
 
   async function getRandomCard() {
-    const userId = 13
-
     try {
       const response = await api.get("/flashcard/random", {
         headers: AuthService.getAuthHeader(),
         params: {
-          userId,
           isBookmarked: false,
           isKnown: false
         }
