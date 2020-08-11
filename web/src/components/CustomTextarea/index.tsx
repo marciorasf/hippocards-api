@@ -5,7 +5,7 @@ import { TextareaBlock } from "./styles";
 interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   name: string;
   label: string;
-  className: string;
+  className?: string;
 }
 
 const Textarea: FunctionComponent<TextareaProps> = ({
