@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import api from "../../api"
+import api from "../../services/api"
 import {
   Container,
   Content,
@@ -23,6 +23,7 @@ import {
 import PageHeader from "../../components/PageHeader"
 import AddCardFab from "../../components/AddCardFab"
 import { useHistory } from "react-router-dom"
+import AuthService from "../../services/AuthService"
 
 interface Flashcard {
   id: number,
@@ -49,28 +50,42 @@ export default function Study() {
   const [isShowingQuestion, setIsShowingQuestion] = useState(true)
 
   async function getRandomCard() {
-    const userId = 12
-    const response = await api.get("/flashcard/random", {
-      params: {
-        userId,
-        isBookmarked: false,
-        isKnown: false
-      }
-    })
+    const userId = 13
 
-    return response.data.flashcard
+    try {
+      const response = await api.get("/flashcard/random", {
+        headers: AuthService.getAuthHeader(),
+        params: {
+          userId,
+          isBookmarked: false,
+          isKnown: false
+        }
+      })
+
+      return response.data.flashcard
+    } catch (error) {
+      console.log({ error })
+    }
+
   }
 
   async function handleSetKnownTrue() {
-    api.put("/flashcard", {
-      isKnown: true,
-    }, {
-      params: {
-        flashcardId: card?.id,
-      }
-    });
+    try {
 
-    changeCard();
+      api.put("/flashcard", {
+        isKnown: true,
+      }, {
+        headers: AuthService.getAuthHeader(),
+        params: {
+          flashcardId: card?.id,
+        }
+      });
+
+      changeCard();
+    } catch (error) {
+      console.log({ error })
+    }
+
   }
 
   async function handleToggleBookmark() {
@@ -81,13 +96,18 @@ export default function Study() {
       isBookmarked: newValue
     })
 
-    api.put("/flashcard", {
-      isBookmarked: newValue,
-    }, {
-      params: {
-        flashcardId: card?.id,
-      }
-    });
+    try {
+      api.put("/flashcard", {
+        isBookmarked: newValue,
+      }, {
+        params: {
+          headers: AuthService.getAuthHeader(),
+          flashcardId: card?.id,
+        }
+      });
+    } catch (error) {
+      console.log({ error })
+    }
   }
 
   async function changeCard() {

@@ -2,7 +2,7 @@ import React, { useState, FormEvent, ChangeEvent } from "react"
 
 import CustomInput from "../../components/CustomInput"
 import { Container, Content, SubmitButton, Title } from "./styles"
-import api from "../../api"
+import AuthService from "../../services/AuthService"
 import Divider from "../../components/Divider"
 
 const blankFormData = {
@@ -24,8 +24,8 @@ function SignIn() {
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const response = await api.post("/authenticate", formData)
-    console.log(response)
+    const user = await AuthService.login(formData)
+    console.log(user)
   }
 
   return (

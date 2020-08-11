@@ -1,10 +1,11 @@
 import React, { useState, ChangeEvent, FormEvent } from "react"
 import { useHistory } from "react-router-dom"
 
-import api from "../../api"
+import api from "../../services/api"
 
 import { Container, Content, QuestionTextarea, AnswerTextarea, ButtonsContainer, CancelButton, AddCardButton } from "./styles"
 import Divider from "../../components/Divider"
+import AuthService from "../../services/AuthService"
 
 const emptyFlashcard = {
   question: "",
@@ -12,7 +13,7 @@ const emptyFlashcard = {
 }
 
 // TODO remove this mock
-const userId = 1
+const userId = 13
 
 export default function CreateFlashcard() {
 
@@ -36,12 +37,13 @@ export default function CreateFlashcard() {
     }
 
     try {
-      const response = await api.post("/flashcard", payload);
+      const response = await api.post("/flashcard", payload, {
+        headers: AuthService.getAuthHeader()
+      });
       alert(`Card ${response?.data?.flashcard_id} created`)
       handleNavigateToStudy();
     } catch (error) {
       console.log({ error })
-      alert("Could not create card")
     }
   }
 

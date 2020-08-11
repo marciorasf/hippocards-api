@@ -2,7 +2,7 @@ import React, { useState, FormEvent, ChangeEvent } from "react"
 
 import CustomInput from "../../components/CustomInput"
 import { Container, Content, SubmitButton, Title } from "./styles"
-import api from "../../api"
+import api from "../../services/api"
 import Divider from "../../components/Divider"
 
 const blankFormData = {
