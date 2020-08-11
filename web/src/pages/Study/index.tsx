@@ -49,7 +49,7 @@ export default function Study() {
   const [isShowingQuestion, setIsShowingQuestion] = useState(true)
 
   async function getRandomCard() {
-    const userId = 9
+    const userId = 12
     const response = await api.get("/flashcard/random", {
       params: {
         userId,
@@ -66,7 +66,7 @@ export default function Study() {
       isKnown: true,
     }, {
       params: {
-        flashcard_id: card?.id,
+        flashcardId: card?.id,
       }
     });
 
@@ -85,7 +85,7 @@ export default function Study() {
       isBookmarked: newValue,
     }, {
       params: {
-        flashcard_id: card?.id,
+        flashcardId: card?.id,
       }
     });
   }
@@ -142,7 +142,7 @@ export default function Study() {
           <CardFooter>
             <LeftIconButtons>
               <IconButton onClick={handleToggleBookmark}>
-                {card.isBookmarked
+                {card?.isBookmarked
                   ? <BookmarkIcon />
                   : <BookmarkBorderIcon />
                 }
