@@ -71,7 +71,6 @@ export default function Study() {
 
   async function handleSetKnownTrue() {
     try {
-
       api.put("/flashcard", {
         isKnown: true,
       }, {

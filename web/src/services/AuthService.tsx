@@ -30,6 +30,10 @@ function getToken() {
   }
 }
 
+function isAuthenticated() {
+  return Boolean(getToken())
+}
+
 function getAuthHeader() {
   const token = getToken()
 
@@ -41,4 +45,4 @@ function getAuthHeader() {
 }
 
 
-export default { login, logout, getCurrentUser: getUser, getAuthHeader };
+export default { login, logout, getCurrentUser: getUser, getAuthHeader, isAuthenticated };
