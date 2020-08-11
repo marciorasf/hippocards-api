@@ -15,9 +15,16 @@ app.use(function (request, response, next) {
   next();
 });
 
-app.use(routes);
+const baseDir = `${__dirname}/build/`;
 
-const PORT = 3333;
+app.use(express.static(`${baseDir}`));
+
+app.get("/", (request, response) => response.sendfile("index.html", { root: baseDir }));
+
+app.use("/api", routes);
+
+const { PORT } = process.env;
+
 app.listen(PORT, () => {
   console.log(`Running on PORT: ${PORT}`);
 });

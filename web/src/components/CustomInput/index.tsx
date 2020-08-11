@@ -5,7 +5,7 @@ import { InputBlock } from "./styles";
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
   label: string;
-  className: string;
+  className?: string;
 }
 
 const Input: FunctionComponent<InputProps> = ({ name, label, className, ...rest }: InputProps) => {
