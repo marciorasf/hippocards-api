@@ -1,4 +1,4 @@
-import React, { useState, FormEvent, ChangeEvent } from "react"
+import React, { useState, FormEvent, ChangeEvent, useEffect } from "react"
 
 import CustomInput from "../../components/CustomInput"
 import { Container, Content, SubmitButton, Title } from "./styles"
@@ -34,6 +34,16 @@ function SignIn() {
       console.log({ error })
     }
   }
+
+  function verifyIfIsAuthenticated() {
+    if (AuthService.isAuthenticated()) {
+      history.push("/")
+    }
+  }
+
+  useEffect(() => {
+    verifyIfIsAuthenticated()
+  }, [])
 
   return (
     <Container>
