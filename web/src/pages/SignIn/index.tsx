@@ -5,12 +5,15 @@ import { Container, Content, SubmitButton, Title } from "./styles"
 import AuthService from "../../services/AuthService"
 import Divider from "../../components/Divider"
 
+import { useHistory } from "react-router-dom"
+
 const blankFormData = {
   email: "",
   password: ""
 }
 
 function SignIn() {
+  const history = useHistory();
   const [formData, setFormData] = useState(blankFormData)
 
   function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
@@ -24,8 +27,12 @@ function SignIn() {
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const user = await AuthService.login(formData)
-    console.log(user)
+    try {
+      await AuthService.login(formData)
+      history.push("/")
+    } catch (error) {
+      console.log({ error })
+    }
   }
 
   return (
@@ -43,11 +50,11 @@ function SignIn() {
         <Divider height="8.8rem" />
 
         <form onSubmit={handleSubmit}>
-          <CustomInput name="email" label="Email" onChange={handleInputChange}></CustomInput>
+          <CustomInput name="email" label="Email" type="email" onChange={handleInputChange}></CustomInput>
 
           <Divider height="3.2rem" />
 
-          <CustomInput name="password" label="Password" onChange={handleInputChange}></CustomInput>
+          <CustomInput name="password" label="Password" type="password" onChange={handleInputChange}></CustomInput>
 
           <Divider height="4.8rem" />
 
