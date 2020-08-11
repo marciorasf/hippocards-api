@@ -8,7 +8,8 @@ import FlashcardService from "../services/FlashcardService";
 
 class FlashcardController {
   public async create(request: AuthReq, response: Response) {
-    const { userId, question, answer } = request.body;
+    const { userId } = request;
+    const { question, answer } = request.body;
 
     const payload: FlashcardCreateInput = {
       question,
