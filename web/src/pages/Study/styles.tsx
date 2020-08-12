@@ -4,24 +4,6 @@ import colors from "../../assets/styles/colors";
 import CustomButton from "../../components/CustomButton";
 import CustomIconButton from "../../components/CustomIconButton";
 
-export const Container = styled.div`
-  width: 100vw;
-  height: 100vh;
-  background-color: ${colors.primary};
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-export const Content = styled.main`
-  margin-top: 7.2rem;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: calc(100% - 4.8rem);
-`;
-
 export const Card = styled.div`
   display: flex;
   flex-direction: column;
@@ -47,7 +29,9 @@ export const CardContent = styled.div`
   padding: 1.6rem;
 `;
 
-export const CardQuestion = styled.div``;
+export const CardText = styled.div`
+  cursor: default;
+`;
 
 export const CardFooter = styled.div`
   display: flex;

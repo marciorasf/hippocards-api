@@ -1,11 +1,12 @@
 import React, { useState, FormEvent, ChangeEvent } from "react";
 import { useHistory } from "react-router-dom";
 
+import { PageContent, MainContainer } from "../../assets/styles/global";
 import CustomInput from "../../components/CustomInput";
 import Divider from "../../components/Divider";
 import { Notify } from "../../hooks/Notify";
 import api from "../../services/api";
-import { Container, Content, SubmitButton, Title, LinksContainer, Link } from "./styles";
+import { SubmitButton, Title, LinksContainer, Link } from "./styles";
 
 const blankFormData = {
   email: "",
@@ -31,7 +32,7 @@ export default function Register() {
     try {
       await api.post("/user", formData);
       history.push("/login");
-      Notify.error("Congratulations! Now you can log in.");
+      Notify.success("Congratulations! Now you can log in.");
     } catch (error) {
       console.log({ error });
       Notify.error("Sorry! Could not register you.");
@@ -39,8 +40,8 @@ export default function Register() {
   }
 
   return (
-    <Container>
-      <Content>
+    <PageContent>
+      <MainContainer>
         <Title>
           <p>Register on</p>
           <p>Flashcards</p>
@@ -70,7 +71,7 @@ export default function Register() {
 
           <SubmitButton type="submit">Register</SubmitButton>
         </form>
-      </Content>
-    </Container>
+      </MainContainer>
+    </PageContent>
   );
 }

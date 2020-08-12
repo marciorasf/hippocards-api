@@ -2,21 +2,8 @@ import styled from "styled-components";
 
 import colors from "../../assets/styles/colors";
 import CustomButton from "../../components/CustomButton";
+import CustomIconButton from "../../components/CustomIconButton";
 import CustomTextarea from "../../components/CustomTextarea";
-
-export const Container = styled.section`
-  width: 100vw;
-  height: 100vh;
-  background-color: ${colors.primary};
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-
-export const Content = styled.main`
-  width: 75%;
-`;
 
 export const QuestionTextarea = styled(CustomTextarea)`
   > textarea {
@@ -49,4 +36,14 @@ export const AddCardButton = styled(Button)`
   z-index: 1;
   color: ${colors.textInSecondary};
   background-color: ${colors.secondary};
+`;
+
+export const CloseButton = styled(CustomIconButton)`
+  position: fixed;
+  top: 2.4rem;
+  right: 2.4rem;
+
+  svg {
+    color: ${colors.textInPrimary};
+  }
 `;

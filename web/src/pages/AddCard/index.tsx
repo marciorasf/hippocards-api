@@ -1,18 +1,20 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import { useHistory } from "react-router-dom";
 
+import { Close as CloseIcon } from "@material-ui/icons";
+
+import { PageContent, MainContainer } from "../../assets/styles/global";
 import Divider from "../../components/Divider";
 import { Notify } from "../../hooks/Notify";
 import api from "../../services/api";
 import AuthService from "../../services/AuthService";
 import {
-  Container,
-  Content,
   QuestionTextarea,
   AnswerTextarea,
   ButtonsContainer,
   CancelButton,
   AddCardButton,
+  CloseButton,
 } from "./styles";
 
 const emptyFlashcard = {
@@ -48,7 +50,7 @@ export default function CreateFlashcard() {
       await api.post("/flashcard", flashcard, {
         headers: AuthService.getAuthHeader(),
       });
-      Notify.error("Flashcard added!");
+      Notify.success("Flashcard added!");
       resetFlashcard();
     } catch (error) {
       console.log({ error });
@@ -57,8 +59,11 @@ export default function CreateFlashcard() {
   }
 
   return (
-    <Container>
-      <Content>
+    <PageContent>
+      <MainContainer>
+        <CloseButton onClick={handleNavigateToStudy}>
+          <CloseIcon />
+        </CloseButton>
         <form onSubmit={handleFormSubmit}>
           <QuestionTextarea label="Question" name="question" onChange={handleInputChange} />
           <Divider height="4rem" />
@@ -71,7 +76,7 @@ export default function CreateFlashcard() {
             <AddCardButton type="submit">Add card</AddCardButton>
           </ButtonsContainer>
         </form>
-      </Content>
-    </Container>
+      </MainContainer>
+    </PageContent>
   );
 }

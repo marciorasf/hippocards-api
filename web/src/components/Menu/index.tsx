@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from "react";
 import { useHistory } from "react-router-dom";
 
-import { Close as MenuIcon } from "@material-ui/icons";
+import { Close as CloseIcon } from "@material-ui/icons";
 
 import AuthService from "../../services/AuthService";
 import { Container, CloseButton, MenuList, MenuItem } from "./styles";
@@ -22,7 +22,7 @@ const Menu: FunctionComponent<MenuProps> = ({ open, onClose }: MenuProps) => {
   return (
     <Container className={!open ? "is-hidden" : undefined}>
       <CloseButton onClick={onClose}>
-        <MenuIcon />
+        <CloseIcon />
       </CloseButton>
       <MenuList>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>

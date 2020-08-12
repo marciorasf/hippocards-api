@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 
 const secret = process.env.SECRET;
 
+// TODO extract here
 function verifyToken(request) {}
 
 export default function Auth(request: Request, response: Response, next: NextFunction) {

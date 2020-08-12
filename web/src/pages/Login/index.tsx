@@ -1,11 +1,12 @@
 import React, { useState, FormEvent, ChangeEvent } from "react";
 import { useHistory } from "react-router-dom";
 
+import { PageContent, MainContainer } from "../../assets/styles/global";
 import CustomInput from "../../components/CustomInput";
 import Divider from "../../components/Divider";
 import { Notify } from "../../hooks/Notify";
 import AuthService from "../../services/AuthService";
-import { Container, Content, SubmitButton, Title, Link, LinksContainer } from "./styles";
+import { SubmitButton, Title, Link, LinksContainer } from "./styles";
 
 const blankFormData = {
   email: "",
@@ -37,8 +38,8 @@ export default function Login() {
   }
 
   return (
-    <Container>
-      <Content>
+    <PageContent>
+      <MainContainer>
         <Title>
           <p>Log in</p>
           <p>Flashcards</p>
@@ -68,7 +69,7 @@ export default function Login() {
 
           <SubmitButton type="submit">Log in</SubmitButton>
         </form>
-      </Content>
-    </Container>
+      </MainContainer>
+    </PageContent>
   );
 }

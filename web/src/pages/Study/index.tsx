@@ -7,18 +7,17 @@ import {
   Flip as FlipIcon,
 } from "@material-ui/icons";
 
+import { PageContent, MainContainer } from "../../assets/styles/global";
 import AddCardFab from "../../components/AddCardFab";
 import PageHeader from "../../components/PageHeader";
 import { Notify } from "../../hooks/Notify";
 import api from "../../services/api";
 import AuthService from "../../services/AuthService";
 import {
-  Container,
-  Content,
   Card,
   CardTitle,
   CardContent,
-  CardQuestion,
+  CardText,
   CardFooter,
   LeftIconButtons,
   RightButton,
@@ -133,37 +132,39 @@ export default function Study() {
   }, []);
 
   return (
-    <Container>
+    <>
       <PageHeader>
         <AddCardFab onClick={handleNavigateToAddCardPage}>Add card</AddCardFab>
       </PageHeader>
-      <Content>
-        <Card>
-          <CardTitle>
-            <p>Card: {card?.id}</p>
-            <p>Views: {card?.views}</p>
-          </CardTitle>
-          <CardContent>
-            <CardQuestion>{isShowingQuestion ? card?.question : card?.answer}</CardQuestion>
-          </CardContent>
+      <PageContent>
+        <MainContainer>
+          <Card>
+            <CardTitle>
+              <p>Card: {card?.id}</p>
+              <p>Views: {card?.views}</p>
+            </CardTitle>
+            <CardContent>
+              <CardText>{isShowingQuestion ? card?.question : card?.answer}</CardText>
+            </CardContent>
 
-          <CardFooter>
-            <LeftIconButtons>
-              <IconButton onClick={handleToggleBookmark}>
-                {card?.isBookmarked ? <BookmarkIcon /> : <BookmarkBorderIcon />}
-              </IconButton>
+            <CardFooter>
+              <LeftIconButtons>
+                <IconButton onClick={handleToggleBookmark}>
+                  {card?.isBookmarked ? <BookmarkIcon /> : <BookmarkBorderIcon />}
+                </IconButton>
 
-              <IconButton onClick={handleToggleQuestion}>
-                <FlipIcon />
-              </IconButton>
-            </LeftIconButtons>
-            <RightButton onClick={handleSetKnownTrue}>I know it</RightButton>
-          </CardFooter>
-        </Card>
-        <NextButton color="secondary" onClick={changeCard}>
-          Next
-        </NextButton>
-      </Content>
-    </Container>
+                <IconButton onClick={handleToggleQuestion}>
+                  <FlipIcon />
+                </IconButton>
+              </LeftIconButtons>
+              <RightButton onClick={handleSetKnownTrue}>I know it</RightButton>
+            </CardFooter>
+          </Card>
+          <NextButton color="secondary" onClick={changeCard}>
+            Next
+          </NextButton>
+        </MainContainer>
+      </PageContent>
+    </>
   );
 }
