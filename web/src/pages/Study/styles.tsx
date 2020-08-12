@@ -52,7 +52,7 @@ export const CardQuestion = styled.div``;
 export const CardFooter = styled.div`
   display: flex;
   justify-content: space-between;
-  aling-items: center;
+  align-items: center;
   padding: 1.2rem 0.8rem;
   background-color: ${colors.bgLight};
 `;

@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 
 import CustomInput from "../../components/CustomInput";
 import Divider from "../../components/Divider";
+import { Notify } from "../../hooks/Notify";
 import AuthService from "../../services/AuthService";
 import { Container, Content, SubmitButton, Title } from "./styles";
 
@@ -31,6 +32,7 @@ function Login() {
       history.push("/");
     } catch (error) {
       console.log({ error });
+      Notify.error("Sorry! Could not login.");
     }
   }
 

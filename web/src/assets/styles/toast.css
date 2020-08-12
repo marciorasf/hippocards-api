@@ -1,0 +1,87 @@
+/** Used to define container behavior: width, position: fixed etc... **/
+.Toastify__toast-container {
+  width: calc(100%);
+  display: flex;
+  justify-content: center;
+  bottom: 1.6rem;
+  padding: 0;
+}
+
+/** Used to define the position of the ToastContainer **/
+.Toastify__toast-container--top-left {
+}
+.Toastify__toast-container--top-center {
+}
+.Toastify__toast-container--top-right {
+}
+.Toastify__toast-container--bottom-left {
+}
+.Toastify__toast-container--bottom-center {
+}
+.Toastify__toast-container--bottom-right {
+}
+
+/** Classes for the displayed toast **/
+.Toastify__toast {
+  width: calc(100% - 4.8rem);
+  border-radius: 0.4rem;
+  padding: 0;
+  min-height: 0;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.Toastify__toast-body {
+  margin: 1.8rem 1.6rem;
+  display: flex;
+  align-items: center;
+}
+
+.Toastify__toast--info {
+  background-color: #2196f3;
+  color: #fff;
+}
+.Toastify__toast--success {
+  background-color: #4caf50;
+  color: #000;
+}
+.Toastify__toast--warning {
+  background-color: #ff9800;
+  color: #000;
+}
+.Toastify__toast--error {
+  background-color: #f44336;
+  color: #fff;
+}
+
+@keyframes toastEnter {
+  from {
+    opacity: 0;
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+
+  20% {
+    transform: scale3d(1, 1, 1);
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.toastEnter {
+  animation-name: toastEnter;
+}
+
+@keyframes toastExit {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+.toastExit {
+  animation-name: toastExit;
+}

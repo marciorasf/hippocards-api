@@ -5,7 +5,6 @@ import AddCard from "../pages/AddCard";
 import Study from "../pages/Study";
 import AuthService from "../services/AuthService";
 
-// TODO add correct type
 function PrivateRoute({ component: Component, ...rest }: any) {
   return (
     <Route

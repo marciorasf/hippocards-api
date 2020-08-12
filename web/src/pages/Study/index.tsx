@@ -9,6 +9,7 @@ import {
 
 import AddCardFab from "../../components/AddCardFab";
 import PageHeader from "../../components/PageHeader";
+import { Notify } from "../../hooks/Notify";
 import api from "../../services/api";
 import AuthService from "../../services/AuthService";
 import {
@@ -68,6 +69,7 @@ export default function Study() {
       setCard(randomFlashcard);
     } catch (error) {
       console.log({ error });
+      Notify.error("Sorry! Could not get another flashcard.");
     }
   }
 

@@ -23,8 +23,7 @@
     "react",
     "@typescript-eslint",
     "prettier",
-    "eslint-plugin-import-helpers",
-    "babel-plugin-styled-components"
+    "eslint-plugin-import-helpers"
   ],
   "rules": {
     "func-names": "off",

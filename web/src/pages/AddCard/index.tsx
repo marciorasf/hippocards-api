@@ -2,6 +2,7 @@ import React, { useState, ChangeEvent, FormEvent } from "react";
 import { useHistory } from "react-router-dom";
 
 import Divider from "../../components/Divider";
+import { Notify } from "../../hooks/Notify";
 import api from "../../services/api";
 import AuthService from "../../services/AuthService";
 import {
@@ -24,6 +25,10 @@ export default function CreateFlashcard() {
 
   const [flashcard, setFlashcard] = useState(emptyFlashcard);
 
+  function resetFlashcard() {
+    setFlashcard(emptyFlashcard);
+  }
+
   function handleNavigateToStudy() {
     history.push("/study");
   }
@@ -43,9 +48,11 @@ export default function CreateFlashcard() {
       await api.post("/flashcard", flashcard, {
         headers: AuthService.getAuthHeader(),
       });
-      handleNavigateToStudy();
+      Notify.error("Flashcard added!");
+      resetFlashcard();
     } catch (error) {
       console.log({ error });
+      Notify.error("Sorry! Could add your flashcard.");
     }
   }
 
