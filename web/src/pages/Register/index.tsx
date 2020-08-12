@@ -10,7 +10,7 @@ const blankFormData = {
   password: "",
 };
 
-function SignUp() {
+function Register() {
   const [formData, setFormData] = useState(blankFormData);
 
   function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
@@ -24,14 +24,18 @@ function SignUp() {
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    await api.post("/user", formData);
+    try {
+      await api.post("/user", formData);
+    } catch (error) {
+      console.log({ error })
+    }
   }
 
   return (
     <Container>
       <Content>
         <Title>
-          <p>Sign up for</p>
+          <p>Register on</p>
           <p>Flashcards</p>
         </Title>
 
@@ -42,15 +46,15 @@ function SignUp() {
 
           <Divider height="3.2rem" />
 
-          <CustomInput name="password" label="Password" onChange={handleInputChange}></CustomInput>
+          <CustomInput name="password" label="Password" type="password" onChange={handleInputChange}></CustomInput>
 
           <Divider height="4.8rem" />
 
-          <SubmitButton type="submit">Sign up</SubmitButton>
+          <SubmitButton type="submit">Register</SubmitButton>
         </form>
       </Content>
     </Container>
   );
 }
 
-export default SignUp;
+export default Register;

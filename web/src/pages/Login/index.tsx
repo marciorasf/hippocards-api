@@ -11,7 +11,7 @@ const blankFormData = {
   password: "",
 };
 
-function SignIn() {
+function Login() {
   const history = useHistory();
   const [formData, setFormData] = useState(blankFormData);
 
@@ -48,7 +48,7 @@ function SignIn() {
     <Container>
       <Content>
         <Title>
-          <p>Sign in on</p>
+          <p>Log in</p>
           <p>Flashcards</p>
         </Title>
 
@@ -73,11 +73,11 @@ function SignIn() {
 
           <Divider height="4.8rem" />
 
-          <SubmitButton type="submit">Sign in</SubmitButton>
+          <SubmitButton type="submit">Log in</SubmitButton>
         </form>
       </Content>
     </Container>
   );
 }
 
-export default SignIn;
+export default Login;

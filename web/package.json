@@ -32,9 +32,11 @@
     "typescript": "~3.7.2"
   },
   "scripts": {
-    "dev": "react-scripts start",
+    "start": "react-scripts start",
+    "dev": "NODE_ENV=development react-scripts start",
+    "dev:build": "NODE_ENV=development react-scripts build",
     "build": "react-scripts build",
-    "postbuild": "mv build ../server/dist",
+    "production:move": "rm -rf ../production/dist/react && mkdir ../production/dist/react && cp -r build/** ../production/dist/react/",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint-fix": "eslint src/**.tsx --fix"
