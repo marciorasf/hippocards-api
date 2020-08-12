@@ -24,6 +24,7 @@
 /** Classes for the displayed toast **/
 .Toastify__toast {
   width: calc(100% - 4.8rem);
+  max-width: 400px;
   border-radius: 0.4rem;
   padding: 0;
   min-height: 0;
@@ -31,9 +32,10 @@
 }
 
 .Toastify__toast-body {
-  margin: 1.8rem 1.6rem;
+  margin: 1.2rem 2rem;
   display: flex;
   align-items: center;
+  line-height: 1.75;
 }
 
 .Toastify__toast--info {
