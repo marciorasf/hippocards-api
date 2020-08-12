@@ -9,7 +9,7 @@ const prisma = new PrismaClient();
 
 class UserService {
   public async create(user: UserAuth) {
-    const hashedPassword = await bcrypt.hash(user.password, process.env.SALT_ROUNDS);
+    const hashedPassword = await bcrypt.hash(user.password, Number(process.env.SALT_ROUNDS));
     return prisma.user.create({
       data: {
         ...user,

@@ -31,8 +31,9 @@ class FlashcardController {
         flashcard,
       });
     } catch (error) {
+      console.log({ error });
       return response.status(400).json({
-        message: "Something happened",
+        message: "Could not create flashcard",
       });
     }
   }
@@ -45,8 +46,9 @@ class FlashcardController {
 
       return response.status(200).json({ flashcard });
     } catch (error) {
+      console.log({ error });
       return response.status(400).json({
-        message: "Something happened",
+        message: "Could not retrieve flashcard",
       });
     }
   }
@@ -65,8 +67,9 @@ class FlashcardController {
 
       return response.status(200).json({ flashcards });
     } catch (error) {
+      console.log({ error });
       return response.status(400).json({
-        message: "Something happened",
+        message: "Could not retrieve flashcards",
       });
     }
   }
@@ -94,8 +97,9 @@ class FlashcardController {
     try {
       flashcard = await FlashcardService.getRandom(userId, filters);
     } catch (error) {
+      console.log({ error });
       return response.status(400).json({
-        message: "Something happened",
+        message: "Could not retrieve random flashcard",
       });
     }
 
@@ -104,6 +108,7 @@ class FlashcardController {
         FlashcardService.incrementViews(flashcard.id);
       }
     } catch (error) {
+      console.log({ error });
       return response.status(400).json({
         message: "Something happened",
       });
@@ -128,8 +133,9 @@ class FlashcardController {
 
       return response.status(200).json({ flashcard });
     } catch (error) {
+      console.log({ error });
       return response.status(400).json({
-        message: "Something happened",
+        message: "Could not update flashcard",
       });
     }
   }

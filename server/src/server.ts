@@ -15,13 +15,14 @@ app.use(function (request, response, next) {
   next();
 });
 
-const baseDir = `${__dirname}/build/`;
+const baseDir = `${__dirname}/react/`;
 
 app.use(express.static(`${baseDir}`));
 
-app.get("/", (request, response) => response.sendfile("index.html", { root: baseDir }));
-
 app.use("/api", routes);
+
+// Get of static files should be the last
+app.get("/*", (request, response) => response.sendFile("index.html", { root: baseDir }));
 
 const { PORT } = process.env;
 

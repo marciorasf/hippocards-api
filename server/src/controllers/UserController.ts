@@ -16,8 +16,9 @@ class UserController {
         userId: user.id,
       });
     } catch (error) {
+      console.log({ error });
       return response.status(400).json({
-        message: "Something happened",
+        message: "Could not create user",
       });
     }
   }
@@ -32,8 +33,9 @@ class UserController {
 
       return response.status(200).json({ user, token });
     } catch (error) {
+      console.log({ error });
       return response.status(400).json({
-        message: "Something happened",
+        message: "Could not authenticate",
       });
     }
   }
