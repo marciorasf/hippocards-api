@@ -46,6 +46,7 @@ export const CancelButton = styled(Button)`
 `;
 
 export const AddCardButton = styled(Button)`
+  z-index: 1;
   color: ${colors.textInSecondary};
   background-color: ${colors.secondary};
 `;

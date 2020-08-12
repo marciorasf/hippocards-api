@@ -14,6 +14,7 @@ async function login(data: { email: string; password: string }) {
 
 function logout() {
   sessionStorage.removeItem("@flashcards/user");
+  sessionStorage.removeItem("@flashcards/token");
 }
 
 function getUser() {

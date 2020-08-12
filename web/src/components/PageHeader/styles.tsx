@@ -8,40 +8,37 @@ export const Header = styled.header`
   background-color: ${colors.primaryDark};
   padding: 2.4rem;
   position: relative;
+`;
 
-  > nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 1.8rem;
-    text-transform: uppercase;
+export const Nav = styled.nav`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.8rem;
+  text-transform: uppercase;
 
-    a {
-      color: ${colors.textInPrimary};
-    }
+  a {
+    color: ${colors.textInPrimary};
+  }
+`;
 
-    > .brand {
-      justify-self: flex-start;
-    }
+export const Brand = styled.h1`
+  justify-self: flex - start;
+`;
 
-    ul {
-      display: flex;
-    }
+export const MenuItem = styled.li`
+  display: flex;
+  align-items: center;
 
-    li {
-      display: flex;
-      align-items: center;
+  svg {
+    color: ${colors.textInPrimary};
+  }
+`;
 
-      a {
-      }
+export const MenuList = styled.ul`
+  display: flex;
 
-      svg {
-        color: ${colors.textInPrimary};
-      }
-    }
-
-    li + li {
-      margin-left: 1.6rem;
-    }
+  ${MenuItem} + ${MenuItem} {
+    margin-left: 1.6rem;
   }
 `;

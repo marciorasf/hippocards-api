@@ -1,37 +1,49 @@
-import React, { FunctionComponent, ReactNode } from "react";
+import React, { FunctionComponent, ReactNode, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { Menu as MenuIcon } from "@material-ui/icons";
 
 import CustomIconButton from "../CustomIconButton";
-import { Header } from "./styles";
+import Menu from "../Menu";
+import { Header, Nav, Brand, MenuList, MenuItem } from "./styles";
 
 interface PageHeaderProps {
   children: ReactNode;
 }
 
 const PageHeader: FunctionComponent<PageHeaderProps> = ({ children }: PageHeaderProps) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  function handleOpenMenu() {
+    setIsMenuOpen(true);
+  }
+
+  function handleCloseMenu() {
+    setIsMenuOpen(false);
+  }
+
   return (
     <Header>
-      <nav>
-        <h1 className="brand">
+      <Nav>
+        <Brand>
           <Link className="nav-item" to="/">
             Flashcards
           </Link>
-        </h1>
-        <ul>
-          <li>
+        </Brand>
+        <MenuList>
+          <MenuItem>
             <Link className="nav-item" to="/study">
               Study
             </Link>
-          </li>
-          <li>
-            <CustomIconButton>
+          </MenuItem>
+          <MenuItem>
+            <CustomIconButton onClick={handleOpenMenu}>
               <MenuIcon />
             </CustomIconButton>
-          </li>
-        </ul>
-      </nav>
+          </MenuItem>
+        </MenuList>
+      </Nav>
+      <Menu open={isMenuOpen} onClose={handleCloseMenu} />
       {children}
     </Header>
   );
