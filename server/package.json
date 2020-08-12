@@ -16,9 +16,8 @@
     "db:migrate:save": "yarn prisma migrate save --name init --experimental",
     "db:migrate:up": "yarn prisma migrate up --experimental",
     "db:migrate": "yarn db:migrate:save && yarn db:migrate:up",
-    "db:populate": "ts-node ./src/database/populate.ts",
-    "db:drop": "ts-node ./src/database/deleteRecords.ts",
-    "db:renew": "yarn db:drop && yarn db:migrate && yarn db:populate"
+    "db:clean": "ts-node ./src/database/deleteRecords.ts",
+    "db:populate": "ts-node ./src/database/populate.ts"
   },
   "dependencies": {
     "@prisma/client": "^2.4.1",

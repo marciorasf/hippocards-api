@@ -2,12 +2,11 @@ import React from "react";
 import { Provider as ReduxProvider } from "react-redux";
 import { ToastContainer } from "react-toastify";
 
-import { Container } from "./assets/styles/global";
 import "./assets/styles/reset.css";
 import "./assets/styles/global.css";
 import "react-toastify/dist/ReactToastify.css";
 import "./assets/styles/toast.css";
-
+import { Container } from "./assets/styles/global";
 import Routes from "./routes";
 import store from "./store";
 
