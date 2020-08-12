@@ -47,7 +47,7 @@ class FlashcardController {
       return response.status(200).json({ flashcard });
     } catch (error) {
       console.log({ error });
-      return response.status(400).json({
+      return response.status(404).json({
         message: "Could not retrieve flashcard",
       });
     }
@@ -68,7 +68,7 @@ class FlashcardController {
       return response.status(200).json({ flashcards });
     } catch (error) {
       console.log({ error });
-      return response.status(400).json({
+      return response.status(404).json({
         message: "Could not retrieve flashcards",
       });
     }
@@ -98,7 +98,7 @@ class FlashcardController {
       flashcard = await FlashcardService.getRandom(userId, filters);
     } catch (error) {
       console.log({ error });
-      return response.status(400).json({
+      return response.status(404).json({
         message: "Could not retrieve random flashcard",
       });
     }
@@ -110,7 +110,7 @@ class FlashcardController {
     } catch (error) {
       console.log({ error });
       return response.status(400).json({
-        message: "Something happened",
+        message: "Could not increase views",
       });
     }
 
