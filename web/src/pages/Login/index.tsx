@@ -1,4 +1,4 @@
-import React, { useState, FormEvent, ChangeEvent, useEffect } from "react";
+import React, { useState, FormEvent, ChangeEvent } from "react";
 import { useHistory } from "react-router-dom";
 
 import CustomInput from "../../components/CustomInput";
@@ -12,7 +12,7 @@ const blankFormData = {
   password: "",
 };
 
-function Login() {
+export default function Login() {
   const history = useHistory();
   const [formData, setFormData] = useState(blankFormData);
 
@@ -35,16 +35,6 @@ function Login() {
       Notify.error("Sorry! Could not login.");
     }
   }
-
-  function verifyIfIsAuthenticated() {
-    if (AuthService.isAuthenticated()) {
-      history.push("/");
-    }
-  }
-
-  useEffect(() => {
-    verifyIfIsAuthenticated();
-  }, []);
 
   return (
     <Container>
@@ -82,5 +72,3 @@ function Login() {
     </Container>
   );
 }
-
-export default Login;

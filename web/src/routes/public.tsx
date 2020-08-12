@@ -1,14 +1,12 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 
-import Login from "../pages/Login";
-import Register from "../pages/Register";
+import Landing from "../pages/Landing";
 
 function PublicRoutes() {
   return (
     <Switch>
-      <Route path="/login" exact component={Login} />
-      <Route path="/register" exact component={Register} />
+      <Route path="/landing" exact component={Landing} />
     </Switch>
   );
 }

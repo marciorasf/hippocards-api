@@ -12,7 +12,7 @@ const blankFormData = {
   password: "",
 };
 
-function Register() {
+export default function Register() {
   const [formData, setFormData] = useState(blankFormData);
 
   const history = useHistory();
@@ -74,5 +74,3 @@ function Register() {
     </Container>
   );
 }
-
-export default Register;
