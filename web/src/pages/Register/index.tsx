@@ -5,7 +5,7 @@ import CustomInput from "../../components/CustomInput";
 import Divider from "../../components/Divider";
 import { Notify } from "../../hooks/Notify";
 import api from "../../services/api";
-import { Container, Content, SubmitButton, Title } from "./styles";
+import { Container, Content, SubmitButton, Title, LinksContainer, Link } from "./styles";
 
 const blankFormData = {
   email: "",
@@ -59,6 +59,12 @@ function Register() {
             type="password"
             onChange={handleInputChange}
           ></CustomInput>
+
+          <Divider height="1.2rem" />
+
+          <LinksContainer>
+            <Link to="/login">Already have an account?</Link>
+          </LinksContainer>
 
           <Divider height="4.8rem" />
 

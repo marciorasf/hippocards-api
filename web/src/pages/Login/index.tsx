@@ -5,7 +5,7 @@ import CustomInput from "../../components/CustomInput";
 import Divider from "../../components/Divider";
 import { Notify } from "../../hooks/Notify";
 import AuthService from "../../services/AuthService";
-import { Container, Content, SubmitButton, Title } from "./styles";
+import { Container, Content, SubmitButton, Title, Link, LinksContainer } from "./styles";
 
 const blankFormData = {
   email: "",
@@ -57,12 +57,7 @@ function Login() {
         <Divider height="8.8rem" />
 
         <form onSubmit={handleSubmit}>
-          <CustomInput
-            name="email"
-            label="Email"
-            type="email"
-            onChange={handleInputChange}
-          ></CustomInput>
+          <CustomInput name="email" label="Email" type="email" onChange={handleInputChange} />
 
           <Divider height="3.2rem" />
 
@@ -71,7 +66,13 @@ function Login() {
             label="Password"
             type="password"
             onChange={handleInputChange}
-          ></CustomInput>
+          />
+
+          <Divider height="1.2rem" />
+
+          <LinksContainer>
+            <Link to="/register">Create an account</Link>
+          </LinksContainer>
 
           <Divider height="4.8rem" />
 
