@@ -109,7 +109,7 @@ export default function CreateFlashcard() {
             required
           />
 
-          <Divider height="3.2rem" />
+          <Divider height="2.8rem" />
 
           <AnswerTextarea
             label="Answer"
@@ -120,7 +120,7 @@ export default function CreateFlashcard() {
             required
           />
 
-          <Divider height="3.2rem" />
+          <Divider height="2.8rem" />
 
           <CustomSelect
             label="Category"

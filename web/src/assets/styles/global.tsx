@@ -38,7 +38,7 @@ export const PageContent = styled.section`
   flex: 1;
   max-width: ${pageMaxWidth};
   width: calc(100% - 4.8rem);
-  padding: 8rem 0;
+  margin: 4rem 0;
 `;
 
 export const MainContainer = styled.main`

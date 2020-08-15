@@ -18,7 +18,7 @@ export const AnswerTextarea = styled(CustomTextarea)`
 
 export const ButtonsContainer = styled.div`
   width: 100%;
-  margin-top: 4.8rem;
+  margin-top: 4rem;
   display: flex;
   justify-content: space-between;
 `;
