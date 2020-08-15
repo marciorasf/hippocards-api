@@ -62,7 +62,6 @@ export default function CreateFlashcard() {
     event.preventDefault();
 
     try {
-      console.log(flashcard);
       await api.post(
         "/flashcard",
         {
@@ -106,6 +105,7 @@ export default function CreateFlashcard() {
             onChange={({ target }) =>
               handleInputChange(target.name, target.value)
             }
+            value={flashcard.question}
             required
           />
 
@@ -117,6 +117,7 @@ export default function CreateFlashcard() {
             onChange={({ target }) =>
               handleInputChange(target.name, target.value)
             }
+            value={flashcard.answer}
             required
           />
 
