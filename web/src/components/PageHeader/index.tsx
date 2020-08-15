@@ -5,13 +5,22 @@ import { Menu as MenuIcon } from "@material-ui/icons";
 
 import CustomIconButton from "../CustomIconButton";
 import Menu from "../Menu";
-import { Header, Nav, Brand, MenuList, MenuItem, HeaderContent } from "./styles";
+import {
+  Header,
+  Nav,
+  Brand,
+  MenuList,
+  MenuItem,
+  HeaderContent,
+} from "./styles";
 
 interface PageHeaderProps {
   children: ReactNode;
 }
 
-const PageHeader: FunctionComponent<PageHeaderProps> = ({ children }: PageHeaderProps) => {
+const PageHeader: FunctionComponent<PageHeaderProps> = ({
+  children,
+}: PageHeaderProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   function handleOpenMenu() {

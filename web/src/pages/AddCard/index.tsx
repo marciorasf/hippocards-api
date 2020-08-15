@@ -1,11 +1,13 @@
-import React, { useState, ChangeEvent, FormEvent } from "react";
+import React, { useState, FormEvent, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-
-import { Close as CloseIcon } from "@material-ui/icons";
+import {} from "react-select";
+import CreatableSelect from "react-select/creatable";
 
 import { PageContent, MainContainer } from "../../assets/styles/global";
 import Divider from "../../components/Divider";
 import { Notify } from "../../hooks/Notify";
+import { Category } from "../../interfaces/Category";
+import { FlashcardCreateInput } from "../../interfaces/Flashcard";
 import api from "../../services/api";
 import AuthService from "../../services/AuthService";
 import {
@@ -14,18 +16,22 @@ import {
   ButtonsContainer,
   CancelButton,
   AddCardButton,
-  CloseButton,
 } from "./styles";
 
 const emptyFlashcard = {
   question: "",
   answer: "",
+  category: {},
 };
 
 export default function CreateFlashcard() {
   const history = useHistory();
 
-  const [flashcard, setFlashcard] = useState(emptyFlashcard);
+  const [flashcard, setFlashcard] = useState<FlashcardCreateInput>(
+    emptyFlashcard
+  );
+
+  const [categories, setCategories] = useState<Category[]>([]);
 
   function resetFlashcard() {
     setFlashcard(emptyFlashcard);
@@ -35,21 +41,35 @@ export default function CreateFlashcard() {
     history.push("/study");
   }
 
-  function handleInputChange(event: ChangeEvent<HTMLTextAreaElement>) {
-    const { name, value } = event.target;
+  function handleInputChange(key: string, value: any) {
     setFlashcard({
       ...flashcard,
-      [name]: value,
+      [key]: value,
     });
+  }
+
+  function processCategoryData(category: any) {
+    return {
+      isNew: category.__isNew__,
+      id: category?.value,
+      name: category.label,
+    };
   }
 
   async function handleFormSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     try {
-      await api.post("/flashcard", flashcard, {
-        headers: AuthService.getAuthHeader(),
-      });
+      await api.post(
+        "/flashcard",
+        {
+          ...flashcard,
+          category: processCategoryData(flashcard.category),
+        },
+        {
+          headers: AuthService.getAuthHeader(),
+        }
+      );
       Notify.success("Flashcard added!");
       resetFlashcard();
     } catch (error) {
@@ -58,6 +78,21 @@ export default function CreateFlashcard() {
     }
   }
 
+  async function getAndUpdateCategories() {
+    try {
+      const response = await api.get("/categories", {
+        headers: AuthService.getAuthHeader(),
+      });
+      setCategories(response.data.categories);
+    } catch (error) {
+      Notify.error("Sorry! Could not get categories.");
+    }
+  }
+
+  useEffect(() => {
+    getAndUpdateCategories();
+  }, []);
+
   return (
     <PageContent>
       <MainContainer>
@@ -65,16 +100,35 @@ export default function CreateFlashcard() {
           <QuestionTextarea
             label="Question"
             name="question"
-            onChange={handleInputChange}
+            onChange={({ target }) =>
+              handleInputChange(target.name, target.value)
+            }
             required
           />
-          <Divider height="4rem" />
+
+          <Divider height="3.2rem" />
+
           <AnswerTextarea
             label="Answer"
             name="answer"
-            onChange={handleInputChange}
+            onChange={({ target }) =>
+              handleInputChange(target.name, target.value)
+            }
             required
           />
+
+          <Divider height="3.2rem" />
+
+          <CreatableSelect
+            isClearable={true}
+            onChange={(value) => handleInputChange("category", value)}
+            options={categories.map((category) => ({
+              value: category.id,
+              label: category.name,
+              isFixed: false,
+            }))}
+          ></CreatableSelect>
+
           <ButtonsContainer>
             <CancelButton type="button" onClick={handleNavigateToStudy}>
               go back
