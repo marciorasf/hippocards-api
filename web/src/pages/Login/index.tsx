@@ -48,7 +48,13 @@ export default function Login() {
         <Divider height="8.8rem" />
 
         <form onSubmit={handleSubmit}>
-          <CustomInput name="email" label="Email" type="email" onChange={handleInputChange} />
+          <CustomInput
+            name="email"
+            label="Email"
+            type="email"
+            required
+            onChange={handleInputChange}
+          />
 
           <Divider height="3.2rem" />
 
@@ -56,6 +62,7 @@ export default function Login() {
             name="password"
             label="Password"
             type="password"
+            required
             onChange={handleInputChange}
           />
 

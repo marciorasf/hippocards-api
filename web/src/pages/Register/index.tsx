@@ -50,7 +50,12 @@ export default function Register() {
         <Divider height="8.8rem" />
 
         <form onSubmit={handleSubmit}>
-          <CustomInput name="email" label="Email" onChange={handleInputChange}></CustomInput>
+          <CustomInput
+            name="email"
+            label="Email"
+            onChange={handleInputChange}
+            required
+          ></CustomInput>
 
           <Divider height="3.2rem" />
 
@@ -58,7 +63,9 @@ export default function Register() {
             name="password"
             label="Password"
             type="password"
+            minLength={8}
             onChange={handleInputChange}
+            required
           ></CustomInput>
 
           <Divider height="1.2rem" />

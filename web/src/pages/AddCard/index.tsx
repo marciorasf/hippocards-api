@@ -65,9 +65,19 @@ export default function CreateFlashcard() {
           <CloseIcon />
         </CloseButton>
         <form onSubmit={handleFormSubmit}>
-          <QuestionTextarea label="Question" name="question" onChange={handleInputChange} />
+          <QuestionTextarea
+            label="Question"
+            name="question"
+            onChange={handleInputChange}
+            required
+          />
           <Divider height="4rem" />
-          <AnswerTextarea label="Answer" name="answer" onChange={handleInputChange} />
+          <AnswerTextarea
+            label="Answer"
+            name="answer"
+            onChange={handleInputChange}
+            required
+          />
           <ButtonsContainer>
             <CancelButton type="button" onClick={handleNavigateToStudy}>
               Cancel
