@@ -10,4 +10,5 @@ export interface Flashcard {
 export interface FlashcardCreateInput {
   question: string;
   answer: string;
+  categoryId?: number;
 }

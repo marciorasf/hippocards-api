@@ -10,7 +10,7 @@ class FlashcardController {
     const { userId } = request;
     const { question, answer, categoryId } = request.body;
 
-    const payload: FlashcardCreateInput = {
+    let payload: FlashcardCreateInput = {
       question,
       answer,
       isBookmarked: false,
@@ -21,12 +21,18 @@ class FlashcardController {
           id: userId,
         },
       },
-      category: {
-        connect: {
-          id: categoryId,
-        },
-      },
     };
+
+    if (categoryId) {
+      payload = {
+        ...payload,
+        category: {
+          connect: {
+            id: categoryId,
+          },
+        },
+      };
+    }
 
     try {
       const flashcard = await FlashcardService.create(payload);
@@ -125,17 +131,23 @@ class FlashcardController {
     const { question, answer, isBookmarked, isKnown, categoryId } = request.body;
     const flashcardId = Number(request.query.flashcardId);
 
-    const payload: FlashcardUpdateInput = {
+    let payload: FlashcardUpdateInput = {
       question,
       answer,
       isBookmarked,
       isKnown,
-      category: {
-        connect: {
-          id: categoryId,
-        },
-      },
     };
+
+    if (categoryId) {
+      payload = {
+        ...payload,
+        category: {
+          connect: {
+            id: categoryId,
+          },
+        },
+      };
+    }
 
     try {
       const flashcard = await FlashcardService.update(flashcardId, payload);
