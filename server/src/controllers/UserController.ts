@@ -1,16 +1,28 @@
 import { Request, Response } from "express";
 
+import { UserCreateInput } from "@prisma/client";
+
 import { UserAuth } from "../interfaces/UserInterface";
+import CategoryService from "../services/CategoryService";
 import UserService from "../services/UserService";
 
 class UserController {
   public async create(request: Request, response: Response) {
     const { email, password } = request.body;
 
-    const payload: UserAuth = { email, password };
+    const payload: UserCreateInput = { email, password };
 
     try {
       const user = await UserService.create(payload);
+
+      await CategoryService.create({
+        name: "General",
+        user: {
+          connect: {
+            id: user.id,
+          },
+        },
+      });
 
       return response.status(201).json({
         userId: user.id,

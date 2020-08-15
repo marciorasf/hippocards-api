@@ -1,14 +1,14 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, UserCreateInput } from "@prisma/client";
 
 import { UserAuth } from "../interfaces/UserInterface";
 
 const prisma = new PrismaClient();
 
 class UserService {
-  public async create(user: UserAuth) {
+  public async create(user: UserCreateInput) {
     const hashedPassword = await bcrypt.hash(user.password, Number(process.env.SALT_ROUNDS));
     return prisma.user.create({
       data: {
