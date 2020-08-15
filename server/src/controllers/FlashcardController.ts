@@ -1,9 +1,8 @@
 import { Response } from "express";
 
-import { FlashcardCreateInput } from "@prisma/client";
+import { FlashcardCreateInput, FlashcardUpdateInput, Flashcard } from "@prisma/client";
 
 import { AuthReq } from "../interfaces/AuthInterface";
-import { Flashcard, FlashcardUpdate } from "../interfaces/FlashcardInterface";
 import FlashcardService from "../services/FlashcardService";
 
 class FlashcardController {
@@ -121,7 +120,7 @@ class FlashcardController {
     const { question, answer, isBookmarked, isKnown } = request.body;
     const flashcardId = Number(request.query.flashcardId);
 
-    const payload: FlashcardUpdate = {
+    const payload: FlashcardUpdateInput = {
       question,
       answer,
       isBookmarked,

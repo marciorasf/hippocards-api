@@ -1,6 +1,6 @@
-import { PrismaClient, FlashcardCreateInput } from "@prisma/client";
+import { PrismaClient, FlashcardCreateInput, FlashcardUpdateInput } from "@prisma/client";
 
-import { FlashcardFilters, FlashcardUpdate } from "../interfaces/FlashcardInterface";
+import { FlashcardFilters } from "../interfaces/FlashcardInterface";
 
 const prisma = new PrismaClient();
 
@@ -50,7 +50,7 @@ class FlashcardService {
     return flashcard;
   }
 
-  public async update(flashcardId: number, data: FlashcardUpdate) {
+  public async update(flashcardId: number, data: FlashcardUpdateInput) {
     return prisma.flashcard.update({
       where: { id: flashcardId },
       data,
