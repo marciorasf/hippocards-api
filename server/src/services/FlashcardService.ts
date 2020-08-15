@@ -5,8 +5,6 @@ import { FlashcardFilters } from "../interfaces/FlashcardInterface";
 const prisma = new PrismaClient();
 
 class FlashcardService {
-  private readonly attrsToSelect = ["id", "question", "answer", "isBookmarked", "isKnown", "views"];
-
   public async create(data: FlashcardCreateInput) {
     return prisma.flashcard.create({
       data,

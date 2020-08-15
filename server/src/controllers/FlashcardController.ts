@@ -8,7 +8,7 @@ import FlashcardService from "../services/FlashcardService";
 class FlashcardController {
   public async create(request: AuthReq, response: Response) {
     const { userId } = request;
-    const { question, answer } = request.body;
+    const { question, answer, categoryId } = request.body;
 
     const payload: FlashcardCreateInput = {
       question,
@@ -19,6 +19,11 @@ class FlashcardController {
       user: {
         connect: {
           id: userId,
+        },
+      },
+      category: {
+        connect: {
+          id: categoryId,
         },
       },
     };
@@ -117,7 +122,7 @@ class FlashcardController {
   }
 
   public async update(request: AuthReq, response: Response) {
-    const { question, answer, isBookmarked, isKnown } = request.body;
+    const { question, answer, isBookmarked, isKnown, categoryId } = request.body;
     const flashcardId = Number(request.query.flashcardId);
 
     const payload: FlashcardUpdateInput = {
@@ -125,6 +130,11 @@ class FlashcardController {
       answer,
       isBookmarked,
       isKnown,
+      category: {
+        connect: {
+          id: categoryId,
+        },
+      },
     };
 
     try {
