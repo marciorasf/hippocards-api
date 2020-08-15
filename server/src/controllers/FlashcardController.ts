@@ -109,14 +109,18 @@ class FlashcardController {
       });
     }
 
-    const isBookmarked = query.isBookmarked && query.isBookmarked === "true";
+    const isBookmarked = query?.isBookmarked === "true";
 
-    const isKnown = query.isKnown && query.isKnown === "true";
+    const isKnown = query?.isKnown === "true";
+
+    const categoryId = query?.categoryId && Number(query.categoryId);
 
     const filters = {
       isBookmarked,
       isKnown,
+      categoryId,
     };
+    console.log(filters);
 
     let flashcard: Flashcard;
 

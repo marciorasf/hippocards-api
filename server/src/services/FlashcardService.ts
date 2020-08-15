@@ -30,6 +30,7 @@ class FlashcardService {
         userId,
         isBookmarked: filters.isBookmarked,
         isKnown: filters.isKnown,
+        categoryId: filters.categoryId,
       },
     });
 
