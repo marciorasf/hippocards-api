@@ -130,9 +130,10 @@ export default function CreateFlashcard() {
             options={categories.map((category) => ({
               value: category.id,
               label: category.name,
-              isFixed: false,
             }))}
           />
+
+          <Divider height="4rem" />
 
           <ButtonsContainer>
             <CancelButton type="button" onClick={handleNavigateToStudy}>

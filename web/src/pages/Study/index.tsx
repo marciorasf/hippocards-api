@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, FormEvent } from "react";
 import { FiFilter as FilterIcon } from "react-icons/fi";
 import {
   MdBookmark as BookmarkIcon,
@@ -15,6 +15,7 @@ import Divider from "../../components/Divider";
 import Modal from "../../components/Modal";
 import PageHeader from "../../components/PageHeader";
 import { Notify } from "../../hooks/Notify";
+import { Category } from "../../interfaces/Category";
 import { Flashcard } from "../../interfaces/Flashcard";
 import api from "../../services/api";
 import AuthService from "../../services/AuthService";
@@ -32,6 +33,7 @@ import {
   ModalContent,
   FiltersForm,
   ModalTitle,
+  OkButton,
 } from "./styles";
 
 const blankCard: Flashcard = {
@@ -46,7 +48,7 @@ const blankCard: Flashcard = {
 const initialFilters = {
   isBookmarked: false,
   isKnown: false,
-  category: null,
+  categoryId: null,
 };
 
 export default function Study() {
@@ -55,14 +57,48 @@ export default function Study() {
   const [card, setCard] = useState<Flashcard>(blankCard);
   const [isShowingQuestion, setIsShowingQuestion] = useState(true);
   const [filters, setFilters] = useState(initialFilters);
+  const [categories, setCategories] = useState<Category[]>([]);
   const [isFiltersOpen, setIsFiltersOpen] = useState(true);
+
+  async function getAndUpdateCategories() {
+    try {
+      const response = await api.get("/categories", {
+        headers: AuthService.getAuthHeader(),
+      });
+      setCategories(response.data.categories);
+    } catch (error) {
+      Notify.error("Sorry! Could not get categories.");
+    }
+  }
+
+  function getFilterLabel(value: string | boolean) {
+    switch (value) {
+      case true:
+        return "Yes";
+
+      case false:
+        return "No";
+
+      default:
+        return "All";
+    }
+  }
+
+  function getCategoryName(categoryId: number | null) {
+    if (!categories || !categoryId) {
+      return "All";
+    }
+
+    const category = categories.find((value) => value.id === categoryId);
+
+    return category?.name || "All";
+  }
 
   async function getRandomCard() {
     const response = await api.get("/flashcard/random", {
       headers: AuthService.getAuthHeader(),
       params: {
-        isBookmarked: false,
-        isKnown: false,
+        ...filters,
       },
     });
 
@@ -150,8 +186,14 @@ export default function Study() {
     }
   }
 
+  function handleSubmitFilters(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    handleCloseFilters();
+  }
+
   useEffect(() => {
     changeCard();
+    getAndUpdateCategories();
   }, []);
 
   return (
@@ -168,17 +210,21 @@ export default function Study() {
         <ModalContent>
           <ModalTitle>Filters</ModalTitle>
           <Divider height="4rem" />
-          <FiltersForm>
+          <FiltersForm onSubmit={handleSubmitFilters}>
             <CustomSingleSelect
               label="Known"
               name="isKnown"
               onChange={handleChangeFilterInput}
               options={[
-                { value: "", label: "All" },
+                { value: null, label: "All" },
                 { value: true, label: "Yes" },
                 { value: false, label: "No" },
               ]}
-            ></CustomSingleSelect>
+              value={{
+                value: filters.isKnown,
+                label: getFilterLabel(filters.isKnown),
+              }}
+            />
 
             <Divider height="2.8rem" />
 
@@ -187,21 +233,39 @@ export default function Study() {
               name="isBookmarked"
               onChange={handleChangeFilterInput}
               options={[
-                { value: "", label: "All" },
+                { value: null, label: "All" },
                 { value: true, label: "Yes" },
                 { value: false, label: "No" },
               ]}
-            ></CustomSingleSelect>
+              value={{
+                value: filters.isBookmarked,
+                label: getFilterLabel(filters.isBookmarked),
+              }}
+            />
 
             <Divider height="2.8rem" />
 
             <CustomSingleSelect
               label="Category"
-              name="category"
+              name="categoryId"
               onChange={handleChangeFilterInput}
-            >
-              <option value="">All</option>
-            </CustomSingleSelect>
+              options={[
+                {
+                  value: null,
+                  label: "All",
+                },
+                ...categories.map((category) => ({
+                  value: category.id,
+                  label: category.name,
+                })),
+              ]}
+              value={{
+                value: filters.categoryId,
+                label: getCategoryName(filters.categoryId),
+              }}
+            />
+            <Divider height="4rem" />
+            <OkButton type="submit">Ok</OkButton>
           </FiltersForm>
         </ModalContent>
       </Modal>

@@ -6,6 +6,7 @@ import { styles, theme, SelectBlock } from "./styles";
 interface CustomSingleSelectProps {
   name: string;
   label: string;
+  value?: any;
   onChange: (key: string, value: any) => void;
   options?: any;
   className?: string;
@@ -14,6 +15,7 @@ interface CustomSingleSelectProps {
 const CustomSingleSelect: FunctionComponent<CustomSingleSelectProps> = ({
   name,
   label,
+  value,
   onChange,
   options,
   className,
@@ -30,6 +32,7 @@ const CustomSingleSelect: FunctionComponent<CustomSingleSelectProps> = ({
         styles={styles}
         placeholder=""
         theme={theme}
+        value={value}
         {...rest}
       />
     </SelectBlock>
