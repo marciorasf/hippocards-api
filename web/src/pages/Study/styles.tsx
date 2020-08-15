@@ -27,6 +27,11 @@ export const CardContent = styled.div`
   justify-content: center;
   align-items: center;
   padding: 1.6rem;
+
+  &.isAnswer {
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
 `;
 
 export const CardText = styled.div`

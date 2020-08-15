@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 
@@ -11,6 +12,7 @@ import { PageContent, MainContainer } from "../../assets/styles/global";
 import AddCardFab from "../../components/AddCardFab";
 import PageHeader from "../../components/PageHeader";
 import { Notify } from "../../hooks/Notify";
+import { Flashcard } from "../../interfaces/Flashcard";
 import api from "../../services/api";
 import AuthService from "../../services/AuthService";
 import {
@@ -24,15 +26,6 @@ import {
   NextButton,
   IconButton,
 } from "./styles";
-
-interface Flashcard {
-  id: number;
-  question: string;
-  answer: string;
-  isBookmarked: boolean;
-  isKnown: boolean;
-  views: number;
-}
 
 const blankCard: Flashcard = {
   id: 0,
@@ -143,14 +136,20 @@ export default function Study() {
               <p>Card: {card?.id}</p>
               <p>Views: {card?.views}</p>
             </CardTitle>
-            <CardContent>
-              <CardText>{isShowingQuestion ? card?.question : card?.answer}</CardText>
+            <CardContent className={clsx({ isAnswer: !isShowingQuestion })}>
+              <CardText>
+                {isShowingQuestion ? card?.question : card?.answer}
+              </CardText>
             </CardContent>
 
             <CardFooter>
               <LeftIconButtons>
                 <IconButton onClick={handleToggleBookmark}>
-                  {card?.isBookmarked ? <BookmarkIcon /> : <BookmarkBorderIcon />}
+                  {card?.isBookmarked ? (
+                    <BookmarkIcon />
+                  ) : (
+                    <BookmarkBorderIcon />
+                  )}
                 </IconButton>
 
                 <IconButton onClick={handleToggleQuestion}>

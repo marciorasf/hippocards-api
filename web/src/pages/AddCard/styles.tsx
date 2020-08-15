@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 import colors from "../../assets/styles/colors";
 import CustomButton from "../../components/CustomButton";
-import CustomIconButton from "../../components/CustomIconButton";
 import CustomTextarea from "../../components/CustomTextarea";
 
 export const QuestionTextarea = styled(CustomTextarea)`
