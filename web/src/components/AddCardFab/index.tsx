@@ -3,9 +3,9 @@ import styled from "styled-components";
 import colors from "../../assets/styles/colors";
 
 const AddCardFab = styled.button`
-  position: absolute;
+  /* position: absolute;
   bottom: 0;
-  transform: translateY(50%);
+  transform: translateY(50%); */
   background-color: ${colors.secondary};
   padding: 1.2rem 3.2rem;
   border: 0;

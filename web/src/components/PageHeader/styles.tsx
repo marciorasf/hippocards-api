@@ -8,7 +8,7 @@ export const Header = styled.header`
   min-height: 12rem;
   max-height: 12rem;
   background-color: ${colors.primaryDark};
-  padding: 2.4rem;
+  padding: 1.2rem 0 4rem;
   position: relative;
   display: flex;
   justify-content: center;
@@ -52,4 +52,15 @@ export const MenuList = styled.ul`
   ${MenuItem} + ${MenuItem} {
     margin-left: 1.6rem;
   }
+`;
+
+export const Buttons = styled.div`
+  width: 100%;
+  max-width: ${pageMaxWidth};
+  position: absolute;
+  bottom: 0;
+  transform: translateY(50%);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;

@@ -11,6 +11,7 @@ import {
   MenuList,
   MenuItem,
   HeaderContent,
+  Buttons,
 } from "./styles";
 
 interface PageHeaderProps {
@@ -53,7 +54,7 @@ const PageHeader: FunctionComponent<PageHeaderProps> = ({
           </MenuList>
         </Nav>
         <Menu open={isMenuOpen} onClose={handleCloseMenu} />
-        {children}
+        <Buttons>{children}</Buttons>
       </HeaderContent>
     </Header>
   );

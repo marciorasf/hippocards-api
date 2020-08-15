@@ -64,3 +64,8 @@ export const NextButton = styled(CustomButton)`
   width: 100%;
   border: 1px solid ${colors.secondary};
 `;
+
+export const FilterButton = styled(CustomIconButton)`
+  /* margin-left: 1.6rem; */
+  color: white;
+`;

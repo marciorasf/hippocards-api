@@ -24,6 +24,7 @@ import {
   RightButton,
   NextButton,
   IconButton,
+  FilterButton,
 } from "./styles";
 
 const blankCard: Flashcard = {
@@ -126,6 +127,9 @@ export default function Study() {
   return (
     <>
       <PageHeader>
+        {/* <FilterButton>
+          <FilterIcon />
+        </FilterButton> */}
         <AddCardFab onClick={handleNavigateToAddCardPage}>Add card</AddCardFab>
       </PageHeader>
       <PageContent>
