@@ -10,6 +10,7 @@ import { useHistory } from "react-router-dom";
 
 import { PageContent, MainContainer } from "../../assets/styles/global";
 import AddCardFab from "../../components/AddCardFab";
+import Modal from "../../components/Modal";
 import PageHeader from "../../components/PageHeader";
 import { Notify } from "../../hooks/Notify";
 import { Flashcard } from "../../interfaces/Flashcard";
@@ -42,6 +43,7 @@ export default function Study() {
 
   const [card, setCard] = useState<Flashcard>(blankCard);
   const [isShowingQuestion, setIsShowingQuestion] = useState(true);
+  const [isFiltersOpen, setIsFiltersOpen] = useState(false);
 
   async function getRandomCard() {
     const response = await api.get("/flashcard/random", {
@@ -64,6 +66,14 @@ export default function Study() {
       console.log({ error });
       Notify.error("Sorry! Could not get another flashcard.");
     }
+  }
+
+  function handleOpenFilters() {
+    setIsFiltersOpen(true);
+  }
+
+  function handleCloseFilters() {
+    setIsFiltersOpen(false);
   }
 
   function handleToggleQuestion() {
@@ -131,10 +141,18 @@ export default function Study() {
         <AddCardFab onClick={handleNavigateToAddCardPage}>
           <AddIcon />
         </AddCardFab>
-        <FilterButton>
+        <FilterButton onClick={handleOpenFilters}>
           <FilterIcon />
         </FilterButton>
       </PageHeader>
+      <Modal open={isFiltersOpen} onClose={handleCloseFilters}>
+        <div style={{ backgroundColor: "white" }}>
+          dwadoijaiowjdoiwaiowjda ddawiidhuiowhuidwahdihwauidhwad
+          dwaiuhduihdwadaw
+          <br />
+          oidjwo9djoajodwad
+        </div>
+      </Modal>
       <PageContent>
         <MainContainer>
           <Card>
