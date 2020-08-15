@@ -11,6 +11,7 @@ export const ModalContainer = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 0 2.5%;
 
   > main {
     width: 100%;

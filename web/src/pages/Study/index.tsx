@@ -31,7 +31,6 @@ import {
   IconButton,
   FilterButton,
   ModalContent,
-  FiltersForm,
   ModalTitle,
   OkButton,
 } from "./styles";
@@ -59,40 +58,6 @@ export default function Study() {
   const [filters, setFilters] = useState(initialFilters);
   const [categories, setCategories] = useState<Category[]>([]);
   const [isFiltersOpen, setIsFiltersOpen] = useState(true);
-
-  async function getAndUpdateCategories() {
-    try {
-      const response = await api.get("/categories", {
-        headers: AuthService.getAuthHeader(),
-      });
-      setCategories(response.data.categories);
-    } catch (error) {
-      Notify.error("Sorry! Could not get categories.");
-    }
-  }
-
-  function getFilterLabel(value: string | boolean) {
-    switch (value) {
-      case true:
-        return "Yes";
-
-      case false:
-        return "No";
-
-      default:
-        return "All";
-    }
-  }
-
-  function getCategoryName(categoryId: number | null) {
-    if (!categories || !categoryId) {
-      return "All";
-    }
-
-    const category = categories.find((value) => value.id === categoryId);
-
-    return category?.name || "All";
-  }
 
   async function getRandomCard() {
     const response = await api.get("/flashcard/random", {
@@ -129,6 +94,45 @@ export default function Study() {
       ...filters,
       [key]: value,
     });
+  }
+
+  function getFilterLabel(value: string | boolean) {
+    switch (value) {
+      case true:
+        return "Yes";
+
+      case false:
+        return "No";
+
+      default:
+        return "All";
+    }
+  }
+
+  async function getAndUpdateCategories() {
+    try {
+      const response = await api.get("/categories", {
+        headers: AuthService.getAuthHeader(),
+      });
+      setCategories(response.data.categories);
+    } catch (error) {
+      Notify.error("Sorry! Could not get categories.");
+    }
+  }
+
+  function getCategoryName(categoryId: number | null) {
+    if (!categories || !categoryId) {
+      return "All";
+    }
+
+    const category = categories.find((value) => value.id === categoryId);
+
+    return category?.name || "All";
+  }
+
+  function handleSubmitFilters(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    handleCloseFilters();
   }
 
   function handleToggleQuestion() {
@@ -186,11 +190,6 @@ export default function Study() {
     }
   }
 
-  function handleSubmitFilters(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    handleCloseFilters();
-  }
-
   useEffect(() => {
     changeCard();
     getAndUpdateCategories();
@@ -209,8 +208,8 @@ export default function Study() {
       <Modal open={isFiltersOpen} onClose={handleCloseFilters}>
         <ModalContent>
           <ModalTitle>Filters</ModalTitle>
-          <Divider height="4rem" />
-          <FiltersForm onSubmit={handleSubmitFilters}>
+          <Divider height="4.4rem" />
+          <form onSubmit={handleSubmitFilters}>
             <CustomSingleSelect
               label="Known"
               name="isKnown"
@@ -266,7 +265,7 @@ export default function Study() {
             />
             <Divider height="4rem" />
             <OkButton type="submit">Ok</OkButton>
-          </FiltersForm>
+          </form>
         </ModalContent>
       </Modal>
       <PageContent>

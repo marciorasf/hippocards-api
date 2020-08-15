@@ -81,8 +81,6 @@ export const ModalTitle = styled.h3`
   font-weight: bold;
 `;
 
-export const FiltersForm = styled.form``;
-
 export const OkButton = styled(CustomButton)`
   width: 100%;
   color: ${colors.textInSecondary};
