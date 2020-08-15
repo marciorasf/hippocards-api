@@ -68,3 +68,17 @@ export const NextButton = styled(CustomButton)`
 export const FilterButton = styled(CustomIconButton)`
   color: white;
 `;
+
+export const ModalContent = styled.div`
+  background-color: ${colors.primary};
+  padding: 3.2rem;
+  border-radius: 0.4rem;
+`;
+
+export const ModalTitle = styled.h3`
+  color: white;
+  font-size: 3.2rem;
+  font-weight: bold;
+`;
+
+export const FiltersForm = styled.form``;

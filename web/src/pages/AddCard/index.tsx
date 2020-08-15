@@ -2,7 +2,7 @@ import React, { useState, FormEvent, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 
 import { PageContent, MainContainer } from "../../assets/styles/global";
-import CustomSelect from "../../components/CustomSelect";
+import CustomCreatableSelect from "../../components/CustomCreatableSelect";
 import Divider from "../../components/Divider";
 import { Notify } from "../../hooks/Notify";
 import { Category } from "../../interfaces/Category";
@@ -123,7 +123,7 @@ export default function CreateFlashcard() {
 
           <Divider height="2.8rem" />
 
-          <CustomSelect
+          <CustomCreatableSelect
             label="Category"
             name="category"
             onChange={handleInputChange}

@@ -10,6 +10,8 @@ import { useHistory } from "react-router-dom";
 
 import { PageContent, MainContainer } from "../../assets/styles/global";
 import AddCardFab from "../../components/AddCardFab";
+import CustomSingleSelect from "../../components/CustomSingleSelect";
+import Divider from "../../components/Divider";
 import Modal from "../../components/Modal";
 import PageHeader from "../../components/PageHeader";
 import { Notify } from "../../hooks/Notify";
@@ -27,6 +29,9 @@ import {
   NextButton,
   IconButton,
   FilterButton,
+  ModalContent,
+  FiltersForm,
+  ModalTitle,
 } from "./styles";
 
 const blankCard: Flashcard = {
@@ -38,12 +43,19 @@ const blankCard: Flashcard = {
   views: 0,
 };
 
+const initialFilters = {
+  isBookmarked: false,
+  isKnown: false,
+  category: null,
+};
+
 export default function Study() {
   const history = useHistory();
 
   const [card, setCard] = useState<Flashcard>(blankCard);
   const [isShowingQuestion, setIsShowingQuestion] = useState(true);
-  const [isFiltersOpen, setIsFiltersOpen] = useState(false);
+  const [filters, setFilters] = useState(initialFilters);
+  const [isFiltersOpen, setIsFiltersOpen] = useState(true);
 
   async function getRandomCard() {
     const response = await api.get("/flashcard/random", {
@@ -74,6 +86,13 @@ export default function Study() {
 
   function handleCloseFilters() {
     setIsFiltersOpen(false);
+  }
+
+  function handleChangeFilterInput(key: string, value: string) {
+    setFilters({
+      ...filters,
+      [key]: value,
+    });
   }
 
   function handleToggleQuestion() {
@@ -146,12 +165,45 @@ export default function Study() {
         </FilterButton>
       </PageHeader>
       <Modal open={isFiltersOpen} onClose={handleCloseFilters}>
-        <div style={{ backgroundColor: "white" }}>
-          dwadoijaiowjdoiwaiowjda ddawiidhuiowhuidwahdihwauidhwad
-          dwaiuhduihdwadaw
-          <br />
-          oidjwo9djoajodwad
-        </div>
+        <ModalContent>
+          <ModalTitle>Filters</ModalTitle>
+          <Divider height="4rem" />
+          <FiltersForm>
+            <CustomSingleSelect
+              label="Known"
+              name="isKnown"
+              onChange={handleChangeFilterInput}
+              options={[
+                { value: "", label: "All" },
+                { value: true, label: "Yes" },
+                { value: false, label: "No" },
+              ]}
+            ></CustomSingleSelect>
+
+            <Divider height="2.8rem" />
+
+            <CustomSingleSelect
+              label="Bookmarked"
+              name="isBookmarked"
+              onChange={handleChangeFilterInput}
+              options={[
+                { value: "", label: "All" },
+                { value: true, label: "Yes" },
+                { value: false, label: "No" },
+              ]}
+            ></CustomSingleSelect>
+
+            <Divider height="2.8rem" />
+
+            <CustomSingleSelect
+              label="Category"
+              name="category"
+              onChange={handleChangeFilterInput}
+            >
+              <option value="">All</option>
+            </CustomSingleSelect>
+          </FiltersForm>
+        </ModalContent>
       </Modal>
       <PageContent>
         <MainContainer>

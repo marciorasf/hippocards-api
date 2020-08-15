@@ -1,9 +1,9 @@
 import React, { FunctionComponent } from "react";
-import CreatableSelect from "react-select/creatable";
+import Select from "react-select";
 
 import { styles, theme, SelectBlock } from "./styles";
 
-interface CustomSelectProps {
+interface CustomSingleSelectProps {
   name: string;
   label: string;
   onChange: (key: string, value: any) => void;
@@ -11,21 +11,21 @@ interface CustomSelectProps {
   className?: string;
 }
 
-const CustomSelect: FunctionComponent<CustomSelectProps> = ({
+const CustomSingleSelect: FunctionComponent<CustomSingleSelectProps> = ({
   name,
   label,
   onChange,
   options,
   className,
   ...rest
-}: CustomSelectProps) => {
+}: CustomSingleSelectProps) => {
   return (
     <SelectBlock className={className}>
       <label htmlFor={name}>{label}</label>
-      <CreatableSelect
+      <Select
         id={name}
-        isClearable={true}
-        onChange={(value) => onChange(name, value)}
+        isClearable={false}
+        onChange={(option: any) => onChange(name, option?.value)}
         options={options}
         styles={styles}
         placeholder=""
@@ -36,4 +36,4 @@ const CustomSelect: FunctionComponent<CustomSelectProps> = ({
   );
 };
 
-export default CustomSelect;
+export default CustomSingleSelect;
