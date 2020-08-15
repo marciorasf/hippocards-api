@@ -57,7 +57,7 @@ export default function Study() {
   const [isShowingQuestion, setIsShowingQuestion] = useState(true);
   const [filters, setFilters] = useState(initialFilters);
   const [categories, setCategories] = useState<Category[]>([]);
-  const [isFiltersOpen, setIsFiltersOpen] = useState(true);
+  const [isFiltersOpen, setIsFiltersOpen] = useState(false);
 
   async function getRandomCard() {
     const response = await api.get("/flashcard/random", {
