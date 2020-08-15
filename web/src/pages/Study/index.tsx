@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
-
+import { FiFilter as FilterIcon } from "react-icons/fi";
 import {
-  Bookmark as BookmarkIcon,
-  BookmarkBorder as BookmarkBorderIcon,
-  Flip as FlipIcon,
-} from "@material-ui/icons";
+  MdBookmark as BookmarkIcon,
+  MdBookmarkBorder as BookmarkBorderIcon,
+  MdFlip as FlipIcon,
+} from "react-icons/md";
+import { useHistory } from "react-router-dom";
 
 import { PageContent, MainContainer } from "../../assets/styles/global";
 import AddCardFab from "../../components/AddCardFab";

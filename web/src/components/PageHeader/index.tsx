@@ -1,7 +1,6 @@
 import React, { FunctionComponent, ReactNode, useState } from "react";
+import { MdMenu as MenuIcon } from "react-icons/md";
 import { Link } from "react-router-dom";
-
-import { Menu as MenuIcon } from "@material-ui/icons";
 
 import CustomIconButton from "../CustomIconButton";
 import Menu from "../Menu";

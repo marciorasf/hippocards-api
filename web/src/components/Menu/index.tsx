@@ -1,7 +1,6 @@
 import React, { FunctionComponent } from "react";
+import { MdClose as CloseIcon } from "react-icons/md";
 import { useHistory } from "react-router-dom";
-
-import { Close as CloseIcon } from "@material-ui/icons";
 
 import AuthService from "../../services/AuthService";
 import { Container, CloseButton, MenuList, MenuItem } from "./styles";
