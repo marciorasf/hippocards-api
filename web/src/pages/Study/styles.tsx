@@ -66,6 +66,5 @@ export const NextButton = styled(CustomButton)`
 `;
 
 export const FilterButton = styled(CustomIconButton)`
-  /* margin-left: 1.6rem; */
   color: white;
 `;

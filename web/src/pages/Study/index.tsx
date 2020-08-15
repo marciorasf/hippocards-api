@@ -4,6 +4,7 @@ import {
   MdBookmark as BookmarkIcon,
   MdBookmarkBorder as BookmarkBorderIcon,
   MdFlip as FlipIcon,
+  MdAdd as AddIcon,
 } from "react-icons/md";
 import { useHistory } from "react-router-dom";
 
@@ -127,10 +128,12 @@ export default function Study() {
   return (
     <>
       <PageHeader>
-        {/* <FilterButton>
+        <AddCardFab onClick={handleNavigateToAddCardPage}>
+          <AddIcon />
+        </AddCardFab>
+        <FilterButton>
           <FilterIcon />
-        </FilterButton> */}
-        <AddCardFab onClick={handleNavigateToAddCardPage}>Add card</AddCardFab>
+        </FilterButton>
       </PageHeader>
       <PageContent>
         <MainContainer>
