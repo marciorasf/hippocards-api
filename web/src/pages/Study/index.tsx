@@ -1,4 +1,3 @@
-import clsx from "clsx";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 
@@ -136,7 +135,7 @@ export default function Study() {
               <p>Card: {card?.id}</p>
               <p>Views: {card?.views}</p>
             </CardTitle>
-            <CardContent className={clsx({ isAnswer: !isShowingQuestion })}>
+            <CardContent>
               <CardText>
                 {isShowingQuestion ? card?.question : card?.answer}
               </CardText>
