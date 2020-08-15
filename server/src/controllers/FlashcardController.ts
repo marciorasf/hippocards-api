@@ -3,12 +3,13 @@ import { Response } from "express";
 import { FlashcardCreateInput, FlashcardUpdateInput, Flashcard } from "@prisma/client";
 
 import { AuthReq } from "../interfaces/AuthInterface";
+import CategoryService from "../services/CategoryService";
 import FlashcardService from "../services/FlashcardService";
 
 class FlashcardController {
   public async create(request: AuthReq, response: Response) {
     const { userId } = request;
-    const { question, answer, categoryId } = request.body;
+    const { question, answer, category } = request.body;
 
     let payload: FlashcardCreateInput = {
       question,
@@ -23,18 +24,33 @@ class FlashcardController {
       },
     };
 
-    if (categoryId) {
-      payload = {
-        ...payload,
-        category: {
-          connect: {
-            id: categoryId,
-          },
-        },
-      };
-    }
-
     try {
+      let categoryId: number;
+      if (category.isNew) {
+        const newCategory = await CategoryService.create({
+          name: category.name,
+          user: {
+            connect: {
+              id: userId,
+            },
+          },
+        });
+        categoryId = newCategory.id;
+      } else {
+        categoryId = category.id;
+      }
+
+      if (categoryId) {
+        payload = {
+          ...payload,
+          category: {
+            connect: {
+              id: categoryId,
+            },
+          },
+        };
+      }
+
       const flashcard = await FlashcardService.create(payload);
 
       return response.status(201).json({
