@@ -37,13 +37,3 @@ export const AddCardButton = styled(Button)`
   color: ${colors.textInSecondary};
   background-color: ${colors.secondary};
 `;
-
-export const CloseButton = styled(CustomIconButton)`
-  position: fixed;
-  top: 2.4rem;
-  right: 2.4rem;
-
-  svg {
-    color: ${colors.textInPrimary};
-  }
-`;

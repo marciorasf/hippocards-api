@@ -61,9 +61,6 @@ export default function CreateFlashcard() {
   return (
     <PageContent>
       <MainContainer>
-        <CloseButton onClick={handleNavigateToStudy}>
-          <CloseIcon />
-        </CloseButton>
         <form onSubmit={handleFormSubmit}>
           <QuestionTextarea
             label="Question"
@@ -80,7 +77,7 @@ export default function CreateFlashcard() {
           />
           <ButtonsContainer>
             <CancelButton type="button" onClick={handleNavigateToStudy}>
-              Cancel
+              go back
             </CancelButton>
 
             <AddCardButton type="submit">Add card</AddCardButton>
