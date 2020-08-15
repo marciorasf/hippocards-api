@@ -1,9 +1,8 @@
 import React, { useState, FormEvent, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import {} from "react-select";
-import CreatableSelect from "react-select/creatable";
 
 import { PageContent, MainContainer } from "../../assets/styles/global";
+import CustomSelect from "../../components/CustomSelect";
 import Divider from "../../components/Divider";
 import { Notify } from "../../hooks/Notify";
 import { Category } from "../../interfaces/Category";
@@ -34,7 +33,10 @@ export default function CreateFlashcard() {
   const [categories, setCategories] = useState<Category[]>([]);
 
   function resetFlashcard() {
-    setFlashcard(emptyFlashcard);
+    setFlashcard({
+      ...flashcard,
+      ...emptyFlashcard,
+    });
   }
 
   function handleNavigateToStudy() {
@@ -60,6 +62,7 @@ export default function CreateFlashcard() {
     event.preventDefault();
 
     try {
+      console.log(flashcard);
       await api.post(
         "/flashcard",
         {
@@ -119,15 +122,15 @@ export default function CreateFlashcard() {
 
           <Divider height="3.2rem" />
 
-          <CreatableSelect
-            isClearable={true}
-            onChange={(value) => handleInputChange("category", value)}
+          <CustomSelect
+            name="category"
+            onChange={handleInputChange}
             options={categories.map((category) => ({
               value: category.id,
               label: category.name,
               isFixed: false,
             }))}
-          ></CreatableSelect>
+          />
 
           <ButtonsContainer>
             <CancelButton type="button" onClick={handleNavigateToStudy}>
