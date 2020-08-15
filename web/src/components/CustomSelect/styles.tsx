@@ -1,9 +1,28 @@
+import styled from "styled-components";
+
 import colors from "../../assets/styles/colors";
+
+export const SelectBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  > label {
+    color: ${colors.textInPrimary};
+    margin-bottom: 0.8rem;
+  }
+`;
 
 export const styles = {
   control: (provided: any) => ({
     ...provided,
     "background-color": colors.bgLighter,
+    height: "4.8rem",
+    "border-radius": "0.4rem",
+  }),
+  menuList: (provided: any) => ({
+    ...provided,
+    "background-color": colors.bgLighter,
+    "border-radius": "0.4rem",
   }),
   option: (provided: any, state: any) => ({
     ...provided,
@@ -34,7 +53,7 @@ export const theme = {
   },
   spacing: {
     baseUnit: 4,
-    controlHeight: 38,
-    menuGutter: 8,
+    controlHeight: 48,
+    menuGutter: 6,
   },
 };

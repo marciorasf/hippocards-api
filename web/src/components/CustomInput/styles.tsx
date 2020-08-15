@@ -8,15 +8,14 @@ export const InputBlock = styled.div`
 
   > label {
     color: ${colors.textInPrimary};
+    margin-bottom: 0.8rem;
   }
 
   > input {
     width: 100%;
     height: 4.8rem;
-    margin-top: 0.8rem;
     border-radius: 0.4rem;
     background-color: ${colors.bgLighter};
-
     outline: 0;
     border: 0;
     resize: vertical;

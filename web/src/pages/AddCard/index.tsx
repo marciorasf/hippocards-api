@@ -123,6 +123,7 @@ export default function CreateFlashcard() {
           <Divider height="3.2rem" />
 
           <CustomSelect
+            label="Category"
             name="category"
             onChange={handleInputChange}
             options={categories.map((category) => ({

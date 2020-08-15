@@ -8,16 +8,15 @@ export const TextareaBlock = styled.div`
 
   > label {
     color: ${colors.textInPrimary};
+    margin-bottom: 0.8rem;
   }
 
   > textarea {
     width: 100%;
     height: 16rem;
     min-height: 8rem;
-    margin-top: 0.8rem;
     border-radius: 0.4rem;
     background-color: ${colors.bgLighter};
-
     outline: 0;
     border: 0;
     resize: vertical;
