@@ -1,15 +1,15 @@
 import React, { useEffect, useState, FormEvent } from "react";
-import { FiFilter as FilterIcon } from "react-icons/fi";
-import {
-  MdBookmark as BookmarkIcon,
-  MdBookmarkBorder as BookmarkBorderIcon,
-  MdFlip as FlipIcon,
-  MdAdd as AddIcon,
-} from "react-icons/md";
 import { useHistory } from "react-router-dom";
 
+import {
+  Bookmark as BookmarkIcon,
+  BookmarkBorder as BookmarkBorderIcon,
+  FilterList as FilterIcon,
+  School as SchoolIcon,
+  SchoolOutlined as SchoolOutlinedIcon,
+} from "@material-ui/icons";
+
 import { PageContent, MainContainer } from "../../assets/styles/global";
-import AddCardFab from "../../components/AddCardFab";
 import CustomSingleSelect from "../../components/CustomSingleSelect";
 import Divider from "../../components/Divider";
 import Modal from "../../components/Modal";
@@ -27,6 +27,8 @@ import {
   CardFooter,
   LeftIconButtons,
   RightButton,
+  ButtonsContainer,
+  AddButton,
   NextButton,
   IconButton,
   FilterButton,
@@ -197,10 +199,13 @@ export default function Study() {
   return (
     <>
       <PageHeader />
+
       <Modal open={isFiltersOpen} onClose={handleCloseFilters}>
         <ModalContent>
           <ModalTitle>Filters</ModalTitle>
+
           <Divider height="4.4rem" />
+
           <form onSubmit={handleSubmitFilters}>
             <CustomSingleSelect
               label="Known"
@@ -255,18 +260,28 @@ export default function Study() {
                 label: getCategoryName(filters.categoryId),
               }}
             />
+
             <Divider height="4rem" />
+
             <OkButton type="submit">Ok</OkButton>
           </form>
         </ModalContent>
       </Modal>
       <PageContent>
         <MainContainer>
+          <FilterButton onClick={handleOpenFilters}>
+            <FilterIcon />
+            Filters
+          </FilterButton>
+
+          <Divider height="2rem" />
+
           <Card>
             <CardTitle>
-              <p>Card: {card?.id}</p>
+              <p>Card ID: {card?.id}</p>
               <p>Views: {card?.views}</p>
             </CardTitle>
+
             <CardContent>
               <CardText>
                 {isShowingQuestion ? card?.question : card?.answer}
@@ -283,16 +298,26 @@ export default function Study() {
                   )}
                 </IconButton>
 
-                <IconButton onClick={handleToggleQuestion}>
-                  <FlipIcon />
+                <IconButton onClick={handleSetKnownTrue}>
+                  {card?.isKnown ? <SchoolIcon /> : <SchoolOutlinedIcon />}
                 </IconButton>
               </LeftIconButtons>
-              <RightButton onClick={handleSetKnownTrue}>I know it</RightButton>
+              <RightButton onClick={handleToggleQuestion}>
+                {isShowingQuestion ? "Show answer" : "Show question"}
+              </RightButton>
             </CardFooter>
           </Card>
-          <NextButton color="secondary" onClick={changeCard}>
-            Next
-          </NextButton>
+
+          <Divider height="2.4rem" />
+
+          <ButtonsContainer>
+            <AddButton color="secondary" onClick={handleNavigateToAddCardPage}>
+              Add card
+            </AddButton>
+            <NextButton color="secondary" onClick={changeCard}>
+              Next
+            </NextButton>
+          </ButtonsContainer>
         </MainContainer>
       </PageContent>
     </>

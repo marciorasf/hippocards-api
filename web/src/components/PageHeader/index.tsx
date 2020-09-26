@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import AuthService from "../../services/AuthService";
 import {
@@ -23,15 +23,9 @@ function PageHeader() {
     <Header>
       <HeaderContent>
         <Nav>
-          <Brand>
-            <Link className="nav-item" to="/">
-              Flashcards
-            </Link>
-          </Brand>
+          <Brand>Flashcards</Brand>
           <MenuList>
-            <MenuItem className="nav-item" onClick={handleLogout}>
-              Logout
-            </MenuItem>
+            <MenuItem onClick={handleLogout}>Logout</MenuItem>
           </MenuList>
         </Nav>
       </HeaderContent>

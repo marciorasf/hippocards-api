@@ -5,10 +5,8 @@ import { pageMaxWidth } from "../../assets/styles/global";
 
 export const Header = styled.header`
   width: 100%;
-  min-height: 12rem;
-  max-height: 12rem;
   background-color: ${colors.primaryDark};
-  padding: 1.2rem 0 4rem;
+  padding: 2rem 4rem;
   position: relative;
   display: flex;
   justify-content: center;
@@ -25,7 +23,6 @@ export const Nav = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 1.8rem;
   text-transform: uppercase;
 
   a {
@@ -35,11 +32,17 @@ export const Nav = styled.nav`
 
 export const Brand = styled.h1`
   justify-self: flex - start;
+  color: ${colors.secondary};
+  font-weight: 500;
+  font-size: 2.2rem;
 `;
 
 export const MenuItem = styled.li`
   display: flex;
   align-items: center;
+  cursor: pointer;
+  color: ${colors.textInPrimary};
+  font-size: 1.6rem;
 
   svg {
     color: ${colors.textInPrimary};

@@ -4,6 +4,14 @@ import colors from "../../assets/styles/colors";
 import CustomButton from "../../components/CustomButton";
 import CustomIconButton from "../../components/CustomIconButton";
 
+export const FilterButton = styled(CustomIconButton)`
+  color: ${colors.secondary};
+
+  & > svg {
+    margin-right: 1rem;
+  }
+`;
+
 export const Card = styled.div`
   display: flex;
   flex-direction: column;
@@ -17,7 +25,7 @@ export const Card = styled.div`
 export const CardTitle = styled.div`
   display: flex;
   padding: 1.6rem;
-  font-weight: 600;
+  font-weight: 500;
   justify-content: space-between;
 `;
 
@@ -52,21 +60,29 @@ export const IconButton = styled(CustomIconButton)`
   }
 `;
 
+export const ButtonsContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
 export const RightButton = styled(CustomButton)`
   height: initial;
   display: flex;
   align-items: center;
+  font-size: 1.5rem;
+`;
+
+export const AddButton = styled(CustomButton)`
+  color: ${colors.secondary};
+  width: 100%;
 `;
 
 export const NextButton = styled(CustomButton)`
-  margin-top: 2.4rem;
-  color: ${colors.secondary};
+  margin-left: 2rem;
+  background-color: ${colors.secondary};
+  color: ${colors.textInSecondary};
   width: 100%;
   border: 1px solid ${colors.secondary};
-`;
-
-export const FilterButton = styled(CustomIconButton)`
-  color: white;
 `;
 
 export const ModalContent = styled.div`
