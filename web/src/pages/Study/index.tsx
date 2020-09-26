@@ -157,7 +157,6 @@ export default function Study() {
           },
         }
       );
-
       changeCard();
     } catch (error) {
       console.log({ error });

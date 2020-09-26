@@ -120,7 +120,6 @@ class FlashcardController {
       isKnown,
       categoryId,
     };
-    console.log(filters);
 
     let flashcard: Flashcard;
 
