@@ -1,18 +1,16 @@
 import styled from "styled-components";
 
-import colors from "../../assets/styles/colors";
-import CustomButton from "../../components/CustomButton";
 import CustomTextarea from "../../components/CustomTextarea";
 
 export const QuestionTextarea = styled(CustomTextarea)`
   > textarea {
-    height: 10rem;
+    height: 6rem;
   }
 `;
 
 export const AnswerTextarea = styled(CustomTextarea)`
   > textarea {
-    height: 20rem;
+    height: 12rem;
   }
 `;
 
@@ -20,17 +18,12 @@ export const ButtonsContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-`;
 
-const Button = styled(CustomButton)`
-  width: 48%;
-`;
+  button:first-child {
+    margin-right: 0.5rem;
+  }
 
-export const CancelButton = styled(Button)`
-  color: ${colors.secondary};
-`;
-
-export const AddCardButton = styled(Button)`
-  color: ${colors.textInSecondary};
-  background-color: ${colors.secondary};
+  button:last-child {
+    margin-left: 0.5rem;
+  }
 `;

@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
+import { IconButton as MuiIconButton } from "@material-ui/core";
+
 import colors from "../../assets/styles/colors";
-import CustomButton from "../../components/CustomButton";
 import CustomIconButton from "../../components/CustomIconButton";
 
 export const FilterButton = styled(CustomIconButton)`
@@ -45,7 +46,7 @@ export const CardFooter = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.75rem 0.5em;
+  padding: 0.25rem 0.5em;
   background-color: ${colors.bgLight};
 `;
 
@@ -54,35 +55,23 @@ export const LeftIconButtons = styled.div`
   align-items: center;
 `;
 
-export const IconButton = styled(CustomIconButton)`
-  + button {
-    margin-left: 0.5em;
+export const IconButton = styled(MuiIconButton)`
+  svg {
+    color: black;
   }
 `;
 
 export const ButtonsContainer = styled.div`
   display: flex;
   justify-content: space-between;
-`;
 
-export const RightButton = styled(CustomButton)`
-  height: initial;
-  display: flex;
-  align-items: center;
-  font-size: 1rem;
-`;
+  button:first-child {
+    margin-right: 0.5rem;
+  }
 
-export const AddButton = styled(CustomButton)`
-  color: ${colors.secondary};
-  width: 100%;
-`;
-
-export const NextButton = styled(CustomButton)`
-  margin-left: 1.25rem;
-  background-color: ${colors.secondary};
-  color: ${colors.textInSecondary};
-  width: 100%;
-  border: 1px solid ${colors.secondary};
+  button:last-child {
+    margin-left: 0.5rem;
+  }
 `;
 
 export const ModalContent = styled.div`
@@ -95,10 +84,4 @@ export const ModalTitle = styled.h3`
   color: white;
   font-size: 1.5rem;
   font-weight: 500;
-`;
-
-export const OkButton = styled(CustomButton)`
-  width: 100%;
-  color: ${colors.textInSecondary};
-  background-color: ${colors.secondary};
 `;

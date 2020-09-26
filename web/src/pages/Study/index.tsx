@@ -1,7 +1,7 @@
 import React, { useEffect, useState, FormEvent } from "react";
 import { useHistory } from "react-router-dom";
 
-import { Tooltip } from "@material-ui/core";
+import { Tooltip, Button } from "@material-ui/core";
 import {
   Bookmark as BookmarkIcon,
   BookmarkBorder as BookmarkBorderIcon,
@@ -27,15 +27,11 @@ import {
   CardText,
   CardFooter,
   LeftIconButtons,
-  RightButton,
   ButtonsContainer,
-  AddButton,
-  NextButton,
   IconButton,
   FilterButton,
   ModalContent,
   ModalTitle,
-  OkButton,
 } from "./styles";
 
 const blankCard: Flashcard = {
@@ -224,33 +220,48 @@ export default function Study() {
 
             <CardFooter>
               <LeftIconButtons>
-                <IconButton onClick={handleToggleBookmark}>
-                  {card?.isBookmarked ? (
-                    <BookmarkIcon />
-                  ) : (
-                    <BookmarkBorderIcon />
-                  )}
-                </IconButton>
+                <Tooltip title={card?.isBookmarked ? "Unbookmark" : "Bookmark"}>
+                  <IconButton onClick={handleToggleBookmark}>
+                    {card?.isBookmarked ? (
+                      <BookmarkIcon />
+                    ) : (
+                      <BookmarkBorderIcon />
+                    )}
+                  </IconButton>
+                </Tooltip>
 
-                <IconButton onClick={handleSetKnownTrue}>
-                  {card?.isKnown ? <SchoolIcon /> : <SchoolOutlinedIcon />}
-                </IconButton>
+                <Tooltip
+                  title={card?.isKnown ? "Set as unknown" : "Set as known"}
+                >
+                  <IconButton onClick={handleSetKnownTrue}>
+                    {card?.isKnown ? <SchoolIcon /> : <SchoolOutlinedIcon />}
+                  </IconButton>
+                </Tooltip>
               </LeftIconButtons>
-              <RightButton onClick={handleToggleQuestion}>
+              <Button onClick={handleToggleQuestion}>
                 {isShowingQuestion ? "Show answer" : "Show question"}
-              </RightButton>
+              </Button>
             </CardFooter>
           </Card>
 
           <Divider height="1.5rem" />
 
           <ButtonsContainer>
-            <AddButton color="secondary" onClick={handleNavigateToAddCardPage}>
+            <Button
+              fullWidth
+              color="secondary"
+              onClick={handleNavigateToAddCardPage}
+            >
               Add card
-            </AddButton>
-            <NextButton color="secondary" onClick={changeCard}>
+            </Button>
+            <Button
+              fullWidth
+              color="secondary"
+              onClick={changeCard}
+              variant="contained"
+            >
               Next
-            </NextButton>
+            </Button>
           </ButtonsContainer>
         </MainContainer>
       </PageContent>
@@ -318,7 +329,14 @@ export default function Study() {
 
             <Divider height="2.5rem" />
 
-            <OkButton type="submit">Ok</OkButton>
+            <Button
+              variant="contained"
+              color="secondary"
+              fullWidth
+              type="submit"
+            >
+              Ok
+            </Button>
           </form>
         </ModalContent>
       </Modal>

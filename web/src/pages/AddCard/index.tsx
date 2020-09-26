@@ -1,6 +1,8 @@
 import React, { useState, FormEvent, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 
+import { Button } from "@material-ui/core";
+
 import { PageContent, MainContainer } from "../../assets/styles/global";
 import CustomCreatableSelect from "../../components/CustomCreatableSelect";
 import Divider from "../../components/Divider";
@@ -9,13 +11,7 @@ import { Category } from "../../interfaces/Category";
 import { FlashcardCreateInput } from "../../interfaces/Flashcard";
 import api from "../../services/api";
 import AuthService from "../../services/AuthService";
-import {
-  QuestionTextarea,
-  AnswerTextarea,
-  ButtonsContainer,
-  CancelButton,
-  AddCardButton,
-} from "./styles";
+import { QuestionTextarea, AnswerTextarea, ButtonsContainer } from "./styles";
 
 const emptyFlashcard = {
   question: "",
@@ -109,7 +105,7 @@ export default function CreateFlashcard() {
             required
           />
 
-          <Divider height="1.75em" />
+          <Divider height="1.5em" />
 
           <AnswerTextarea
             label="Answer"
@@ -121,7 +117,7 @@ export default function CreateFlashcard() {
             required
           />
 
-          <Divider height="1.75em" />
+          <Divider height="1.5em" />
 
           <CustomCreatableSelect
             label="Category"
@@ -133,14 +129,26 @@ export default function CreateFlashcard() {
             }))}
           />
 
-          <Divider height="2.5rem" />
+          <Divider height="2rem" />
 
           <ButtonsContainer>
-            <CancelButton type="button" onClick={handleNavigateToStudy}>
+            <Button
+              color="secondary"
+              type="button"
+              fullWidth
+              onClick={handleNavigateToStudy}
+            >
               go back
-            </CancelButton>
+            </Button>
 
-            <AddCardButton type="submit">Add card</AddCardButton>
+            <Button
+              fullWidth
+              color="secondary"
+              variant="contained"
+              type="submit"
+            >
+              Add card
+            </Button>
           </ButtonsContainer>
         </form>
       </MainContainer>
