@@ -1,12 +1,14 @@
 import React, { useState, FormEvent, ChangeEvent } from "react";
 import { useHistory } from "react-router-dom";
 
+import { Button } from "@material-ui/core";
+
 import { PageContent, MainContainer } from "../../assets/styles/global";
 import CustomInput from "../../components/CustomInput";
 import Divider from "../../components/Divider";
 import { Notify } from "../../hooks/Notify";
 import api from "../../services/api";
-import { SubmitButton, Title, LinksContainer, Link } from "./styles";
+import { Title, LinksContainer, Link } from "./styles";
 
 const blankFormData = {
   email: "",
@@ -40,9 +42,8 @@ export default function Register() {
       Notify.success("Congratulations! Now you can log in.");
     } catch (error) {
       const errorCode =
-        (error?.response?.data?.message as
-          "EMAIL_IN_USE" | "ERROR") || "ERROR";
-      const errorMessage = ERRORS[errorCode]
+        (error?.response?.data?.message as "EMAIL_IN_USE" | "ERROR") || "ERROR";
+      const errorMessage = ERRORS[errorCode];
       Notify.error(errorMessage);
     }
   }
@@ -55,7 +56,7 @@ export default function Register() {
           <p>Flashcards</p>
         </Title>
 
-        <Divider height="8.8rem" />
+        <Divider height="5rem" />
 
         <form onSubmit={handleSubmit}>
           <CustomInput
@@ -76,7 +77,7 @@ export default function Register() {
             required
           ></CustomInput>
 
-          <Divider height="0.75rem" />
+          <Divider height="1rem" />
 
           <LinksContainer>
             <Link to="/login">Already have an account?</Link>
@@ -84,7 +85,15 @@ export default function Register() {
 
           <Divider height="3.0rem" />
 
-          <SubmitButton type="submit">Register</SubmitButton>
+          <Button
+            color="secondary"
+            fullWidth
+            size="large"
+            variant="contained"
+            type="submit"
+          >
+            Register
+          </Button>
         </form>
       </MainContainer>
     </PageContent>

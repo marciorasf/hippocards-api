@@ -1,12 +1,14 @@
 import React, { useState, FormEvent, ChangeEvent } from "react";
 import { useHistory } from "react-router-dom";
 
+import { Button } from "@material-ui/core";
+
 import { PageContent, MainContainer } from "../../assets/styles/global";
 import CustomInput from "../../components/CustomInput";
 import Divider from "../../components/Divider";
 import { Notify } from "../../hooks/Notify";
 import AuthService from "../../services/AuthService";
-import { SubmitButton, Title, Link, LinksContainer } from "./styles";
+import { Title, Link, LinksContainer } from "./styles";
 
 const blankFormData = {
   email: "",
@@ -84,7 +86,15 @@ export default function Login() {
 
           <Divider height="3.0rem" />
 
-          <SubmitButton type="submit">Log in</SubmitButton>
+          <Button
+            color="secondary"
+            size="large"
+            variant="contained"
+            fullWidth
+            type="submit"
+          >
+            Log in
+          </Button>
         </form>
       </MainContainer>
     </PageContent>
