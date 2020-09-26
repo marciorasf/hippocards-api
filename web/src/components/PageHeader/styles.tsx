@@ -36,6 +36,13 @@ export const Brand = styled.h1`
   font-weight: 500;
   font-size: 1.4rem;
   letter-spacing: 0.02rem;
+  display: flex;
+  align-items: center;
+`;
+
+export const BrandIcon = styled.img`
+  height: 1.4rem;
+  margin-right: 0.5rem;
 `;
 
 export const MenuItem = styled.li`

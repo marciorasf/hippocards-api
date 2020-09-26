@@ -5,6 +5,11 @@ import { IconButton as MuiIconButton } from "@material-ui/core";
 import colors from "../../assets/styles/colors";
 import CustomIconButton from "../../components/CustomIconButton";
 
+export const FiltersTitle = styled.h2`
+  font-size: 1.5rem;
+  color: ${colors.secondaryLight};
+`
+
 export const FilterButton = styled(CustomIconButton)`
   color: ${colors.secondary};
 

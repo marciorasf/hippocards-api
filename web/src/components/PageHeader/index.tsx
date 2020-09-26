@@ -1,11 +1,13 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 
+import BrandImage from "../../assets/images/lightning.png";
 import AuthService from "../../services/AuthService";
 import {
   Header,
   Nav,
   Brand,
+  BrandIcon,
   MenuList,
   MenuItem,
   HeaderContent,
@@ -23,7 +25,10 @@ function PageHeader() {
     <Header>
       <HeaderContent>
         <Nav>
-          <Brand>Flashcards</Brand>
+          <Brand>
+            <BrandIcon src={BrandImage} />
+            Flashcards
+          </Brand>
           <MenuList>
             <MenuItem onClick={handleLogout}>Logout</MenuItem>
           </MenuList>

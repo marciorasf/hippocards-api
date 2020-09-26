@@ -28,6 +28,7 @@ import {
   LeftIconButtons,
   ButtonsContainer,
   IconButton,
+  FiltersTitle
 } from "./styles";
 
 const blankCard: Flashcard = {
@@ -205,6 +206,10 @@ export default function Study() {
 
       <PageContent>
         <MainContainer>
+          <FiltersTitle>Filters</FiltersTitle>
+
+          <Divider height="0.5rem" />
+
           <form style={{ display: "flex" }}>
             <CustomSingleSelect
               label="Known"
@@ -257,7 +262,7 @@ export default function Study() {
             />
           </form>
 
-          <Divider height="2rem" />
+          <Divider height="1.5rem" />
 
           <Card>
             <CardTitle>
