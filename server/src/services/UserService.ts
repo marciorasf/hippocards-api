@@ -24,6 +24,11 @@ class UserService {
 
   public async authenticate({ email, password }: UserAuth) {
     const user = await prisma.user.findOne({ where: { email } });
+
+    if (!user) {
+      throw new Error("USER_NOT_FOUND");
+    }
+
     const isCorrect = await bcrypt.compare(password, user.password);
     if (isCorrect) {
       return {
@@ -35,7 +40,7 @@ class UserService {
       };
     }
 
-    throw new Error("Invalid credentials");
+    throw new Error("WRONG_PASSWORD");
   }
 
   private generateToken(userId: number) {

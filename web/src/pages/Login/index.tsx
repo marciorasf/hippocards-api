@@ -13,6 +13,12 @@ const blankFormData = {
   password: "",
 };
 
+const ERRORS = {
+  ERROR: "Something bad happened!",
+  WRONG_PASSWORD: "Wrong password!",
+  USER_NOT_FOUND: "User not found!",
+};
+
 export default function Login() {
   const history = useHistory();
   const [formData, setFormData] = useState(blankFormData);
@@ -32,8 +38,12 @@ export default function Login() {
       await AuthService.login(formData);
       history.push("/");
     } catch (error) {
-      console.log({ error });
-      Notify.error("Sorry! Could not login.");
+      const errorCode =
+        (error?.response?.data?.message as
+          | "USER_NOT_FOUND"
+          | "WRONG_PASSWORD") || "ERROR";
+      const errorMessage = ERRORS[errorCode];
+      Notify.error(errorMessage);
     }
   }
 

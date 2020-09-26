@@ -15,6 +15,13 @@ body,
 #root {
   height: 100vh;
   background-color: #0A1242;
+}
+
+html,
+body,
+input,
+::after,
+::before{
   font-family: Poppins, sans-serif;
 }
 
