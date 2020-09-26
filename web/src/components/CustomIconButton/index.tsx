@@ -3,7 +3,7 @@ import styled from "styled-components";
 const CustomIconButton = styled.button`
   background-color: transparent;
   border: 0;
-  padding: 0.8rem;
+  padding: 0.5em;
   font-weight: 500;
   text-transform: uppercase;
   display: flex;
@@ -11,8 +11,8 @@ const CustomIconButton = styled.button`
   cursor: pointer;
 
   svg {
-    width: 2.4rem;
-    height: 2.4rem;
+    width: 1.5rem;
+    height: 1.5rem;
   }
 `;
 

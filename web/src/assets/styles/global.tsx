@@ -37,8 +37,8 @@ export const Container = styled.section`
 export const PageContent = styled.section`
   flex: 1;
   max-width: ${pageMaxWidth};
-  width: calc(100% - 4.8rem);
-  margin: 4rem 0;
+  width: calc(100% - 3rem);
+  margin: 2.5rem 0;
 `;
 
 export const MainContainer = styled.main`
@@ -46,6 +46,5 @@ export const MainContainer = styled.main`
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: stretch;
 `;

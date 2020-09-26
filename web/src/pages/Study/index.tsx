@@ -1,6 +1,7 @@
 import React, { useEffect, useState, FormEvent } from "react";
 import { useHistory } from "react-router-dom";
 
+import { Tooltip } from "@material-ui/core";
 import {
   Bookmark as BookmarkIcon,
   BookmarkBorder as BookmarkBorderIcon,
@@ -199,7 +200,7 @@ export default function Study() {
   return (
     <>
       <PageHeader />
-      
+
       <PageContent>
         <MainContainer>
           <FilterButton onClick={handleOpenFilters}>
@@ -207,7 +208,7 @@ export default function Study() {
             Filters
           </FilterButton>
 
-          <Divider height="2rem" />
+          <Divider height="1.25rem" />
 
           <Card>
             <CardTitle>
@@ -241,7 +242,7 @@ export default function Study() {
             </CardFooter>
           </Card>
 
-          <Divider height="2.4rem" />
+          <Divider height="1.5rem" />
 
           <ButtonsContainer>
             <AddButton color="secondary" onClick={handleNavigateToAddCardPage}>
@@ -258,7 +259,7 @@ export default function Study() {
         <ModalContent>
           <ModalTitle>Filters</ModalTitle>
 
-          <Divider height="4.4rem" />
+          <Divider height="2rem" />
 
           <form onSubmit={handleSubmitFilters}>
             <CustomSingleSelect
@@ -276,7 +277,7 @@ export default function Study() {
               }}
             />
 
-            <Divider height="2.8rem" />
+            <Divider height="1.75em" />
 
             <CustomSingleSelect
               label="Bookmarked"
@@ -293,7 +294,7 @@ export default function Study() {
               }}
             />
 
-            <Divider height="2.8rem" />
+            <Divider height="1.75em" />
 
             <CustomSingleSelect
               label="Category"
@@ -315,7 +316,7 @@ export default function Study() {
               }}
             />
 
-            <Divider height="4rem" />
+            <Divider height="2.5rem" />
 
             <OkButton type="submit">Ok</OkButton>
           </form>

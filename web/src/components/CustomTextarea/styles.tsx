@@ -8,19 +8,19 @@ export const TextareaBlock = styled.div`
 
   > label {
     color: ${colors.textInPrimary};
-    margin-bottom: 0.8rem;
+    margin-bottom: 0.5em;
   }
 
   > textarea {
     width: 100%;
-    height: 16rem;
-    min-height: 8rem;
-    border-radius: 0.4rem;
+    height: 10rem;
+    min-height: 5rem;
+    border-radius: 0.25rem;
     background-color: ${colors.bgLighter};
     outline: 0;
     border: 0;
     resize: vertical;
-    padding: 1.6rem;
-    font-size: 1.6rem;
+    padding: 1rem;
+    font-size: 1rem;
   }
 `;

@@ -55,7 +55,7 @@ export default function Login() {
           <p>Flashcards</p>
         </Title>
 
-        <Divider height="8.8rem" />
+        <Divider height="5.0rem" />
 
         <form onSubmit={handleSubmit} autoComplete="on">
           <CustomInput
@@ -66,7 +66,7 @@ export default function Login() {
             onChange={handleInputChange}
           />
 
-          <Divider height="3.2rem" />
+          <Divider height="2rem" />
 
           <CustomInput
             name="password"
@@ -76,13 +76,13 @@ export default function Login() {
             onChange={handleInputChange}
           />
 
-          <Divider height="1.2rem" />
+          <Divider height="1rem" />
 
           <LinksContainer>
             <Link to="/register">Create an account</Link>
           </LinksContainer>
 
-          <Divider height="4.8rem" />
+          <Divider height="3.0rem" />
 
           <SubmitButton type="submit">Log in</SubmitButton>
         </form>

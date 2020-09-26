@@ -65,7 +65,7 @@ export default function Register() {
             required
           ></CustomInput>
 
-          <Divider height="3.2rem" />
+          <Divider height="2rem" />
 
           <CustomInput
             name="password"
@@ -76,13 +76,13 @@ export default function Register() {
             required
           ></CustomInput>
 
-          <Divider height="1.2rem" />
+          <Divider height="0.75rem" />
 
           <LinksContainer>
             <Link to="/login">Already have an account?</Link>
           </LinksContainer>
 
-          <Divider height="4.8rem" />
+          <Divider height="3.0rem" />
 
           <SubmitButton type="submit">Register</SubmitButton>
         </form>

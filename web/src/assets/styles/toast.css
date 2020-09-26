@@ -3,7 +3,7 @@
   width: calc(100%);
   display: flex;
   justify-content: center;
-  bottom: 1.6rem;
+  bottom: 1rem;
   padding: 0;
 }
 
@@ -23,16 +23,16 @@
 
 /** Classes for the displayed toast **/
 .Toastify__toast {
-  width: calc(100% - 4.8rem);
+  width: calc(100% - 3rem);
   max-width: 400px;
-  border-radius: 0.4rem;
+  border-radius: 0.25rem;
   padding: 0;
   min-height: 0;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
 }
 
 .Toastify__toast-body {
-  margin: 1.2rem 2rem;
+  margin: 0.75rem 1.25rem;
   display: flex;
   align-items: center;
   line-height: 1.75;

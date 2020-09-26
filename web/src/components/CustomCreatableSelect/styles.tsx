@@ -8,7 +8,7 @@ export const SelectBlock = styled.div`
 
   > label {
     color: ${colors.textInPrimary};
-    margin-bottom: 0.8rem;
+    margin-bottom: 0.5rem;
   }
 `;
 
@@ -16,13 +16,13 @@ export const styles = {
   control: (provided: any) => ({
     ...provided,
     backgroundColor: colors.bgLighter,
-    height: "4.8rem",
-    borderRadius: "0.4rem",
+    height: "3.0rem",
+    borderRadius: "0.25rem",
   }),
   menuList: (provided: any) => ({
     ...provided,
     backgroundColor: colors.bgLighter,
-    borderRadius: "0.4rem",
+    borderRadius: "0.25rem",
   }),
   option: (provided: any, state: any) => ({
     ...provided,

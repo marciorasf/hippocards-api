@@ -17,24 +17,24 @@ export const Card = styled.div`
   flex-direction: column;
   align-items: strech;
   width: 100%;
-  border-radius: 0.4rem;
+  border-radius: 0.25rem;
   overflow: hidden;
   background-color: ${colors.bgLighter};
 `;
 
 export const CardTitle = styled.div`
   display: flex;
-  padding: 1.6rem;
+  padding: 1rem;
   font-weight: 500;
   justify-content: space-between;
 `;
 
 export const CardContent = styled.div`
-  min-height: 24rem;
+  min-height: 15rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1.6rem;
+  padding: 1rem;
 `;
 
 export const CardText = styled.div`
@@ -45,7 +45,7 @@ export const CardFooter = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.2rem 0.8rem;
+  padding: 0.75rem 0.5em;
   background-color: ${colors.bgLight};
 `;
 
@@ -56,7 +56,7 @@ export const LeftIconButtons = styled.div`
 
 export const IconButton = styled(CustomIconButton)`
   + button {
-    margin-left: 0.8rem;
+    margin-left: 0.5em;
   }
 `;
 
@@ -69,7 +69,7 @@ export const RightButton = styled(CustomButton)`
   height: initial;
   display: flex;
   align-items: center;
-  font-size: 1.5rem;
+  font-size: 1rem;
 `;
 
 export const AddButton = styled(CustomButton)`
@@ -78,7 +78,7 @@ export const AddButton = styled(CustomButton)`
 `;
 
 export const NextButton = styled(CustomButton)`
-  margin-left: 2rem;
+  margin-left: 1.25rem;
   background-color: ${colors.secondary};
   color: ${colors.textInSecondary};
   width: 100%;
@@ -87,13 +87,13 @@ export const NextButton = styled(CustomButton)`
 
 export const ModalContent = styled.div`
   background-color: ${colors.primary};
-  padding: 3.2rem;
-  border-radius: 0.4rem;
+  padding: 2rem;
+  border-radius: 0.25rem;
 `;
 
 export const ModalTitle = styled.h3`
   color: white;
-  font-size: 3.2rem;
+  font-size: 1.5rem;
   font-weight: 500;
 `;
 

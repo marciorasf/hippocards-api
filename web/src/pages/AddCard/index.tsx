@@ -109,7 +109,7 @@ export default function CreateFlashcard() {
             required
           />
 
-          <Divider height="2.8rem" />
+          <Divider height="1.75em" />
 
           <AnswerTextarea
             label="Answer"
@@ -121,7 +121,7 @@ export default function CreateFlashcard() {
             required
           />
 
-          <Divider height="2.8rem" />
+          <Divider height="1.75em" />
 
           <CustomCreatableSelect
             label="Category"
@@ -133,7 +133,7 @@ export default function CreateFlashcard() {
             }))}
           />
 
-          <Divider height="4rem" />
+          <Divider height="2.5rem" />
 
           <ButtonsContainer>
             <CancelButton type="button" onClick={handleNavigateToStudy}>
