@@ -5,6 +5,11 @@ import colors from "../../assets/styles/colors";
 export const SelectBlock = styled.div`
   display: flex;
   flex-direction: column;
+  flex: 1;
+
+  + div {
+    margin-left: 1.2rem;
+  }
 
   > label {
     color: ${colors.textInPrimary};
@@ -15,14 +20,15 @@ export const SelectBlock = styled.div`
 export const styles = {
   control: (provided: any) => ({
     ...provided,
-    "backgroundColor": colors.bgLighter,
+    backgroundColor: colors.bgLighter,
     height: "3.0rem",
-    "borderRadius": "0.25rem",
+    borderRadius: "0.25rem",
+    flex: 1,
   }),
   menuList: (provided: any) => ({
     ...provided,
-    "backgroundColor": colors.bgLighter,
-    "borderRadius": "0.25rem",
+    backgroundColor: colors.bgLighter,
+    borderRadius: "0.25rem",
   }),
   option: (provided: any, state: any) => ({
     ...provided,
