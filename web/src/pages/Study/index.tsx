@@ -262,9 +262,7 @@ export default function Study() {
                     {card?.isKnown ? <SchoolIcon /> : <SchoolOutlinedIcon />}
                   </IconButton>
                 </Tooltip>
-                <Tooltip
-                  title={card?.isKnown ? "Set as unknown" : "Set as known"}
-                >
+                <Tooltip title="Delete card">
                   <IconButton onClick={handleDeleteCard}>
                     <DeleteIcon />
                   </IconButton>

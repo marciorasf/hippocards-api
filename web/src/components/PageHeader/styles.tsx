@@ -6,7 +6,7 @@ import { pageMaxWidth } from "../../assets/styles/global";
 export const Header = styled.header`
   width: 100%;
   background-color: ${colors.primaryDark};
-  padding: 1.25rem 2.5rem;
+  padding: 1.25rem;
   position: relative;
   display: flex;
   justify-content: center;
@@ -31,7 +31,7 @@ export const Nav = styled.nav`
 `;
 
 export const Brand = styled.h1`
-  justify-self: flex - start;
+  justify-self: flex-start;
   color: ${colors.secondary};
   font-weight: 500;
   font-size: 1.4rem;
