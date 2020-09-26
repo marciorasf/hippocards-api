@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, FormEvent } from "react";
 import { useHistory } from "react-router-dom";
 
 import { Tooltip, Button } from "@material-ui/core";
 import {
   Bookmark as BookmarkIcon,
   BookmarkBorder as BookmarkBorderIcon,
+  FilterList as FilterIcon,
   School as SchoolIcon,
   SchoolOutlined as SchoolOutlinedIcon,
   DeleteOutline as DeleteIcon,
@@ -13,6 +14,7 @@ import {
 import { PageContent, MainContainer } from "../../assets/styles/global";
 import CustomSingleSelect from "../../components/CustomSingleSelect";
 import Divider from "../../components/Divider";
+import Modal from "../../components/Modal";
 import PageHeader from "../../components/PageHeader";
 import { Notify } from "../../hooks/Notify";
 import { Category } from "../../interfaces/Category";
@@ -28,7 +30,9 @@ import {
   LeftIconButtons,
   ButtonsContainer,
   IconButton,
-  FiltersTitle
+  FilterButton,
+  ModalContent,
+  ModalTitle,
 } from "./styles";
 
 const blankCard: Flashcard = {
@@ -53,6 +57,7 @@ export default function Study() {
   const [isShowingQuestion, setIsShowingQuestion] = useState(true);
   const [filters, setFilters] = useState(initialFilters);
   const [categories, setCategories] = useState<Category[]>([]);
+  const [isFiltersOpen, setIsFiltersOpen] = useState(false);
 
   async function getRandomCard() {
     const response = await api.get("/flashcard/random", {
@@ -74,6 +79,14 @@ export default function Study() {
       console.log({ error });
       Notify.error("Sorry! Could not get another flashcard.");
     }
+  }
+
+  function handleOpenFilters() {
+    setIsFiltersOpen(true);
+  }
+
+  function handleCloseFilters() {
+    setIsFiltersOpen(false);
   }
 
   function handleChangeFilterInput(key: string, value: string) {
@@ -115,6 +128,11 @@ export default function Study() {
     const category = categories.find((value) => value.id === categoryId);
 
     return category?.name || "All";
+  }
+
+  function handleSubmitFilters(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    handleCloseFilters();
   }
 
   function handleToggleQuestion() {
@@ -206,63 +224,12 @@ export default function Study() {
 
       <PageContent>
         <MainContainer>
-          <FiltersTitle>Filters</FiltersTitle>
+          <FilterButton onClick={handleOpenFilters}>
+            <FilterIcon />
+            Filters
+          </FilterButton>
 
-          <Divider height="0.5rem" />
-
-          <form style={{ display: "flex" }}>
-            <CustomSingleSelect
-              label="Known"
-              name="isKnown"
-              onChange={handleChangeFilterInput}
-              options={[
-                { value: null, label: "All" },
-                { value: true, label: "Yes" },
-                { value: false, label: "No" },
-              ]}
-              value={{
-                value: filters.isKnown,
-                label: getFilterLabel(filters.isKnown),
-              }}
-            />
-
-            <CustomSingleSelect
-              label="Bookmarked"
-              name="isBookmarked"
-              onChange={handleChangeFilterInput}
-              options={[
-                { value: null, label: "All" },
-                { value: true, label: "Yes" },
-                { value: false, label: "No" },
-              ]}
-              value={{
-                value: filters.isBookmarked,
-                label: getFilterLabel(filters.isBookmarked),
-              }}
-            />
-
-            <CustomSingleSelect
-              label="Category"
-              name="categoryId"
-              onChange={handleChangeFilterInput}
-              options={[
-                {
-                  value: null,
-                  label: "All",
-                },
-                ...categories.map((category) => ({
-                  value: category.id,
-                  label: category.name,
-                })),
-              ]}
-              value={{
-                value: filters.categoryId,
-                label: getCategoryName(filters.categoryId),
-              }}
-            />
-          </form>
-
-          <Divider height="1.5rem" />
+          <Divider height="1.25rem" />
 
           <Card>
             <CardTitle>
@@ -295,14 +262,14 @@ export default function Study() {
                     {card?.isKnown ? <SchoolIcon /> : <SchoolOutlinedIcon />}
                   </IconButton>
                 </Tooltip>
-
-                <Tooltip title="Delete card">
+                <Tooltip
+                  title={card?.isKnown ? "Set as unknown" : "Set as known"}
+                >
                   <IconButton onClick={handleDeleteCard}>
                     <DeleteIcon />
                   </IconButton>
                 </Tooltip>
               </LeftIconButtons>
-
               <Button onClick={handleToggleQuestion}>
                 {isShowingQuestion ? "Show answer" : "Show question"}
               </Button>
@@ -330,6 +297,81 @@ export default function Study() {
           </ButtonsContainer>
         </MainContainer>
       </PageContent>
+
+      <Modal open={isFiltersOpen} onClose={handleCloseFilters}>
+        <ModalContent>
+          <ModalTitle>Filters</ModalTitle>
+
+          <Divider height="2rem" />
+
+          <form onSubmit={handleSubmitFilters}>
+            <CustomSingleSelect
+              label="Known"
+              name="isKnown"
+              onChange={handleChangeFilterInput}
+              options={[
+                { value: null, label: "All" },
+                { value: true, label: "Yes" },
+                { value: false, label: "No" },
+              ]}
+              value={{
+                value: filters.isKnown,
+                label: getFilterLabel(filters.isKnown),
+              }}
+            />
+
+            <Divider height="1.75em" />
+
+            <CustomSingleSelect
+              label="Bookmarked"
+              name="isBookmarked"
+              onChange={handleChangeFilterInput}
+              options={[
+                { value: null, label: "All" },
+                { value: true, label: "Yes" },
+                { value: false, label: "No" },
+              ]}
+              value={{
+                value: filters.isBookmarked,
+                label: getFilterLabel(filters.isBookmarked),
+              }}
+            />
+
+            <Divider height="1.75em" />
+
+            <CustomSingleSelect
+              label="Category"
+              name="categoryId"
+              onChange={handleChangeFilterInput}
+              options={[
+                {
+                  value: null,
+                  label: "All",
+                },
+                ...categories.map((category) => ({
+                  value: category.id,
+                  label: category.name,
+                })),
+              ]}
+              value={{
+                value: filters.categoryId,
+                label: getCategoryName(filters.categoryId),
+              }}
+            />
+
+            <Divider height="2.5rem" />
+
+            <Button
+              variant="contained"
+              color="secondary"
+              fullWidth
+              type="submit"
+            >
+              Ok
+            </Button>
+          </form>
+        </ModalContent>
+      </Modal>
     </>
   );
 }
