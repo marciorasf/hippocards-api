@@ -28,7 +28,7 @@ const CustomCreatableSelect: FunctionComponent<CustomCreatableSelectProps> = ({
         onChange={(value) => onChange(name, value)}
         options={options}
         styles={styles}
-        placeholder=""
+        placeholder="Type to create category"
         theme={theme}
         {...rest}
       />
