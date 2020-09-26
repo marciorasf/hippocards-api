@@ -1,7 +1,7 @@
 import React, { useState, FormEvent, ChangeEvent } from "react";
 import { useHistory } from "react-router-dom";
 
-import { Button } from "@material-ui/core";
+import { Button, Link as MuiLink } from "@material-ui/core";
 
 import { PageContent, MainContainer } from "../../assets/styles/global";
 import CustomInput from "../../components/CustomInput";
@@ -81,7 +81,9 @@ export default function Login() {
           <Divider height="1rem" />
 
           <LinksContainer>
-            <Link to="/register">Create an account</Link>
+            <MuiLink component={Link} to="/register" color="secondary">
+              Create an account
+            </MuiLink>
           </LinksContainer>
 
           <Divider height="3.0rem" />
