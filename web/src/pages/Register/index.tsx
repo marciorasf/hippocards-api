@@ -13,6 +13,11 @@ const blankFormData = {
   password: "",
 };
 
+const ERRORS = {
+  ERROR: "Something bad happened!",
+  EMAIL_IN_USE: "Email already in use!",
+};
+
 export default function Register() {
   const [formData, setFormData] = useState(blankFormData);
 
@@ -34,8 +39,11 @@ export default function Register() {
       history.push("/login");
       Notify.success("Congratulations! Now you can log in.");
     } catch (error) {
-      console.log({ error });
-      Notify.error("Sorry! Could not register you.");
+      const errorCode =
+        (error?.response?.data?.message as
+          "EMAIL_IN_USE" | "ERROR") || "ERROR";
+      const errorMessage = ERRORS[errorCode]
+      Notify.error(errorMessage);
     }
   }
 

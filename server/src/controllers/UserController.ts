@@ -18,9 +18,8 @@ class UserController {
         userId: user.id,
       });
     } catch (error) {
-      console.log({ error });
       return response.status(400).json({
-        message: "Could not create user",
+        message: error.code === "P2002" ? "EMAIL_IN_USE" : "ERROR",
       });
     }
   }
