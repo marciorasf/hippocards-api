@@ -57,7 +57,7 @@ export default function Login() {
 
         <Divider height="8.8rem" />
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} autoComplete="on">
           <CustomInput
             name="email"
             label="Email"

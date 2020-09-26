@@ -15,14 +15,14 @@ export const SelectBlock = styled.div`
 export const styles = {
   control: (provided: any) => ({
     ...provided,
-    "background-color": colors.bgLighter,
+    "backgroundColor": colors.bgLighter,
     height: "4.8rem",
-    "border-radius": "0.4rem",
+    "borderRadius": "0.4rem",
   }),
   menuList: (provided: any) => ({
     ...provided,
-    "background-color": colors.bgLighter,
-    "border-radius": "0.4rem",
+    "backgroundColor": colors.bgLighter,
+    "borderRadius": "0.4rem",
   }),
   option: (provided: any, state: any) => ({
     ...provided,
