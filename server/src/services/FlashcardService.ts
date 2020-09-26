@@ -74,6 +74,14 @@ class FlashcardService {
       },
     });
   }
+
+  public async delete(flashcardId: number) {
+    return prisma.flashcard.delete({
+      where: {
+        id: flashcardId,
+      },
+    });
+  }
 }
 
 export default new FlashcardService();

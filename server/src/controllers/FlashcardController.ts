@@ -179,6 +179,18 @@ class FlashcardController {
       });
     }
   }
+
+  public async delete(request: AuthReq, response: Response) {
+    const flashcardId = Number(request.query.flashcardId);
+    try {
+      await FlashcardService.delete(flashcardId);
+      return response.status(204).json();
+    } catch (error) {
+      return response.status(400).json({
+        message: "Could not delete flashcard",
+      });
+    }
+  }
 }
 
 export default new FlashcardController();

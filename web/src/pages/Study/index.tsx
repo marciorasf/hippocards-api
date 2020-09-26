@@ -8,6 +8,7 @@ import {
   FilterList as FilterIcon,
   School as SchoolIcon,
   SchoolOutlined as SchoolOutlinedIcon,
+  DeleteOutline as DeleteIcon,
 } from "@material-ui/icons";
 
 import { PageContent, MainContainer } from "../../assets/styles/global";
@@ -44,8 +45,8 @@ const blankCard: Flashcard = {
 };
 
 const initialFilters = {
-  isBookmarked: false,
-  isKnown: false,
+  isBookmarked: null,
+  isKnown: null,
   categoryId: null,
 };
 
@@ -95,7 +96,7 @@ export default function Study() {
     });
   }
 
-  function getFilterLabel(value: string | boolean) {
+  function getFilterLabel(value: string | boolean | null) {
     switch (value) {
       case true:
         return "Yes";
@@ -142,12 +143,19 @@ export default function Study() {
     history.push("/add-card");
   }
 
-  async function handleSetKnownTrue() {
+  async function handleToggleKnown() {
+    const newValue = !card?.isKnown;
+
+    setCard({
+      ...card,
+      isKnown: newValue,
+    });
+
     try {
       api.put(
         "/flashcard",
         {
-          isKnown: true,
+          isKnown: newValue,
         },
         {
           headers: AuthService.getAuthHeader(),
@@ -156,7 +164,6 @@ export default function Study() {
           },
         }
       );
-      changeCard();
     } catch (error) {
       console.log({ error });
     }
@@ -185,6 +192,24 @@ export default function Study() {
       );
     } catch (error) {
       console.log({ error });
+    }
+  }
+
+  async function handleDeleteCard() {
+    try {
+      await api.delete("/flashcard", {
+        headers: AuthService.getAuthHeader(),
+        params: {
+          flashcardId: card?.id,
+        },
+      });
+
+      Notify.success("Flashcard deleted!");
+
+      changeCard();
+    } catch (error) {
+      console.log({ error });
+      Notify.error("Could not delete this card!");
     }
   }
 
@@ -233,8 +258,15 @@ export default function Study() {
                 <Tooltip
                   title={card?.isKnown ? "Set as unknown" : "Set as known"}
                 >
-                  <IconButton onClick={handleSetKnownTrue}>
+                  <IconButton onClick={handleToggleKnown}>
                     {card?.isKnown ? <SchoolIcon /> : <SchoolOutlinedIcon />}
+                  </IconButton>
+                </Tooltip>
+                <Tooltip
+                  title={card?.isKnown ? "Set as unknown" : "Set as known"}
+                >
+                  <IconButton onClick={handleDeleteCard}>
+                    <DeleteIcon />
                   </IconButton>
                 </Tooltip>
               </LeftIconButtons>

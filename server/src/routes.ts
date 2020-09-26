@@ -15,6 +15,7 @@ routes.get("/flashcard", Auth, FlashcardController.getById);
 routes.get("/flashcards", Auth, FlashcardController.index);
 routes.get("/flashcard/random", Auth, FlashcardController.getRandom);
 routes.put("/flashcard", Auth, FlashcardController.update);
+routes.delete("/flashcard", Auth, FlashcardController.delete);
 
 routes.post("/category", Auth, CategoryController.create);
 routes.get("/categories", Auth, CategoryController.index);
