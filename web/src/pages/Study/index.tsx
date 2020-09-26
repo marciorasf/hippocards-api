@@ -8,6 +8,7 @@ import {
   FilterList as FilterIcon,
   School as SchoolIcon,
   SchoolOutlined as SchoolOutlinedIcon,
+  EditOutlined as EditIcon,
   DeleteOutline as DeleteIcon,
 } from "@material-ui/icons";
 
@@ -195,6 +196,10 @@ export default function Study() {
     }
   }
 
+  async function handleEditCard() {
+    history.push("/add-card");
+  }
+
   async function handleDeleteCard() {
     try {
       await api.delete("/flashcard", {
@@ -262,6 +267,13 @@ export default function Study() {
                     {card?.isKnown ? <SchoolIcon /> : <SchoolOutlinedIcon />}
                   </IconButton>
                 </Tooltip>
+
+                <Tooltip title="Edit card">
+                  <IconButton onClick={handleEditCard}>
+                    <EditIcon />
+                  </IconButton>
+                </Tooltip>
+
                 <Tooltip title="Delete card">
                   <IconButton onClick={handleDeleteCard}>
                     <DeleteIcon />
