@@ -196,14 +196,7 @@ export default function Study() {
 
   return (
     <>
-      <PageHeader>
-        <AddCardFab onClick={handleNavigateToAddCardPage}>
-          <AddIcon />
-        </AddCardFab>
-        <FilterButton onClick={handleOpenFilters}>
-          <FilterIcon />
-        </FilterButton>
-      </PageHeader>
+      <PageHeader />
       <Modal open={isFiltersOpen} onClose={handleCloseFilters}>
         <ModalContent>
           <ModalTitle>Filters</ModalTitle>

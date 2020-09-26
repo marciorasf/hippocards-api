@@ -1,9 +1,7 @@
-import React, { FunctionComponent, ReactNode, useState } from "react";
-import { MdMenu as MenuIcon } from "react-icons/md";
-import { Link } from "react-router-dom";
+import React from "react";
+import { Link, useHistory } from "react-router-dom";
 
-import CustomIconButton from "../CustomIconButton";
-import Menu from "../Menu";
+import AuthService from "../../services/AuthService";
 import {
   Header,
   Nav,
@@ -11,24 +9,14 @@ import {
   MenuList,
   MenuItem,
   HeaderContent,
-  Buttons,
 } from "./styles";
 
-interface PageHeaderProps {
-  children: ReactNode;
-}
+function PageHeader() {
+  const history = useHistory();
 
-const PageHeader: FunctionComponent<PageHeaderProps> = ({
-  children,
-}: PageHeaderProps) => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  function handleOpenMenu() {
-    setIsMenuOpen(true);
-  }
-
-  function handleCloseMenu() {
-    setIsMenuOpen(false);
+  function handleLogout() {
+    AuthService.logout();
+    history.push("/login");
   }
 
   return (
@@ -41,23 +29,14 @@ const PageHeader: FunctionComponent<PageHeaderProps> = ({
             </Link>
           </Brand>
           <MenuList>
-            <MenuItem>
-              <Link className="nav-item" to="/study">
-                Study
-              </Link>
-            </MenuItem>
-            <MenuItem>
-              <CustomIconButton onClick={handleOpenMenu}>
-                <MenuIcon />
-              </CustomIconButton>
+            <MenuItem className="nav-item" onClick={handleLogout}>
+              Logout
             </MenuItem>
           </MenuList>
         </Nav>
-        <Menu open={isMenuOpen} onClose={handleCloseMenu} />
-        <Buttons>{children}</Buttons>
       </HeaderContent>
     </Header>
   );
-};
+}
 
 export default PageHeader;
