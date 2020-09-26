@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
+import colors from "../../assets/styles/colors";
 import { pageMaxWidth } from "../../assets/styles/global";
+import CustomIconButton from "../CustomIconButton";
 
 export const ModalContainer = styled.section`
   z-index: -1;
@@ -14,6 +16,7 @@ export const ModalContainer = styled.section`
   padding: 0 2.5%;
 
   > main {
+    position: relative;
     width: 100%;
     max-width: ${pageMaxWidth};
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
@@ -22,4 +25,11 @@ export const ModalContainer = styled.section`
   &.isOpen {
     z-index: 3;
   }
+`;
+
+export const CloseButton = styled(CustomIconButton)`
+  color: ${colors.textInPrimary};
+  position: absolute;
+  right: 0;
+  top: 0;
 `;

@@ -94,7 +94,7 @@ export const ModalContent = styled.div`
 export const ModalTitle = styled.h3`
   color: white;
   font-size: 3.2rem;
-  font-weight: bold;
+  font-weight: 500;
 `;
 
 export const OkButton = styled(CustomButton)`

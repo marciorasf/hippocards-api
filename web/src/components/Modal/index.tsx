@@ -1,7 +1,9 @@
 import clsx from "clsx";
 import React, { FunctionComponent, ReactNode, MouseEvent } from "react";
 
-import { ModalContainer } from "./styles";
+import { Clear as ClearIcon } from "@material-ui/icons";
+
+import { ModalContainer, CloseButton } from "./styles";
 
 interface ModalProps {
   open: boolean;
@@ -20,7 +22,13 @@ const Modal: FunctionComponent<ModalProps> = ({
 
   return (
     <ModalContainer className={clsx({ isOpen: open })} onClick={onClose}>
-      <main onClick={handleClickChildren}>{children}</main>
+      <main onClick={handleClickChildren}>
+        <CloseButton onClick={onClose}>
+          <ClearIcon />
+        </CloseButton>
+
+        {children}
+      </main>
     </ModalContainer>
   );
 };

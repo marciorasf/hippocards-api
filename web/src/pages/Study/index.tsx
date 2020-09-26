@@ -199,6 +199,60 @@ export default function Study() {
   return (
     <>
       <PageHeader />
+      
+      <PageContent>
+        <MainContainer>
+          <FilterButton onClick={handleOpenFilters}>
+            <FilterIcon />
+            Filters
+          </FilterButton>
+
+          <Divider height="2rem" />
+
+          <Card>
+            <CardTitle>
+              <p>Card ID: {card?.id}</p>
+              <p>Views: {card?.views}</p>
+            </CardTitle>
+
+            <CardContent>
+              <CardText>
+                {isShowingQuestion ? card?.question : card?.answer}
+              </CardText>
+            </CardContent>
+
+            <CardFooter>
+              <LeftIconButtons>
+                <IconButton onClick={handleToggleBookmark}>
+                  {card?.isBookmarked ? (
+                    <BookmarkIcon />
+                  ) : (
+                    <BookmarkBorderIcon />
+                  )}
+                </IconButton>
+
+                <IconButton onClick={handleSetKnownTrue}>
+                  {card?.isKnown ? <SchoolIcon /> : <SchoolOutlinedIcon />}
+                </IconButton>
+              </LeftIconButtons>
+              <RightButton onClick={handleToggleQuestion}>
+                {isShowingQuestion ? "Show answer" : "Show question"}
+              </RightButton>
+            </CardFooter>
+          </Card>
+
+          <Divider height="2.4rem" />
+
+          <ButtonsContainer>
+            <AddButton color="secondary" onClick={handleNavigateToAddCardPage}>
+              Add card
+            </AddButton>
+            <NextButton color="secondary" onClick={changeCard}>
+              Next
+            </NextButton>
+          </ButtonsContainer>
+        </MainContainer>
+      </PageContent>
 
       <Modal open={isFiltersOpen} onClose={handleCloseFilters}>
         <ModalContent>
@@ -267,59 +321,6 @@ export default function Study() {
           </form>
         </ModalContent>
       </Modal>
-      <PageContent>
-        <MainContainer>
-          <FilterButton onClick={handleOpenFilters}>
-            <FilterIcon />
-            Filters
-          </FilterButton>
-
-          <Divider height="2rem" />
-
-          <Card>
-            <CardTitle>
-              <p>Card ID: {card?.id}</p>
-              <p>Views: {card?.views}</p>
-            </CardTitle>
-
-            <CardContent>
-              <CardText>
-                {isShowingQuestion ? card?.question : card?.answer}
-              </CardText>
-            </CardContent>
-
-            <CardFooter>
-              <LeftIconButtons>
-                <IconButton onClick={handleToggleBookmark}>
-                  {card?.isBookmarked ? (
-                    <BookmarkIcon />
-                  ) : (
-                    <BookmarkBorderIcon />
-                  )}
-                </IconButton>
-
-                <IconButton onClick={handleSetKnownTrue}>
-                  {card?.isKnown ? <SchoolIcon /> : <SchoolOutlinedIcon />}
-                </IconButton>
-              </LeftIconButtons>
-              <RightButton onClick={handleToggleQuestion}>
-                {isShowingQuestion ? "Show answer" : "Show question"}
-              </RightButton>
-            </CardFooter>
-          </Card>
-
-          <Divider height="2.4rem" />
-
-          <ButtonsContainer>
-            <AddButton color="secondary" onClick={handleNavigateToAddCardPage}>
-              Add card
-            </AddButton>
-            <NextButton color="secondary" onClick={changeCard}>
-              Next
-            </NextButton>
-          </ButtonsContainer>
-        </MainContainer>
-      </PageContent>
     </>
   );
 }
