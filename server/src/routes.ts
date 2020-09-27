@@ -9,6 +9,7 @@ const routes = express.Router();
 
 routes.post("/user", UserController.create);
 routes.post("/authenticate", UserController.authenticate);
+routes.get("/recover-password", UserController.recoverPassword);
 
 routes.post("/flashcard", Auth, FlashcardController.create);
 routes.get("/flashcard", Auth, FlashcardController.getById);

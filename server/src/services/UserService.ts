@@ -22,6 +22,23 @@ class UserService {
     });
   }
 
+  public async updatePassword(user: UserAuth) {
+    const hashedPassword = await bcrypt.hash(user.password, Number(process.env.SALT_ROUNDS));
+    return prisma.user.update({
+      data: {
+        password: hashedPassword,
+      },
+      where: {
+        email: user.email,
+      },
+    });
+  }
+
+  public async existsUserWithEmail(email: string) {
+    const user = await prisma.user.findOne({ where: { email } });
+    return Boolean(user);
+  }
+
   public async authenticate({ email, password }: UserAuth) {
     const user = await prisma.user.findOne({ where: { email } });
 
@@ -47,6 +64,19 @@ class UserService {
     return jwt.sign({ userId }, process.env.SECRET, {
       expiresIn: 86400,
     });
+  }
+
+  public generateRandomPassword() {
+    const passwordLength = 16;
+    const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    const charsetLength = charset.length;
+
+    let password = "";
+    for (let i = 0; i < passwordLength; i += 1) {
+      password += charset.charAt(Math.floor(Math.random() * charsetLength));
+    }
+
+    return password;
   }
 }
 

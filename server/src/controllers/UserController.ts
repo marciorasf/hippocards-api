@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import { UserCreateInput } from "@prisma/client";
 
 import { UserAuth } from "../interfaces/UserInterface";
+import MailService from "../services/MailService";
 import UserService from "../services/UserService";
 
 class UserController {
@@ -37,6 +38,27 @@ class UserController {
       return response.status(400).json({
         message: error.message,
       });
+    }
+  }
+
+  public async recoverPassword(request: Request, response: Response) {
+    const email = request.query.email as string;
+
+    const existsUser = await UserService.existsUserWithEmail(email);
+    if (!existsUser) {
+      return response.status(404).json({ message: "USER_NOT_FOUND" });
+    }
+
+    const newPassword = UserService.generateRandomPassword();
+
+    try {
+      await UserService.updatePassword({ email, password: newPassword });
+
+      await MailService.sendRecoverPasswordEmail({ userEmail: email, newPassword });
+
+      return response.status(204).json({ message: "EMAIL_SENDED" });
+    } catch (error) {
+      return response.status(400).json({ message: "ERROR" });
     }
   }
 }

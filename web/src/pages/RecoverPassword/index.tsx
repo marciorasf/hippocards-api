@@ -8,7 +8,7 @@ import CustomInput from "../../components/CustomInput";
 import Divider from "../../components/Divider";
 import { Notify } from "../../hooks/Notify";
 import api from "../../services/api";
-import { Title } from "./styles";
+import { Title, Description } from "./styles";
 
 const ERRORS = {
   ERROR: "Something bad happened!",
@@ -31,7 +31,11 @@ export default function Login() {
 
     try {
       await api.get("/recover-password", { params: { email } });
-      Notify.success("Email sended!");
+      Notify.success("Email sended! We will redirect you to the login page.");
+
+      setTimeout(() => {
+        history.push("/login");
+      }, 3000);
     } catch (error) {
       const errorCode =
         (error?.response?.data?.message as "USER_NOT_FOUND") || "ERROR";
@@ -45,11 +49,17 @@ export default function Login() {
   return (
     <PageContent>
       <MainContainer>
-        <Title>
-          <p>Recover your password</p>
-        </Title>
+        <Title>Recover your password</Title>
 
-        <Divider height="5.0rem" />
+        <Divider height="3rem" />
+
+        <Description>
+          An email with a new password will be sent to you.
+          <Divider height="0.5rem" />
+          You can change the password after the login.
+        </Description>
+
+        <Divider height="2.0rem" />
 
         <form onSubmit={handleRecoverPassword} autoComplete="on">
           <CustomInput
