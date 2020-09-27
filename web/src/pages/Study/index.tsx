@@ -47,7 +47,7 @@ const blankCard: Flashcard = {
 
 const initialFilters = {
   isBookmarked: null,
-  isKnown: null,
+  isKnown: true,
   categoryId: null,
 };
 
