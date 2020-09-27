@@ -22,7 +22,7 @@ export const Title = styled.header`
 
 export const LinksContainer = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
 `;
 
 export const Link = styled((props) => <RouterLink {...props} />)`
