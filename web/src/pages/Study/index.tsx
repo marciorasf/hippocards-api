@@ -242,7 +242,9 @@ export default function Study() {
               <p>Views: {card?.views}</p>
             </CardTitle>
 
-            <CardContent>
+            <CardContent
+              className={!isShowingQuestion ? "is-answer" : undefined}
+            >
               <CardText>
                 {isShowingQuestion ? card?.question : card?.answer}
               </CardText>

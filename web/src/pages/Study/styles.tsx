@@ -8,7 +8,7 @@ import CustomIconButton from "../../components/CustomIconButton";
 export const FiltersTitle = styled.h2`
   font-size: 1.5rem;
   color: ${colors.secondaryLight};
-`
+`;
 
 export const FilterButton = styled(CustomIconButton)`
   color: ${colors.secondary};
@@ -41,6 +41,11 @@ export const CardContent = styled.div`
   justify-content: center;
   align-items: center;
   padding: 1rem;
+
+  &.is-answer {
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
 `;
 
 export const CardText = styled.div`
