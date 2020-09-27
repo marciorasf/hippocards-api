@@ -14,7 +14,7 @@ class MailService {
 
   private mountRecoverPasswordEmail({ userEmail, newPassword }) {
     const email = {
-      from: "marciorasf@gmail.com",
+      from: process.env.EMAIL_USER,
       to: userEmail,
       subject: "Flashcards: Password recovery",
       text: `Use this password to login into your account: ${newPassword}. You can change it after the login.`,
