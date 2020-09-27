@@ -197,7 +197,7 @@ export default function Study() {
   }
 
   async function handleEditCard() {
-    history.push("/add-card");
+    history.push(`/edit-card/${card.id}`);
   }
 
   async function handleDeleteCard() {
@@ -205,7 +205,7 @@ export default function Study() {
       await api.delete("/flashcard", {
         headers: AuthService.getAuthHeader(),
         params: {
-          flashcardId: card?.id,
+          flashcardId: card.id,
         },
       });
 

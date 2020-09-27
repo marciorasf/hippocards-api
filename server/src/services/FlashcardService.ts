@@ -12,7 +12,7 @@ class FlashcardService {
   }
 
   public async getById(flashcardId: number) {
-    return prisma.user.findOne({ where: { id: flashcardId } });
+    return prisma.flashcard.findOne({ where: { id: flashcardId } });
   }
 
   public async index(userId: number) {

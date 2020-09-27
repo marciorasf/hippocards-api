@@ -19,7 +19,10 @@ const emptyFlashcard = {
   category: {},
 };
 
-export default function CreateFlashcard() {
+export default function CreateFlashcard(props: any) {
+  const type = props?.location?.pathname === "/add-card" ? "add" : "edit";
+  const flashcardId = props?.match?.params?.flashcardId;
+
   const history = useHistory();
 
   const [flashcard, setFlashcard] = useState<FlashcardCreateInput>(
@@ -54,9 +57,25 @@ export default function CreateFlashcard() {
     };
   }
 
-  async function handleFormSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  async function getFlashcardData() {
+    try {
+      const response = await api.get("/flashcard", {
+        headers: AuthService.getAuthHeader(),
+        params: {
+          flashcardId,
+        },
+      });
+      setFlashcard({
+        ...flashcard,
+        ...response?.data?.flashcard,
+      });
+    } catch (error) {
+      console.log({ error });
+      Notify.error("Sorry! Could not get your flashcard.");
+    }
+  }
 
+  async function addCard() {
     try {
       await api.post(
         "/flashcard",
@@ -72,7 +91,32 @@ export default function CreateFlashcard() {
       resetFlashcard();
     } catch (error) {
       console.log({ error });
-      Notify.error("Sorry! Could add your flashcard.");
+      Notify.error("Sorry! Could not add your flashcard.");
+    }
+  }
+
+  async function updateCard() {
+    try {
+      await api.put("/flashcard", flashcard, {
+        headers: AuthService.getAuthHeader(),
+        params: {
+          flashcardId,
+        },
+      });
+
+      Notify.success("Flashcard updated!");
+    } catch (error) {
+      console.log({ error });
+      Notify.error("Sorry! Could not update your flashcard.");
+    }
+  }
+
+  async function handleFormSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (type === "add") {
+      addCard();
+    } else {
+      updateCard();
     }
   }
 
@@ -89,7 +133,10 @@ export default function CreateFlashcard() {
 
   useEffect(() => {
     getAndUpdateCategories();
-  }, []);
+    if (type === "edit") {
+      getFlashcardData();
+    }
+  }, [type]);
 
   return (
     <PageContent>
@@ -147,7 +194,7 @@ export default function CreateFlashcard() {
               variant="contained"
               type="submit"
             >
-              Add card
+              {type === "add" ? "Add card" : "Update card"}
             </Button>
           </ButtonsContainer>
         </form>

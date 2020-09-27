@@ -31,7 +31,7 @@ function PrivateRoutes() {
       <PrivateRoute path="/" exact component={Study} />
       <PrivateRoute path="/study" exact component={Study} />
       <PrivateRoute path="/add-card" exact component={CardForm} />
-      <PrivateRoute path="/edit-card" exact component={CardForm} />
+      <PrivateRoute path="/edit-card/:flashcardId" component={CardForm} />
     </Switch>
   );
 }
