@@ -6,12 +6,9 @@
   "license": "MIT",
   "scripts": {
     "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files --no-copy-ignored",
-    "heroku-postbuild": "yarn build && yarn db:migrate",
     "production:move": "cp -t ../production -r src prisma .eslintrc.json .eslintignore .env babel.config.js tsconfig.json package.json yarn.lock ",
     "start": "node -r dotenv/config dist/server.js",
-    "dev": "NODE_ENV='development' ts-node-dev --transpile-only --clear --inspect=0.0.0.0:8001 -r tsconfig-paths/register -r dotenv/config --respawn --ignore-watch node_modules --no-notify ./src/server.ts",
-    "test": "NODE_ENV='test' mocha -r ts-node/register ./tests/**/*.ts --timeout 2000",
-    "coverage": "nyc npm run test",
+    "dev": "NODE_ENV='development' PORT=3333 ts-node-dev --transpile-only --clear --inspect=0.0.0.0:8001 -r tsconfig-paths/register -r dotenv/config --respawn --ignore-watch node_modules --no-notify ./src/server.ts",
     "prisma:rebuild": "npx prisma generate",
     "db:migrate:save": "yarn prisma migrate save --name init --experimental",
     "db:migrate:up": "yarn prisma migrate up --experimental",

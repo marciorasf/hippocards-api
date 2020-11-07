@@ -8,6 +8,7 @@ import CustomInput from "../../components/CustomInput";
 import Divider from "../../components/Divider";
 import { Notify } from "../../hooks/Notify";
 import api from "../../services/api";
+import handleError from "../../services/ErrorHandler";
 import { Title, LinksContainer, Link } from "./styles";
 
 const blankFormData = {
@@ -16,7 +17,6 @@ const blankFormData = {
 };
 
 const ERRORS = {
-  ERROR: "Something bad happened!",
   EMAIL_IN_USE: "Email already in use!",
 };
 
@@ -41,10 +41,9 @@ export default function Register() {
       history.push("/login");
       Notify.success("Congratulations! Now you can log in.");
     } catch (error) {
-      const errorCode =
-        (error?.response?.data?.message as "EMAIL_IN_USE" | "ERROR") || "ERROR";
+      const errorCode = error?.response?.data?.message as "EMAIL_IN_USE";
       const errorMessage = ERRORS[errorCode];
-      Notify.error(errorMessage);
+      handleError(error, errorMessage);
     }
   }
 

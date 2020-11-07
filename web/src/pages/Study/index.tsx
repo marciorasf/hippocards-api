@@ -22,6 +22,7 @@ import { Category } from "../../interfaces/Category";
 import { Flashcard } from "../../interfaces/Flashcard";
 import api from "../../services/api";
 import AuthService from "../../services/AuthService";
+import handleError from "../../services/ErrorHandler";
 import {
   Card,
   CardTitle,
@@ -77,8 +78,7 @@ export default function Study() {
       setIsShowingQuestion(true);
       setCard(randomFlashcard);
     } catch (error) {
-      console.log({ error });
-      Notify.error("Sorry! Could not get another flashcard.");
+      handleError(error, "Could not get another flashcard.");
     }
   }
 
@@ -117,7 +117,7 @@ export default function Study() {
       });
       setCategories(response.data.categories);
     } catch (error) {
-      Notify.error("Sorry! Could not get categories.");
+      handleError(error, "Could not get categories.");
     }
   }
 
@@ -166,7 +166,7 @@ export default function Study() {
         }
       );
     } catch (error) {
-      console.log({ error });
+      handleError(error, "");
     }
   }
 
@@ -192,7 +192,7 @@ export default function Study() {
         }
       );
     } catch (error) {
-      console.log({ error });
+      handleError(error, "");
     }
   }
 
@@ -213,8 +213,7 @@ export default function Study() {
 
       changeCard();
     } catch (error) {
-      console.log({ error });
-      Notify.error("Could not delete this card!");
+      handleError(error, "Could not delete this card.");
     }
   }
 

@@ -11,6 +11,7 @@ import { Category } from "../../interfaces/Category";
 import { FlashcardCreateInput } from "../../interfaces/Flashcard";
 import api from "../../services/api";
 import AuthService from "../../services/AuthService";
+import handleError from "../../services/ErrorHandler";
 import { QuestionTextarea, AnswerTextarea, ButtonsContainer } from "./styles";
 
 const emptyFlashcard = {
@@ -70,8 +71,7 @@ export default function CreateFlashcard(props: any) {
         ...response?.data?.flashcard,
       });
     } catch (error) {
-      console.log({ error });
-      Notify.error("Sorry! Could not get your flashcard.");
+      handleError(error, "Could not get your flashcard.");
     }
   }
 
@@ -90,8 +90,7 @@ export default function CreateFlashcard(props: any) {
       Notify.success("Flashcard added!");
       resetFlashcard();
     } catch (error) {
-      console.log({ error });
-      Notify.error("Sorry! Could not add your flashcard.");
+      handleError(error, "Could not add your flashcard");
     }
   }
 
@@ -106,8 +105,7 @@ export default function CreateFlashcard(props: any) {
 
       Notify.success("Flashcard updated!");
     } catch (error) {
-      console.log({ error });
-      Notify.error("Sorry! Could not update your flashcard.");
+      handleError(error, "Could not update your flashcard.");
     }
   }
 
@@ -127,7 +125,7 @@ export default function CreateFlashcard(props: any) {
       });
       setCategories(response.data.categories);
     } catch (error) {
-      Notify.error("Sorry! Could not get categories.");
+      handleError(error, "Could not get categories.");
     }
   }
 

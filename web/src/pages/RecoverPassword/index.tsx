@@ -8,10 +8,10 @@ import CustomInput from "../../components/CustomInput";
 import Divider from "../../components/Divider";
 import { Notify } from "../../hooks/Notify";
 import api from "../../services/api";
+import handleError from "../../services/ErrorHandler";
 import { Title, Description } from "./styles";
 
 const ERRORS = {
-  ERROR: "Something bad happened!",
   USER_NOT_FOUND: "User not found!",
 };
 
@@ -37,10 +37,9 @@ export default function Login() {
         history.push("/login");
       }, 3000);
     } catch (error) {
-      const errorCode =
-        (error?.response?.data?.message as "USER_NOT_FOUND") || "ERROR";
+      const errorCode = error?.response?.data?.message as "USER_NOT_FOUND";
       const errorMessage = ERRORS[errorCode];
-      Notify.error(errorMessage);
+      handleError(error, errorMessage);
     } finally {
       setSubmitDisabled(false);
     }

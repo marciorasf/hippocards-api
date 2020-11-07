@@ -1,6 +1,6 @@
 import cors from "cors";
 import express from "express";
-import "./middlewares/Auth";
+import "./middlewares/AuthMiddleware";
 
 import routes from "./routes";
 
@@ -22,7 +22,9 @@ app.use(express.static(`${baseDir}`));
 app.use("/api", routes);
 
 // Get of static files should be the last
-app.get("/*", (request, response) => response.sendFile("index.html", { root: baseDir }));
+if (process.env.NODE_ENV === "production") {
+  app.get("/*", (request, response) => response.sendFile("index.html", { root: baseDir }));
+}
 
 const { PORT } = process.env;
 

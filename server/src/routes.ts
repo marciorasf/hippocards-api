@@ -3,7 +3,7 @@ import express from "express";
 import CategoryController from "./controllers/CategoryController";
 import FlashcardController from "./controllers/FlashcardController";
 import UserController from "./controllers/UserController";
-import Auth from "./middlewares/Auth";
+import Auth from "./middlewares/AuthMiddleware";
 
 const routes = express.Router();
 

@@ -6,8 +6,8 @@ import { Button, Link as MuiLink } from "@material-ui/core";
 import { PageContent, MainContainer } from "../../assets/styles/global";
 import CustomInput from "../../components/CustomInput";
 import Divider from "../../components/Divider";
-import { Notify } from "../../hooks/Notify";
 import AuthService from "../../services/AuthService";
+import handleError from "../../services/ErrorHandler";
 import { Title, Link, LinksContainer } from "./styles";
 
 const blankFormData = {
@@ -16,7 +16,6 @@ const blankFormData = {
 };
 
 const ERRORS = {
-  ERROR: "Something bad happened!",
   WRONG_PASSWORD: "Wrong password!",
   USER_NOT_FOUND: "User not found!",
 };
@@ -40,12 +39,11 @@ export default function Login() {
       await AuthService.login(formData);
       history.push("/");
     } catch (error) {
-      const errorCode =
-        (error?.response?.data?.message as
-          | "USER_NOT_FOUND"
-          | "WRONG_PASSWORD") || "ERROR";
+      const errorCode = error?.response?.data?.message as
+        | "USER_NOT_FOUND"
+        | "WRONG_PASSWORD";
       const errorMessage = ERRORS[errorCode];
-      Notify.error(errorMessage);
+      handleError(error, errorMessage);
     }
   }
 
