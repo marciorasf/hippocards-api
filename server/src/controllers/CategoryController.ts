@@ -30,7 +30,7 @@ class CategoryController {
       ErrorService.handleError(error);
 
       return response.status(400).json({
-        message: "Could not create category",
+        message: "COULD_NOT_CREATE",
       });
     }
   }
@@ -40,7 +40,7 @@ class CategoryController {
 
     if (!userId) {
       return response.status(400).json({
-        error: "Missing userId",
+        error: "MISSING_USER_ID",
       });
     }
 
@@ -52,7 +52,7 @@ class CategoryController {
       ErrorService.handleError(error);
 
       return response.status(404).json({
-        message: "Could not retrieve categories",
+        message: "COLUD_NOT_GET",
       });
     }
   }
@@ -73,7 +73,7 @@ class CategoryController {
       ErrorService.handleError(error);
 
       return response.status(400).json({
-        message: "Could not update category",
+        message: "COULD_NOT_UPDATE",
       });
     }
   }
@@ -89,7 +89,7 @@ class CategoryController {
       ErrorService.handleError(error);
 
       return response.status(400).json({
-        message: "Could not delete category",
+        message: "COULD_NOT_DELETE",
       });
     }
   }

@@ -11,7 +11,7 @@ export default function AuthMiddleware(request: Request, response: Response, nex
 
   if (!token) {
     return response.status(403).json({
-      message: "No token provided!",
+      message: "MISSING_TOKEN",
     });
   }
 

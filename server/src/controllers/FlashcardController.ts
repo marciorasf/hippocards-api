@@ -61,7 +61,7 @@ class FlashcardController {
       ErrorService.handleError(error);
 
       return response.status(400).json({
-        message: "Could not create flashcard",
+        message: "COULD_NOT_CREATE",
       });
     }
   }
@@ -77,7 +77,7 @@ class FlashcardController {
       ErrorService.handleError(error);
 
       return response.status(404).json({
-        message: "Could not retrieve flashcard",
+        message: "COULD_NOT_GET",
       });
     }
   }
@@ -87,7 +87,7 @@ class FlashcardController {
 
     if (!userId) {
       return response.status(400).json({
-        error: "Missing userId",
+        error: "MISSING_USERID",
       });
     }
 
@@ -99,7 +99,7 @@ class FlashcardController {
       ErrorService.handleError(error);
 
       return response.status(404).json({
-        message: "Could not retrieve flashcards",
+        message: "COLUD_NOT_GET",
       });
     }
   }
@@ -109,7 +109,7 @@ class FlashcardController {
 
     if (!userId) {
       return response.status(400).json({
-        error: "Missing userId",
+        error: "MISSING_USER_ID",
       });
     }
 
@@ -133,7 +133,7 @@ class FlashcardController {
       ErrorService.handleError(error);
 
       return response.status(404).json({
-        message: "Could not retrieve random flashcard",
+        message: "COULD_NOT_GET",
       });
     }
 
@@ -145,7 +145,7 @@ class FlashcardController {
       ErrorService.handleError(error);
 
       return response.status(400).json({
-        message: "Could not increase views",
+        message: "COULD_NOT_UPDATE",
       });
     }
 
@@ -182,7 +182,7 @@ class FlashcardController {
       ErrorService.handleError(error);
 
       return response.status(400).json({
-        message: "Could not update flashcard",
+        message: "COULD_NOT_UPDATE",
       });
     }
   }
@@ -196,7 +196,7 @@ class FlashcardController {
       ErrorService.handleError(error);
 
       return response.status(400).json({
-        message: "Could not delete flashcard",
+        message: "COULD_NOT_DELETE",
       });
     }
   }

@@ -44,7 +44,7 @@ class AuthenticationController {
     } catch (error) {
       ErrorService.handleError(error);
 
-      return response.status(400).json({ message: "ERROR" });
+      return response.status(400).json({ message: "INTERNAL_ERROR" });
     }
   }
 }
