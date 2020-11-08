@@ -49,18 +49,20 @@ async function populate(nFlashcards: number) {
 
   const flashcards = getTemplateFlashcards(nFlashcards);
 
-  for (const flashcard of flashcards) {
-    await prisma.flashcard.create({
-      data: {
-        ...flashcard,
-        user: {
-          connect: {
-            id: userId,
+  await Promise.all(
+    flashcards.map((flashcard) =>
+      prisma.flashcard.create({
+        data: {
+          ...flashcard,
+          user: {
+            connect: {
+              id: userId,
+            },
           },
         },
-      },
-    });
-  }
+      })
+    )
+  );
 
   console.log("End populating flashcards");
 }
