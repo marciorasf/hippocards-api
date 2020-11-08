@@ -8,11 +8,11 @@ class ErrorService {
   }
 
   handleErrorDevelopment(error: Error) {
-    console.log({error})
+    console.log({ error });
   }
 
   handleErrorProduction(error: Error) {
-    console.log({error})
+    console.log({ error });
   }
 }
 

@@ -4,6 +4,7 @@ import { CategoryCreateInput, CategoryUpdateInput } from "@prisma/client";
 
 import { AuthReq } from "../interfaces/AuthInterface";
 import CategoryService from "../services/CategoryService";
+import ErrorService from "../services/ErrorService";
 
 class CategoryController {
   public async create(request: AuthReq, response: Response) {
@@ -26,14 +27,15 @@ class CategoryController {
         category,
       });
     } catch (error) {
-      console.log({ error });
+      ErrorService.handleError(error);
+
       return response.status(400).json({
         message: "Could not create category",
       });
     }
   }
 
-  public async index(request: AuthReq, response: Response) {
+  public async getAll(request: AuthReq, response: Response) {
     const { userId } = request;
 
     if (!userId) {
@@ -47,7 +49,8 @@ class CategoryController {
 
       return response.status(200).json({ categories });
     } catch (error) {
-      console.log({ error });
+      ErrorService.handleError(error);
+
       return response.status(404).json({
         message: "Could not retrieve categories",
       });
@@ -67,7 +70,8 @@ class CategoryController {
 
       return response.status(200).json({ category });
     } catch (error) {
-      console.log({ error });
+      ErrorService.handleError(error);
+
       return response.status(400).json({
         message: "Could not update category",
       });
@@ -82,7 +86,8 @@ class CategoryController {
 
       return response.status(200).json();
     } catch (error) {
-      console.log({ error });
+      ErrorService.handleError(error);
+
       return response.status(400).json({
         message: "Could not delete category",
       });

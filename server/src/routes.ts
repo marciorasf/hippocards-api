@@ -19,7 +19,7 @@ routes.put("/flashcard", Auth, FlashcardController.update);
 routes.delete("/flashcard", Auth, FlashcardController.delete);
 
 routes.post("/category", Auth, CategoryController.create);
-routes.get("/categories", Auth, CategoryController.index);
+routes.get("/categories", Auth, CategoryController.getAll);
 routes.put("/category", Auth, CategoryController.update);
 
 export default routes;

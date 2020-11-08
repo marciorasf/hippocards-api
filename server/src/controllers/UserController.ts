@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import { UserCreateInput } from "@prisma/client";
 
 import { UserAuth } from "../interfaces/UserInterface";
+import ErrorService from "../services/ErrorService";
 import MailService from "../services/MailService";
 import UserService from "../services/UserService";
 
@@ -19,6 +20,8 @@ class UserController {
         userId: user.id,
       });
     } catch (error) {
+      ErrorService.handleError(error);
+
       return response.status(400).json({
         message: error.code === "P2002" ? "EMAIL_IN_USE" : "ERROR",
       });
@@ -35,6 +38,8 @@ class UserController {
 
       return response.status(200).json({ user, token });
     } catch (error) {
+      ErrorService.handleError(error);
+
       return response.status(400).json({
         message: error.message,
       });
@@ -58,6 +63,8 @@ class UserController {
 
       return response.status(204).json({ message: "EMAIL_SENDED" });
     } catch (error) {
+      ErrorService.handleError(error);
+
       return response.status(400).json({ message: "ERROR" });
     }
   }

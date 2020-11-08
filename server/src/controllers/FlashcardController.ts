@@ -4,6 +4,7 @@ import { FlashcardCreateInput, FlashcardUpdateInput, Flashcard } from "@prisma/c
 
 import { AuthReq } from "../interfaces/AuthInterface";
 import CategoryService from "../services/CategoryService";
+import ErrorService from "../services/ErrorService";
 import FlashcardService from "../services/FlashcardService";
 
 class FlashcardController {
@@ -26,6 +27,7 @@ class FlashcardController {
 
     try {
       let categoryId: number;
+
       if (category.isNew) {
         const newCategory = await CategoryService.create({
           name: category.name,
@@ -35,21 +37,20 @@ class FlashcardController {
             },
           },
         });
+
         categoryId = newCategory.id;
       } else {
         categoryId = category.id;
       }
 
-      if (categoryId) {
-        payload = {
-          ...payload,
-          category: {
-            connect: {
-              id: categoryId,
-            },
+      payload = {
+        ...payload,
+        category: {
+          connect: {
+            id: categoryId,
           },
-        };
-      }
+        },
+      };
 
       const flashcard = await FlashcardService.create(payload);
 
@@ -57,7 +58,8 @@ class FlashcardController {
         flashcard,
       });
     } catch (error) {
-      console.log({ error });
+      ErrorService.handleError(error);
+
       return response.status(400).json({
         message: "Could not create flashcard",
       });
@@ -72,7 +74,8 @@ class FlashcardController {
 
       return response.status(200).json({ flashcard });
     } catch (error) {
-      console.log({ error });
+      ErrorService.handleError(error);
+
       return response.status(404).json({
         message: "Could not retrieve flashcard",
       });
@@ -93,7 +96,8 @@ class FlashcardController {
 
       return response.status(200).json({ flashcards });
     } catch (error) {
-      console.log({ error });
+      ErrorService.handleError(error);
+
       return response.status(404).json({
         message: "Could not retrieve flashcards",
       });
@@ -126,7 +130,8 @@ class FlashcardController {
     try {
       flashcard = await FlashcardService.getRandom(userId, filters);
     } catch (error) {
-      console.log({ error });
+      ErrorService.handleError(error);
+
       return response.status(404).json({
         message: "Could not retrieve random flashcard",
       });
@@ -137,7 +142,8 @@ class FlashcardController {
         FlashcardService.incrementViews(flashcard.id);
       }
     } catch (error) {
-      console.log({ error });
+      ErrorService.handleError(error);
+
       return response.status(400).json({
         message: "Could not increase views",
       });
@@ -173,7 +179,8 @@ class FlashcardController {
 
       return response.status(200).json({ flashcard });
     } catch (error) {
-      console.log({ error });
+      ErrorService.handleError(error);
+
       return response.status(400).json({
         message: "Could not update flashcard",
       });
@@ -186,6 +193,8 @@ class FlashcardController {
       await FlashcardService.delete(flashcardId);
       return response.status(204).json();
     } catch (error) {
+      ErrorService.handleError(error);
+
       return response.status(400).json({
         message: "Could not delete flashcard",
       });
