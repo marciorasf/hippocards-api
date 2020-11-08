@@ -1,5 +1,6 @@
 import express from "express";
 
+import AuthenticationController from "./controllers/AuthController";
 import CategoryController from "./controllers/CategoryController";
 import FlashcardController from "./controllers/FlashcardController";
 import UserController from "./controllers/UserController";
@@ -8,8 +9,8 @@ import Auth from "./middlewares/AuthMiddleware";
 const routes = express.Router();
 
 routes.post("/user", UserController.create);
-routes.post("/authenticate", UserController.authenticate);
-routes.get("/recover-password", UserController.recoverPassword);
+routes.post("/authenticate", AuthenticationController.authenticate);
+routes.get("/recover-password", AuthenticationController.recoverPassword);
 
 routes.post("/flashcard", Auth, FlashcardController.create);
 routes.get("/flashcard", Auth, FlashcardController.getById);
