@@ -12,7 +12,7 @@
     "dev:resources": "docker-compose up",
     "prisma:rebuild": "npx prisma generate",
     "prisma:migrate": "yarn prisma migrate save --experimental && yarn prisma migrate up --experimental",
-    "db:clean": "ts-node ./src/database/deleteRecords.ts",
+    "db:clean": "ts-node ./src/database/clean.ts",
     "db:populate": "ts-node ./src/database/populate.ts"
   },
   "dependencies": {
