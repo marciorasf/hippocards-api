@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 
-import { UserAuth } from "../interfaces/UserInterface";
+import { UserAuth } from "../interfaces/AuthInterface";
+import AuthService from "../services/AuthService";
 import ErrorService from "../services/ErrorService";
 import MailService from "../services/MailService";
 import UserService from "../services/UserService";
@@ -12,7 +13,7 @@ class AuthenticationController {
     const payload: UserAuth = { email, password };
 
     try {
-      const { user, token } = await UserService.authenticate(payload);
+      const { user, token } = await AuthService.authenticate(payload);
 
       return response.status(200).json({ user, token });
     } catch (error) {
@@ -32,7 +33,7 @@ class AuthenticationController {
       return response.status(404).json({ message: "USER_NOT_FOUND" });
     }
 
-    const newPassword = UserService.generateRandomPassword();
+    const newPassword = AuthService.generateRandomPassword();
 
     try {
       await UserService.updatePassword({ email, password: newPassword });

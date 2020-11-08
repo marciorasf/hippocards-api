@@ -82,7 +82,7 @@ class FlashcardController {
     }
   }
 
-  public async index(request: AuthReq, response: Response) {
+  public async getAll(request: AuthReq, response: Response) {
     const { userId } = request;
 
     if (!userId) {
@@ -92,7 +92,7 @@ class FlashcardController {
     }
 
     try {
-      const flashcards = await FlashcardService.index(userId);
+      const flashcards = await FlashcardService.getAll(userId);
 
       return response.status(200).json({ flashcards });
     } catch (error) {

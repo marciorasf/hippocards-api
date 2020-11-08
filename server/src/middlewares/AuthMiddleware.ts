@@ -6,7 +6,7 @@ const secret = process.env.SECRET;
 // TODO extract here
 function verifyToken(request) {}
 
-export default function Auth(request: Request, response: Response, next: NextFunction) {
+export default function AuthMiddleware(request: Request, response: Response, next: NextFunction) {
   const token = request.headers["x-access-token"];
 
   if (!token) {

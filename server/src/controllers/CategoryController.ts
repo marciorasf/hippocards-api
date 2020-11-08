@@ -45,7 +45,7 @@ class CategoryController {
     }
 
     try {
-      const categories = await CategoryService.index(userId);
+      const categories = await CategoryService.getAll(userId);
 
       return response.status(200).json({ categories });
     } catch (error) {

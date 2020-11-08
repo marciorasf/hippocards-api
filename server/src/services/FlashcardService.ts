@@ -15,7 +15,7 @@ class FlashcardService {
     return prisma.flashcard.findOne({ where: { id: flashcardId } });
   }
 
-  public async index(userId: number) {
+  public async getAll(userId: number) {
     return prisma.flashcard.findMany({
       where: {
         userId,
