@@ -1,5 +1,4 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
-import { useHistory } from "react-router-dom";
 
 import { Button } from "@material-ui/core";
 
@@ -16,7 +15,6 @@ const ERRORS = {
 };
 
 export default function ForgotPassword() {
-  const history = useHistory();
   const [email, setEmail] = useState("");
   const [submitDisabled, setSubmitDisabled] = useState(false);
 
@@ -30,12 +28,8 @@ export default function ForgotPassword() {
     setSubmitDisabled(true);
 
     try {
-      await api.get("/recover-password", { params: { email } });
-      Notify.success("Email sent! You will be redirected to the login page.");
-
-      setTimeout(() => {
-        history.push("/login");
-      }, 3000);
+      await api.get("/forgot-password", { params: { email } });
+      Notify.success("Email sent!");
     } catch (error) {
       const errorCode = error?.response?.data?.message as "USER_NOT_FOUND";
       const errorMessage = ERRORS[errorCode];
@@ -53,9 +47,7 @@ export default function ForgotPassword() {
         <Divider height="3rem" />
 
         <Description>
-          An email with a new password will be sent to you.
-          <Divider height="0.5rem" />
-          You can change the password after the login.
+          An email with a link to change your password will be sent to you.
         </Description>
 
         <Divider height="2.0rem" />
@@ -66,6 +58,7 @@ export default function ForgotPassword() {
             label="Email"
             type="email"
             required
+            value={email}
             onChange={handleEmailChange}
           />
 
