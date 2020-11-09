@@ -21,6 +21,10 @@ class UserService {
     });
   }
 
+  public async getByEmail(email: string) {
+    return prisma.user.findOne({ where: { email } });
+  }
+
   public async updatePassword(user: UserAuth) {
     const hashedPassword = await bcrypt.hash(user.password, Number(process.env.SALT_ROUNDS));
     return prisma.user.update({

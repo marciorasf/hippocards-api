@@ -28,19 +28,28 @@ class AuthenticationController {
   public async recoverPassword(request: Request, response: Response) {
     const email = request.query.email as string;
 
-    const existsUser = await UserService.existsUserWithEmail(email);
-    if (!existsUser) {
-      return response.status(404).json({ message: "USER_NOT_FOUND" });
-    }
-
-    const newPassword = AuthService.generateRandomPassword();
-
     try {
-      await UserService.updatePassword({ email, password: newPassword });
+      const user = await UserService.getByEmail(email);
 
-      await MailService.sendRecoverPasswordEmail({ userEmail: email, newPassword });
+      if (!user) {
+        return response.status(404).json({ message: "USER_NOT_FOUND" });
+      }
 
-      return response.status(204).json({ message: "EMAIL_SENDED" });
+      const token = AuthService.generateRecoverPasswordToken();
+
+      AuthService.createUserToken({
+        token,
+        expiresIn: new Date(Date.now() + 3600000), // 1 hour
+        user: {
+          connect: {
+            id: user.id,
+          },
+        },
+      });
+
+      await MailService.sendRecoverPasswordEmail(email, token);
+
+      return response.status(204).json({ message: "EMAIL_SENT" });
     } catch (error) {
       ErrorService.handleError(error);
 

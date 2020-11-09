@@ -1,7 +1,8 @@
 import bcrypt from "bcrypt";
+import crypto from "crypto";
 import jwt from "jsonwebtoken";
 
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, UserTokenCreateInput } from "@prisma/client";
 
 import { UserAuth } from "../interfaces/AuthInterface";
 
@@ -35,17 +36,14 @@ class AuthService {
     });
   }
 
-  public generateRandomPassword() {
-    const passwordLength = 16;
-    const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    const charsetLength = charset.length;
+  generateRecoverPasswordToken() {
+    const buf = crypto.randomBytes(20);
+    const token = buf.toString("hex");
+    return token;
+  }
 
-    let password = "";
-    for (let i = 0; i < passwordLength; i += 1) {
-      password += charset.charAt(Math.floor(Math.random() * charsetLength));
-    }
-
-    return password;
+  createUserToken(data: UserTokenCreateInput) {
+    return prisma.userToken.create({ data });
   }
 }
 

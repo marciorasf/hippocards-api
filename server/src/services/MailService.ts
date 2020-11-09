@@ -12,19 +12,21 @@ class MailService {
     },
   });
 
-  private mountRecoverPasswordEmail({ userEmail, newPassword }) {
-    const email = {
+  private mountRecoverPasswordEmail(userEmail: string, token: string) {
+    const emailConfig = {
       from: process.env.EMAIL_USER,
       to: userEmail,
       subject: "Flashcards: Password recovery",
-      text: `Use this password to login into your account: ${newPassword}. You can change it after the login.`,
+      text: `http://localhost:3000/reset-password/${token}`,
     };
 
-    return email;
+    console.log(process.env.EMAIL_USER);
+
+    return emailConfig;
   }
 
-  public async sendRecoverPasswordEmail({ userEmail, newPassword }) {
-    return this.origin.sendMail(this.mountRecoverPasswordEmail({ userEmail, newPassword }));
+  public async sendRecoverPasswordEmail(userEmail: string, token: string) {
+    return this.origin.sendMail(this.mountRecoverPasswordEmail(userEmail, token));
   }
 }
 export default new MailService();
