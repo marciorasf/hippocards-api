@@ -13,7 +13,7 @@ function handleErrorProduction(error: Error, errorMessage: string) {
   }
 }
 
-export default function handleError(error: Error, errorMessage: string) {
+export default function handleError(error: Error, errorMessage?: string) {
   const errorMessageWithDefault =
     errorMessage === undefined ? "Something bad happened!" : errorMessage;
 
