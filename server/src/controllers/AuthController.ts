@@ -25,7 +25,7 @@ class AuthenticationController {
     }
   }
 
-  public async recoverPassword(request: Request, response: Response) {
+  public async forgotPassword(request: Request, response: Response) {
     const email = request.query.email as string;
 
     try {
@@ -47,7 +47,7 @@ class AuthenticationController {
         },
       });
 
-      await MailService.sendRecoverPasswordEmail(email, token);
+      await MailService.sendForgotPasswordEmail(email, token);
 
       return response.status(204).json({ message: "EMAIL_SENT" });
     } catch (error) {

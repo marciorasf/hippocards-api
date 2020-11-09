@@ -6,7 +6,7 @@ const router = Router();
 
 const authRoutes = [
   router.post("/authenticate", AuthController.authenticate),
-  router.get("/recover-password", AuthController.recoverPassword),
+  router.get("/forgot-password", AuthController.forgotPassword),
 ];
 
 export default authRoutes;
