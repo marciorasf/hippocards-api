@@ -6,8 +6,6 @@
       "request": "attach",
       "name": "Attach to Node",
       "restart": true,
-      "port": 8001,
-      "address": "localhost",
       "localRoot": "${workspaceFolder}",
       "sourceMapPathOverrides": {
         "/src/*": "${workspaceRoot}/*"
