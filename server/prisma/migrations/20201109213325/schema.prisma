@@ -1,6 +1,6 @@
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url = "***"
 }
 
 generator client {
@@ -15,12 +15,10 @@ model User {
   Category   Category[]
 }
 
-model UserToken {
-  id        Int       @id @default(autoincrement())
-  token     String
+model UserTokens {
+  id        Int @id @default(autoincrement())
+  token     Int
   expiresIn DateTime
-  user      User      @relation(fields: [userId], references: [id])
-  userId    Int
 }
 
 model Flashcard {
