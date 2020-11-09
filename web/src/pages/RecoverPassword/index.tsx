@@ -31,7 +31,7 @@ export default function Login() {
 
     try {
       await api.get("/recover-password", { params: { email } });
-      Notify.success("Email sended! We will redirect you to the login page.");
+      Notify.success("Email send! You will be redirected to the login page.");
 
       setTimeout(() => {
         history.push("/login");
