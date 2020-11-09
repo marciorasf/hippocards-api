@@ -15,7 +15,7 @@ const ERRORS = {
   USER_NOT_FOUND: "User not found!",
 };
 
-export default function Login() {
+export default function ForgotPassword() {
   const history = useHistory();
   const [email, setEmail] = useState("");
   const [submitDisabled, setSubmitDisabled] = useState(false);

@@ -79,7 +79,7 @@ export default function Login() {
           <Divider height="1rem" />
 
           <LinksContainer>
-            <MuiLink component={Link} to="/recover-password" color="secondary">
+            <MuiLink component={Link} to="/forgot-password" color="secondary">
               Forgot password?
             </MuiLink>
             <MuiLink component={Link} to="/register" color="secondary">
