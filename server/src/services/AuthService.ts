@@ -22,14 +22,14 @@ class AuthService {
           id: user.id,
           email: user.email,
         },
-        token: this.generateToken(user.id),
+        token: this.generateJwt(user.id),
       };
     }
 
     throw new Error("WRONG_PASSWORD");
   }
 
-  private generateToken(userId: number) {
+  generateJwt(userId: number) {
     return jwt.sign({ userId }, process.env.SECRET, {
       expiresIn: 86400,
     });
