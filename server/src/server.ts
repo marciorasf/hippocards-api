@@ -15,14 +15,14 @@ app.use(function (request, response, next) {
   next();
 });
 
-const baseDir = `${__dirname}/react/`;
-
-app.use(express.static(`${baseDir}`));
-
 app.use("/api", routes);
 
 // Get of static files should be the last
 if (process.env.NODE_ENV === "production") {
+  const baseDir = `${__dirname}/react/`;
+
+  app.use(express.static(`${baseDir}`));
+
   app.get("/*", (request, response) => response.sendFile("index.html", { root: baseDir }));
 }
 
