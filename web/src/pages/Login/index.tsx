@@ -5,6 +5,7 @@ import { Button, Link as MuiLink } from "@material-ui/core";
 
 import { PageContent, MainContainer } from "../../assets/styles/global";
 import CustomInput from "../../components/CustomInput";
+import CustomPasswordInput from "../../components/CustomPasswordInput";
 import Divider from "../../components/Divider";
 import AuthService from "../../services/AuthService";
 import handleError from "../../services/ErrorHandler";
@@ -68,10 +69,9 @@ export default function Login() {
 
           <Divider height="2rem" />
 
-          <CustomInput
+          <CustomPasswordInput
             name="password"
             label="Password"
-            type="password"
             required
             onChange={handleInputChange}
           />

@@ -5,6 +5,7 @@ import { Button, Link as MuiLink } from "@material-ui/core";
 
 import { PageContent, MainContainer } from "../../assets/styles/global";
 import CustomInput from "../../components/CustomInput";
+import CustomPasswordInput from "../../components/CustomPasswordInput";
 import Divider from "../../components/Divider";
 import { Notify } from "../../hooks/Notify";
 import api from "../../services/api";
@@ -67,14 +68,13 @@ export default function Register() {
 
           <Divider height="2rem" />
 
-          <CustomInput
+          <CustomPasswordInput
             name="password"
             label="Password"
-            type="password"
             minLength={8}
             onChange={handleInputChange}
             required
-          ></CustomInput>
+          ></CustomPasswordInput>
 
           <Divider height="1rem" />
 
