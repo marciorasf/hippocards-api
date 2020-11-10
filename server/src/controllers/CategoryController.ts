@@ -7,7 +7,7 @@ import CategoryService from "../services/CategoryService";
 import ErrorService from "../services/ErrorService";
 
 class CategoryController {
-  public async create(request: AuthReq, response: Response) {
+  async create(request: AuthReq, response: Response) {
     const { userId } = request;
     const { name } = request.body;
 
@@ -35,7 +35,7 @@ class CategoryController {
     }
   }
 
-  public async getAll(request: AuthReq, response: Response) {
+  async getAll(request: AuthReq, response: Response) {
     const { userId } = request;
 
     if (!userId) {
@@ -57,7 +57,7 @@ class CategoryController {
     }
   }
 
-  public async update(request: AuthReq, response: Response) {
+  async update(request: AuthReq, response: Response) {
     const { name } = request.body;
     const categoryId = Number(request.query.categoryId);
 
@@ -78,7 +78,7 @@ class CategoryController {
     }
   }
 
-  public async delete(request: AuthReq, response: Response) {
+  async delete(request: AuthReq, response: Response) {
     const categoryId = Number(request.query.categoryId);
 
     try {

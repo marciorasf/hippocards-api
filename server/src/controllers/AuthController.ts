@@ -5,7 +5,7 @@ import AuthService from "../services/AuthService";
 import ErrorService from "../services/ErrorService";
 
 class AuthenticationController {
-  public async authenticate(request: Request, response: Response) {
+  async authenticate(request: Request, response: Response) {
     const { email, password } = request.body;
 
     const payload: UserAuth = { email, password };

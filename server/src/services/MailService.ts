@@ -12,7 +12,7 @@ class MailService {
     },
   });
 
-  private mountForgotPasswordEmail(userEmail: string, token: string) {
+  mountForgotPasswordEmail(userEmail: string, token: string) {
     const emailConfig = {
       from: process.env.EMAIL_USER,
       to: userEmail,
@@ -28,7 +28,7 @@ If you did not request this, please ignore this email.`,
     return emailConfig;
   }
 
-  public async sendForgotPasswordEmail(userEmail: string, token: string) {
+  async sendForgotPasswordEmail(userEmail: string, token: string) {
     return this.origin.sendMail(this.mountForgotPasswordEmail(userEmail, token));
   }
 }

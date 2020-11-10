@@ -8,7 +8,7 @@ import UserService from "../services/UserService";
 import UserTokenService from "../services/UserTokenService";
 
 class UserController {
-  public async create(request: Request, response: Response) {
+  async create(request: Request, response: Response) {
     const { email, password } = request.body;
 
     const payload: UserCreateInput = { email, password };
@@ -40,7 +40,7 @@ class UserController {
     }
   }
 
-  public async forgotPassword(request: Request, response: Response) {
+  async forgotPassword(request: Request, response: Response) {
     const email = request.query.email as string;
 
     try {

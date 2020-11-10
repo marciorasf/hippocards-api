@@ -3,13 +3,13 @@ import { PrismaClient, CategoryCreateInput, CategoryUpdateInput } from "@prisma/
 const prisma = new PrismaClient();
 
 class CategoryService {
-  public async create(data: CategoryCreateInput) {
+  async create(data: CategoryCreateInput) {
     return prisma.category.create({
       data,
     });
   }
 
-  public async getAll(userId: number) {
+  async getAll(userId: number) {
     return prisma.category.findMany({
       where: {
         userId,
@@ -17,14 +17,14 @@ class CategoryService {
     });
   }
 
-  public async update(categoryId: number, data: CategoryUpdateInput) {
+  async update(categoryId: number, data: CategoryUpdateInput) {
     return prisma.category.update({
       where: { id: categoryId },
       data,
     });
   }
 
-  public async delete(categoryId: number) {
+  async delete(categoryId: number) {
     return prisma.category.delete({
       where: {
         id: categoryId,

@@ -8,7 +8,7 @@ import { UserAuth } from "../interfaces/AuthInterface";
 const prisma = new PrismaClient();
 
 class AuthService {
-  public async authenticate({ email, password }: UserAuth) {
+  async authenticate({ email, password }: UserAuth) {
     const user = await prisma.user.findOne({ where: { email } });
 
     if (!user) {

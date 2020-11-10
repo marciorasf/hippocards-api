@@ -8,7 +8,7 @@ import ErrorService from "../services/ErrorService";
 import FlashcardService from "../services/FlashcardService";
 
 class FlashcardController {
-  public async create(request: AuthReq, response: Response) {
+  async create(request: AuthReq, response: Response) {
     const { userId } = request;
     const { question, answer, category } = request.body;
 
@@ -66,7 +66,7 @@ class FlashcardController {
     }
   }
 
-  public async getById(request: AuthReq, response: Response) {
+  async getById(request: AuthReq, response: Response) {
     const flashcardId = Number(request.query.flashcardId);
 
     try {
@@ -82,7 +82,7 @@ class FlashcardController {
     }
   }
 
-  public async getAll(request: AuthReq, response: Response) {
+  async getAll(request: AuthReq, response: Response) {
     const { userId } = request;
 
     if (!userId) {
@@ -104,7 +104,7 @@ class FlashcardController {
     }
   }
 
-  public async getRandom(request: AuthReq, response: Response) {
+  async getRandom(request: AuthReq, response: Response) {
     const { userId, query } = request;
 
     if (!userId) {
@@ -152,7 +152,7 @@ class FlashcardController {
     return response.status(200).json({ flashcard });
   }
 
-  public async update(request: AuthReq, response: Response) {
+  async update(request: AuthReq, response: Response) {
     const { question, answer, isBookmarked, isKnown, categoryId } = request.body;
     const flashcardId = Number(request.query.flashcardId);
 
@@ -187,7 +187,7 @@ class FlashcardController {
     }
   }
 
-  public async delete(request: AuthReq, response: Response) {
+  async delete(request: AuthReq, response: Response) {
     const flashcardId = Number(request.query.flashcardId);
     try {
       await FlashcardService.delete(flashcardId);

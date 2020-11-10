@@ -5,17 +5,17 @@ import { FlashcardFilters } from "../interfaces/FlashcardInterface";
 const prisma = new PrismaClient();
 
 class FlashcardService {
-  public async create(data: FlashcardCreateInput) {
+  async create(data: FlashcardCreateInput) {
     return prisma.flashcard.create({
       data,
     });
   }
 
-  public async getById(flashcardId: number) {
+  async getById(flashcardId: number) {
     return prisma.flashcard.findOne({ where: { id: flashcardId } });
   }
 
-  public async getAll(userId: number) {
+  async getAll(userId: number) {
     return prisma.flashcard.findMany({
       where: {
         userId,
@@ -23,7 +23,7 @@ class FlashcardService {
     });
   }
 
-  public async getRandom(userId: number, filters: FlashcardFilters) {
+  async getRandom(userId: number, filters: FlashcardFilters) {
     const nFlashcards = await prisma.flashcard.count({
       where: {
         userId,
@@ -48,14 +48,14 @@ class FlashcardService {
     return flashcard;
   }
 
-  public async update(flashcardId: number, data: FlashcardUpdateInput) {
+  async update(flashcardId: number, data: FlashcardUpdateInput) {
     return prisma.flashcard.update({
       where: { id: flashcardId },
       data,
     });
   }
 
-  public async incrementViews(flashcardId: number) {
+  async incrementViews(flashcardId: number) {
     const flashcard = await prisma.flashcard.findOne({
       where: {
         id: flashcardId,
@@ -75,7 +75,7 @@ class FlashcardService {
     });
   }
 
-  public async delete(flashcardId: number) {
+  async delete(flashcardId: number) {
     return prisma.flashcard.delete({
       where: {
         id: flashcardId,
