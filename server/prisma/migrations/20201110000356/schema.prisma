@@ -1,6 +1,6 @@
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url = "***"
 }
 
 generator client {
@@ -18,7 +18,7 @@ model User {
 model UserToken {
   id        Int       @id @default(autoincrement())
   token     String    @unique
-  expiresIn String
+  expiresIn DateTime
   User      User      @relation(fields: [userId], references: [id])
   userId    Int
 }
