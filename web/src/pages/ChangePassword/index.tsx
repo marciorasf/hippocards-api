@@ -26,7 +26,7 @@ export default function ChangePassword(props: any) {
     setSubmitDisabled(true);
 
     try {
-      await api.put("/change-password", { token, newPassword });
+      await api.put("/reset-password", { token, newPassword });
       Notify.success("Password changed!");
     } catch (error) {
       handleError(error);
