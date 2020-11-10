@@ -1,15 +1,13 @@
-FROM node:alpine
+FROM node:12-alpine
 
-WORKDIR /usr/app
+WORKDIR /source/flashcards-api
 
-COPY package*.json ./
-RUN npm install
+COPY package.json /source/flashcards-api
+
+RUN cd /source/flashcards-api && yarn --only=production
 
 COPY . .
 
-RUN npm run db:migrate
-RUN npm run db:populate
-
 EXPOSE 3000
 
-CMD ["npm", "run", "dev"]
+CMD ["yarn", "start"]

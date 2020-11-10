@@ -6,13 +6,13 @@
   "license": "MIT",
   "scripts": {
     "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files --no-copy-ignored",
-    "production:move": "cp -t ../production -r src prisma .eslintrc.json .eslintignore .env babel.config.js tsconfig.json package.json yarn.lock ",
     "start": "node -r dotenv/config dist/server.js",
     "dev": "NODE_ENV='development' PORT=3333 ts-node-dev --transpile-only --inspect -r dotenv/config --respawn --ignore-watch node_modules --no-notify ./src/server.ts",
     "dev:resources": "docker-compose up",
     "prisma:migrate": "npx prisma generate && yarn prisma migrate save --experimental && yarn prisma migrate up --experimental",
     "db:clean": "ts-node ./src/database/clean.ts",
-    "db:populate": "ts-node ./src/database/populate.ts"
+    "db:populate": "ts-node ./src/database/populate.ts",
+    "lint": "npx eslint src --fix"
   },
   "dependencies": {
     "@prisma/client": "^2.4.1",

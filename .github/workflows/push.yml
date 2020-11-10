@@ -1,0 +1,14 @@
+on: push
+name: yarn build and lint
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: yarn
+        uses: actions/yarn@master
+      - name: yarn lint
+        uses: actions/yarn@master
+        with:
+          args: lint
