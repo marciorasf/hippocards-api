@@ -1,4 +1,5 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
+import { useHistory } from "react-router-dom";
 
 import { Button } from "@material-ui/core";
 
@@ -12,6 +13,8 @@ import { Title } from "./styles";
 
 export default function ChangePassword(props: any) {
   const { token } = props.match.params;
+
+  const history = useHistory();
 
   const [newPassword, setNewPassword] = useState("");
   const [submitDisabled, setSubmitDisabled] = useState(false);
@@ -27,7 +30,12 @@ export default function ChangePassword(props: any) {
 
     try {
       await api.put("/reset-password", { token, newPassword });
-      Notify.success("Password changed!");
+
+      Notify.success("Password changed! You will be redirect to login page.");
+
+      setTimeout(() => {
+        history.push("/login");
+      }, 2000);
     } catch (error) {
       handleError(error);
     } finally {
