@@ -7,6 +7,7 @@ import CategoryService from "../services/CategoryService";
 import ErrorService from "../services/ErrorService";
 import FlashcardService from "../services/FlashcardService";
 import ResponseService from "../services/ResponseService";
+import convertFilterValue from "../utils/convertFilterValue";
 
 class FlashcardController {
   async create(request: AuthRequest, response: Response) {
@@ -105,9 +106,9 @@ class FlashcardController {
     let flashcard: Flashcard;
 
     try {
-      const isBookmarked = query?.isBookmarked === "true";
+      const isBookmarked = convertFilterValue(query?.isBookmarked as string);
 
-      const isKnown = query?.isKnown === "true";
+      const isKnown = convertFilterValue(query?.isKnown as string);
 
       const categoryId = query?.categoryId && Number(query.categoryId);
 
@@ -117,7 +118,7 @@ class FlashcardController {
         categoryId,
       };
 
-      const currentFlashcardId = Number(query?.currentFlashcardId);
+      const currentFlashcardId = query?.currentFlashcardId ? +query?.currentFlashcardId : undefined;
 
       flashcard = await FlashcardService.getRandom(userId, currentFlashcardId, filters);
 

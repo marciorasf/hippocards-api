@@ -27,13 +27,14 @@ class FlashcardService {
     const nFlashcards = await prisma.flashcard.count({
       where: {
         userId,
+        id: { not: currentFlashcardId },
         isBookmarked: filters.isBookmarked,
         isKnown: filters.isKnown,
         categoryId: filters.categoryId,
       },
     });
 
-    if (nFlashcards <= 1) {
+    if (nFlashcards < 1) {
       return null;
     }
 
