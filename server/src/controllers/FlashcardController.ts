@@ -102,22 +102,29 @@ class FlashcardController {
       return ResponseService.badRequest(response, { message: "MISSING_USER_ID" });
     }
 
-    const isBookmarked = query?.isBookmarked === "true";
-
-    const isKnown = query?.isKnown === "true";
-
-    const categoryId = query?.categoryId && Number(query.categoryId);
-
-    const filters = {
-      isBookmarked,
-      isKnown,
-      categoryId,
-    };
-
     let flashcard: Flashcard;
 
     try {
-      flashcard = await FlashcardService.getRandom(userId, filters);
+      const isBookmarked = query?.isBookmarked === "true";
+
+      const isKnown = query?.isKnown === "true";
+
+      const categoryId = query?.categoryId && Number(query.categoryId);
+
+      const filters = {
+        isBookmarked,
+        isKnown,
+        categoryId,
+      };
+
+      const currentFlashcardId = Number(query?.currentFlashcardId);
+
+      flashcard = await FlashcardService.getRandom(userId, currentFlashcardId, filters);
+
+      // There is no flashcard or at least not a different one
+      if (!flashcard) {
+        return ResponseService.notFound(response);
+      }
     } catch (error) {
       ErrorService.handleError(error);
 

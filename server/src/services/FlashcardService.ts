@@ -23,7 +23,7 @@ class FlashcardService {
     });
   }
 
-  async getRandom(userId: number, filters: FlashcardFilters) {
+  async getRandom(userId: number, currentFlashcardId: number, filters: FlashcardFilters) {
     const nFlashcards = await prisma.flashcard.count({
       where: {
         userId,
@@ -33,6 +33,10 @@ class FlashcardService {
       },
     });
 
+    if (nFlashcards <= 1) {
+      return null;
+    }
+
     const skip = Math.floor(Math.random() * nFlashcards);
 
     const [flashcard] = await prisma.flashcard.findMany({
@@ -40,6 +44,7 @@ class FlashcardService {
       skip,
       where: {
         userId,
+        id: { not: currentFlashcardId },
         isBookmarked: filters.isBookmarked,
         isKnown: filters.isKnown,
       },

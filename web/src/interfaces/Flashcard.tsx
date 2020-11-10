@@ -1,10 +1,10 @@
 export interface Flashcard {
-  id: number;
+  id: number | null;
   question: string;
   answer: string;
   isBookmarked: boolean;
   isKnown: boolean;
-  views: number;
+  views: number | null;
 }
 
 export interface FlashcardCreateInput {

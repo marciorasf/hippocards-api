@@ -38,12 +38,12 @@ import {
 } from "./styles";
 
 const blankCard: Flashcard = {
-  id: 0,
+  id: null,
   question: "",
   answer: "",
   isBookmarked: false,
   isKnown: false,
-  views: 0,
+  views: null,
 };
 
 const initialFilters = {
@@ -65,20 +65,31 @@ export default function Study() {
     const response = await api.get("/flashcard/random", {
       headers: AuthService.getAuthHeader(),
       params: {
+        currentFlashcardId: card.id,
         ...filters,
       },
     });
 
-    return response.data.flashcard;
+    return response?.data?.flashcard;
   }
 
   async function changeCard() {
     try {
       const randomFlashcard = await getRandomCard();
+
       setIsShowingQuestion(true);
       setCard(randomFlashcard);
     } catch (error) {
-      handleError(error, "Could not get another flashcard.");
+      if (error.response.status === 404) {
+        if (card?.id) {
+          Notify.info("There is no more flashcards using these filters!");
+        } else {
+          setCard(blankCard);
+          Notify.info("There is no flashcards using these filters!");
+        }
+      } else {
+        handleError(error, "Could not get another flashcard.");
+      }
     }
   }
 
