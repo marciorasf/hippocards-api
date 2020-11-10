@@ -17,7 +17,12 @@ class MailService {
       from: process.env.EMAIL_USER,
       to: userEmail,
       subject: "Flashcards: Password recovery",
-      text: `http://localhost:3000/change-password/${token}`,
+      text: `
+To change your password follow the link below, or paste it into your browser.
+
+http://${process.env.FRONT_URL}/change-password/${token}
+
+If you did not request this, please ignore this email.`,
     };
 
     return emailConfig;
