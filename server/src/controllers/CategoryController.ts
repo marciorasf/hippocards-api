@@ -2,13 +2,13 @@ import { Response } from "express";
 
 import { CategoryCreateInput, CategoryUpdateInput } from "@prisma/client";
 
-import { AuthReq } from "../interfaces/AuthInterface";
+import { AuthRequest } from "../interfaces/AuthInterface";
 import CategoryService from "../services/CategoryService";
 import ErrorService from "../services/ErrorService";
 import ResponseService from "../services/ResponseService";
 
 class CategoryController {
-  async create(request: AuthReq, response: Response) {
+  async create(request: AuthRequest, response: Response) {
     const { userId } = request;
     const { name } = request.body;
 
@@ -36,7 +36,7 @@ class CategoryController {
     }
   }
 
-  async getAll(request: AuthReq, response: Response) {
+  async getAll(request: AuthRequest, response: Response) {
     const { userId } = request;
 
     if (!userId) {
@@ -58,7 +58,7 @@ class CategoryController {
     }
   }
 
-  async update(request: AuthReq, response: Response) {
+  async update(request: AuthRequest, response: Response) {
     const { name } = request.body;
     const categoryId = Number(request.query.categoryId);
 
@@ -79,7 +79,7 @@ class CategoryController {
     }
   }
 
-  async delete(request: AuthReq, response: Response) {
+  async delete(request: AuthRequest, response: Response) {
     const categoryId = Number(request.query.categoryId);
 
     try {

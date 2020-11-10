@@ -2,14 +2,14 @@ import { Response } from "express";
 
 import { FlashcardCreateInput, FlashcardUpdateInput, Flashcard } from "@prisma/client";
 
-import { AuthReq } from "../interfaces/AuthInterface";
+import { AuthRequest } from "../interfaces/AuthInterface";
 import CategoryService from "../services/CategoryService";
 import ErrorService from "../services/ErrorService";
 import FlashcardService from "../services/FlashcardService";
 import ResponseService from "../services/ResponseService";
 
 class FlashcardController {
-  async create(request: AuthReq, response: Response) {
+  async create(request: AuthRequest, response: Response) {
     const { userId } = request;
     const { question, answer, category } = request.body;
 
@@ -63,7 +63,7 @@ class FlashcardController {
     }
   }
 
-  async getById(request: AuthReq, response: Response) {
+  async getById(request: AuthRequest, response: Response) {
     const flashcardId = Number(request.query.flashcardId);
 
     try {
@@ -77,7 +77,7 @@ class FlashcardController {
     }
   }
 
-  async getAll(request: AuthReq, response: Response) {
+  async getAll(request: AuthRequest, response: Response) {
     const { userId } = request;
 
     if (!userId) {
@@ -95,7 +95,7 @@ class FlashcardController {
     }
   }
 
-  async getRandom(request: AuthReq, response: Response) {
+  async getRandom(request: AuthRequest, response: Response) {
     const { userId, query } = request;
 
     if (!userId) {
@@ -137,7 +137,7 @@ class FlashcardController {
     }
   }
 
-  async update(request: AuthReq, response: Response) {
+  async update(request: AuthRequest, response: Response) {
     const { question, answer, isBookmarked, isKnown, categoryId } = request.body;
     const flashcardId = Number(request.query.flashcardId);
 
@@ -170,7 +170,7 @@ class FlashcardController {
     }
   }
 
-  async delete(request: AuthReq, response: Response) {
+  async delete(request: AuthRequest, response: Response) {
     const flashcardId = Number(request.query.flashcardId);
     try {
       await FlashcardService.delete(flashcardId);

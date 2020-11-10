@@ -1,11 +1,10 @@
 import { Request } from "express";
 
-import { User } from "./UserInterface";
-
-export interface AuthReq extends Request {
+export interface AuthRequest extends Request {
   userId: number;
 }
 
-export interface UserAuth extends User {
+export interface UserAuth {
+  email: string;
   password: string;
 }
