@@ -49,23 +49,13 @@ class UserController {
         return ResponseService.notFound(response, { message: "USER_NOT_FOUND" });
       }
 
-      const token = UserTokenService.generateUserTokenToken();
-
-      const userToken = UserTokenService.createUserToken({
-        token,
-        expiresIn: String(Date.now() + 3600000), // 1 hour
-        User: {
-          connect: {
-            id: user.id,
-          },
-        },
-      });
+      const userToken = await UserTokenService.createForgotPasswordUserToken(user.id);
 
       if (!userToken) {
         return ResponseService.internalServerError(response, { message: "TOKEN_NOT_CREATED" });
       }
 
-      await MailService.sendForgotPasswordEmail(email, token);
+      await MailService.sendForgotPasswordEmail(email, userToken.token);
 
       return ResponseService.noContent(response);
     } catch (error) {
