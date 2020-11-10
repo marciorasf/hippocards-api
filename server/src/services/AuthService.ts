@@ -42,8 +42,18 @@ class AuthService {
     return token;
   }
 
-  createUserToken(data: UserTokenCreateInput) {
+  async createUserToken(data: UserTokenCreateInput) {
     return prisma.userToken.create({ data });
+  }
+
+  async getUserByUserToken(token: string) {
+    const userToken = await prisma.userToken.findOne({ where: { token }, include: { User: {} } });
+
+    if (!userToken || +userToken?.expiresIn < Date.now()) {
+      return null;
+    }
+
+    return userToken.User;
   }
 }
 

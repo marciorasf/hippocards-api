@@ -37,15 +37,19 @@ class AuthenticationController {
 
       const token = AuthService.generateRecoverPasswordToken();
 
-      AuthService.createUserToken({
+      const userToken = AuthService.createUserToken({
         token,
-        expiresIn: new Date(Date.now() + 3600000), // 1 hour
-        user: {
+        expiresIn: String(Date.now() + 3600000), // 1 hour
+        User: {
           connect: {
             id: user.id,
           },
         },
       });
+
+      if (!userToken) {
+        return response.status(400).json({ message: "TOKEN_NOT_CREATED" });
+      }
 
       await MailService.sendForgotPasswordEmail(email, token);
 

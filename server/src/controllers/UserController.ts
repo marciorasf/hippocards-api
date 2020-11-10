@@ -25,6 +25,18 @@ class UserController {
       });
     }
   }
+
+  async updatePassword(request: Request, response: Response) {
+    const { newPassword } = request.body;
+    const { user } = request;
+
+    try {
+      await UserService.updatePassword(user.id, newPassword);
+      return response.status(200).json({ message: "ok" });
+    } catch (error) {
+      return response.status(400).json({ message: "not ok" });
+    }
+  }
 }
 
 export default new UserController();

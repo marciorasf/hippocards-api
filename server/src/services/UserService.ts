@@ -25,14 +25,14 @@ class UserService {
     return prisma.user.findOne({ where: { email } });
   }
 
-  public async updatePassword(user: UserAuth) {
-    const hashedPassword = await bcrypt.hash(user.password, Number(process.env.SALT_ROUNDS));
+  public async updatePassword(id: number, newPassword: string) {
+    const hashedPassword = await bcrypt.hash(newPassword, Number(process.env.SALT_ROUNDS));
     return prisma.user.update({
       data: {
         password: hashedPassword,
       },
       where: {
-        email: user.email,
+        id,
       },
     });
   }
