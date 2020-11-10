@@ -7,6 +7,7 @@ const router = Router();
 
 const userRoutes = [
   router.post("/user", UserController.create),
+  router.get("/forgot-password", UserController.forgotPassword),
   router.put("/reset-password", UserTokenMiddleware, UserController.updatePassword),
 ];
 

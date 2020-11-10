@@ -2,8 +2,6 @@ import bcrypt from "bcrypt";
 
 import { PrismaClient, UserCreateInput } from "@prisma/client";
 
-import { UserAuth } from "../interfaces/AuthInterface";
-
 const prisma = new PrismaClient();
 
 class UserService {

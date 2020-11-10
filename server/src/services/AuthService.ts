@@ -1,8 +1,7 @@
 import bcrypt from "bcrypt";
-import crypto from "crypto";
 import jwt from "jsonwebtoken";
 
-import { PrismaClient, UserTokenCreateInput } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 
 import { UserAuth } from "../interfaces/AuthInterface";
 
@@ -34,26 +33,6 @@ class AuthService {
     return jwt.sign({ userId }, process.env.SECRET, {
       expiresIn: 86400,
     });
-  }
-
-  generateRecoverPasswordToken() {
-    const buf = crypto.randomBytes(20);
-    const token = buf.toString("hex");
-    return token;
-  }
-
-  async createUserToken(data: UserTokenCreateInput) {
-    return prisma.userToken.create({ data });
-  }
-
-  async getUserByUserToken(token: string) {
-    const userToken = await prisma.userToken.findOne({ where: { token }, include: { User: {} } });
-
-    if (!userToken || +userToken?.expiresIn < Date.now()) {
-      return null;
-    }
-
-    return userToken.User;
   }
 }
 

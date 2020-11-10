@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 
-import AuthService from "../services/AuthService";
 import ErrorService from "../services/ErrorService";
+import UserTokenService from "../services/UserTokenService";
 
 export default async function UserTokenMiddleware(
   request: Request,
@@ -11,7 +11,7 @@ export default async function UserTokenMiddleware(
   const { token } = request.body;
 
   try {
-    const user = await AuthService.getUserByUserToken(token);
+    const user = await UserTokenService.getUserByUserToken(token);
 
     if (user) {
       request.user = user;
