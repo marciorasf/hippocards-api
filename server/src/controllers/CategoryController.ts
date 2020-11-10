@@ -5,6 +5,7 @@ import { CategoryCreateInput, CategoryUpdateInput } from "@prisma/client";
 import { AuthReq } from "../interfaces/AuthInterface";
 import CategoryService from "../services/CategoryService";
 import ErrorService from "../services/ErrorService";
+import ResponseService from "../services/ResponseService";
 
 class CategoryController {
   async create(request: AuthReq, response: Response) {
@@ -23,15 +24,15 @@ class CategoryController {
     try {
       const category = await CategoryService.create(payload);
 
-      return response.status(201).json({
-        category,
-      });
+      if (!category) {
+        throw new Error();
+      }
+
+      return ResponseService.created(response, { category });
     } catch (error) {
       ErrorService.handleError(error);
 
-      return response.status(400).json({
-        message: "COULD_NOT_CREATE",
-      });
+      return ResponseService.internalServerError(response, { message: "CATEGORY_NOT_CREATED" });
     }
   }
 
@@ -47,12 +48,12 @@ class CategoryController {
     try {
       const categories = await CategoryService.getAll(userId);
 
-      return response.status(200).json({ categories });
+      return ResponseService.ok(response, { categories });
     } catch (error) {
       ErrorService.handleError(error);
 
-      return response.status(404).json({
-        message: "COLUD_NOT_GET",
+      return ResponseService.internalServerError(response, {
+        message: "CATEGORIES_NOT_GOT",
       });
     }
   }
@@ -68,12 +69,12 @@ class CategoryController {
     try {
       const category = await CategoryService.update(categoryId, payload);
 
-      return response.status(200).json({ category });
+      return ResponseService.ok(response, { category });
     } catch (error) {
       ErrorService.handleError(error);
 
-      return response.status(400).json({
-        message: "COULD_NOT_UPDATE",
+      return ResponseService.internalServerError(response, {
+        message: "CATEGORY_NOT_UPDATED",
       });
     }
   }
@@ -84,13 +85,11 @@ class CategoryController {
     try {
       await CategoryService.delete(categoryId);
 
-      return response.status(200).json();
+      return ResponseService.noContent(response);
     } catch (error) {
       ErrorService.handleError(error);
 
-      return response.status(400).json({
-        message: "COULD_NOT_DELETE",
-      });
+      return ResponseService.internalServerError(response, { message: "CATEGORY_NOT_DELETED" });
     }
   }
 }

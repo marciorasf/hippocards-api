@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 
 import ErrorService from "../services/ErrorService";
+import ResponseService from "../services/ResponseService";
 import UserTokenService from "../services/UserTokenService";
 
 export default async function UserTokenMiddleware(
@@ -17,14 +18,11 @@ export default async function UserTokenMiddleware(
       request.user = user;
       next();
     } else {
-      return response.status(401).json({
-        message: "INVALID_TOKEN",
-      });
+      return ResponseService.badRequest(response, { message: "INVALID_TOKEN" });
     }
   } catch (error) {
     ErrorService.handleError(error);
-    return response.status(401).json({
-      message: "INTERNAL_ERROR",
-    });
+
+    return ResponseService.internalServerError(response, { error });
   }
 }

@@ -1,6 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
+import ResponseService from "../services/ResponseService";
+
 const secret = process.env.SECRET;
 
 // TODO extract here
@@ -10,17 +12,14 @@ export default function AuthMiddleware(request: Request, response: Response, nex
   const token = request.headers["x-access-token"];
 
   if (!token) {
-    return response.status(403).json({
-      message: "MISSING_TOKEN",
-    });
+    return ResponseService.badRequest(response, { message: "MISSING_TOKEN" });
   }
 
   jwt.verify(token, secret, (err, decoded) => {
     if (err) {
-      return response.status(401).json({
-        message: "Unauthorized!",
-      });
+      return ResponseService.unauthorized(response);
     }
+
     request.userId = decoded.userId;
     next();
   });

@@ -4,6 +4,7 @@ import { UserCreateInput } from "@prisma/client";
 
 import ErrorService from "../services/ErrorService";
 import MailService from "../services/MailService";
+import ResponseService from "../services/ResponseService";
 import UserService from "../services/UserService";
 import UserTokenService from "../services/UserTokenService";
 
@@ -16,13 +17,11 @@ class UserController {
     try {
       const user = await UserService.create(payload);
 
-      return response.status(201).json({
-        userId: user.id,
-      });
+      return ResponseService.created(response, { userId: user.id });
     } catch (error) {
       ErrorService.handleError(error);
 
-      return response.status(400).json({
+      return ResponseService.badRequest(response, {
         message: error.code === "P2002" ? "EMAIL_IN_USE" : "ERROR",
       });
     }
@@ -34,9 +33,9 @@ class UserController {
 
     try {
       await UserService.updatePassword(user.id, newPassword);
-      return response.status(200).json({ message: "ok" });
+      return ResponseService.noContent(response);
     } catch (error) {
-      return response.status(400).json({ message: "not ok" });
+      return ResponseService.badRequest(response, { message: "PASSWORD_NOT_UPDATED" });
     }
   }
 
@@ -47,7 +46,7 @@ class UserController {
       const user = await UserService.getByEmail(email);
 
       if (!user) {
-        return response.status(404).json({ message: "USER_NOT_FOUND" });
+        return ResponseService.notFound(response, { message: "USER_NOT_FOUND" });
       }
 
       const token = UserTokenService.generateUserTokenToken();
@@ -63,16 +62,16 @@ class UserController {
       });
 
       if (!userToken) {
-        return response.status(400).json({ message: "TOKEN_NOT_CREATED" });
+        return ResponseService.internalServerError(response, { message: "TOKEN_NOT_CREATED" });
       }
 
       await MailService.sendForgotPasswordEmail(email, token);
 
-      return response.status(204).json({ message: "EMAIL_SENT" });
+      return ResponseService.noContent(response);
     } catch (error) {
       ErrorService.handleError(error);
 
-      return response.status(400).json({ message: "INTERNAL_ERROR" });
+      return ResponseService.internalServerError(response, { message: "ERROR" });
     }
   }
 }

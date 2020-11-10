@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import { UserAuth } from "../interfaces/AuthInterface";
 import AuthService from "../services/AuthService";
 import ErrorService from "../services/ErrorService";
+import ResponseService from "../services/ResponseService";
 
 class AuthenticationController {
   async authenticate(request: Request, response: Response) {
@@ -13,13 +14,11 @@ class AuthenticationController {
     try {
       const { user, token } = await AuthService.authenticate(payload);
 
-      return response.status(200).json({ user, token });
+      return ResponseService.ok(response, { user, token });
     } catch (error) {
       ErrorService.handleError(error);
 
-      return response.status(400).json({
-        message: error.message,
-      });
+      return ResponseService.badRequest(response, { message: error.message });
     }
   }
 }

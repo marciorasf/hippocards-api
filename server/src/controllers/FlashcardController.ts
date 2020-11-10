@@ -6,6 +6,7 @@ import { AuthReq } from "../interfaces/AuthInterface";
 import CategoryService from "../services/CategoryService";
 import ErrorService from "../services/ErrorService";
 import FlashcardService from "../services/FlashcardService";
+import ResponseService from "../services/ResponseService";
 
 class FlashcardController {
   async create(request: AuthReq, response: Response) {
@@ -54,15 +55,11 @@ class FlashcardController {
 
       const flashcard = await FlashcardService.create(payload);
 
-      return response.status(201).json({
-        flashcard,
-      });
+      return ResponseService.created(response, { flashcard });
     } catch (error) {
       ErrorService.handleError(error);
 
-      return response.status(400).json({
-        message: "COULD_NOT_CREATE",
-      });
+      return ResponseService.badRequest(response, { message: "FLASHCARD_NOT_CREATED" });
     }
   }
 
@@ -72,13 +69,11 @@ class FlashcardController {
     try {
       const flashcard = await FlashcardService.getById(flashcardId);
 
-      return response.status(200).json({ flashcard });
+      return ResponseService.ok(response, { flashcard });
     } catch (error) {
       ErrorService.handleError(error);
 
-      return response.status(404).json({
-        message: "COULD_NOT_GET",
-      });
+      return ResponseService.notFound(response, { message: "FLASHCARD_NOT_GOT" });
     }
   }
 
@@ -86,21 +81,17 @@ class FlashcardController {
     const { userId } = request;
 
     if (!userId) {
-      return response.status(400).json({
-        error: "MISSING_USERID",
-      });
+      return ResponseService.badRequest(response, { message: "MISSING_USER_ID" });
     }
 
     try {
       const flashcards = await FlashcardService.getAll(userId);
 
-      return response.status(200).json({ flashcards });
+      return ResponseService.ok(response, { flashcards });
     } catch (error) {
       ErrorService.handleError(error);
 
-      return response.status(404).json({
-        message: "COLUD_NOT_GET",
-      });
+      return ResponseService.notFound(response, { message: "FLASHCARDS_NOT_GOT" });
     }
   }
 
@@ -108,9 +99,7 @@ class FlashcardController {
     const { userId, query } = request;
 
     if (!userId) {
-      return response.status(400).json({
-        error: "MISSING_USER_ID",
-      });
+      return ResponseService.badRequest(response, { message: "MISSING_USER_ID" });
     }
 
     const isBookmarked = query?.isBookmarked === "true";
@@ -132,24 +121,20 @@ class FlashcardController {
     } catch (error) {
       ErrorService.handleError(error);
 
-      return response.status(404).json({
-        message: "COULD_NOT_GET",
-      });
+      return ResponseService.internalServerError(response, { message: "FLASHCARD_NOT_GOT" });
     }
 
     try {
       if (flashcard) {
         FlashcardService.incrementViews(flashcard.id);
       }
+
+      return ResponseService.ok(response, { flashcard });
     } catch (error) {
       ErrorService.handleError(error);
 
-      return response.status(400).json({
-        message: "COULD_NOT_UPDATE",
-      });
+      return ResponseService.internalServerError(response, { message: "FLASHCARD_NOT_UPDATED" });
     }
-
-    return response.status(200).json({ flashcard });
   }
 
   async update(request: AuthReq, response: Response) {
@@ -177,13 +162,11 @@ class FlashcardController {
     try {
       const flashcard = await FlashcardService.update(flashcardId, payload);
 
-      return response.status(200).json({ flashcard });
+      return ResponseService.ok(response, { flashcard });
     } catch (error) {
       ErrorService.handleError(error);
 
-      return response.status(400).json({
-        message: "COULD_NOT_UPDATE",
-      });
+      return ResponseService.internalServerError(response, { message: "FLASHCARD_NOT_UPDATED" });
     }
   }
 
@@ -191,13 +174,12 @@ class FlashcardController {
     const flashcardId = Number(request.query.flashcardId);
     try {
       await FlashcardService.delete(flashcardId);
-      return response.status(204).json();
+
+      return ResponseService.noContent(response);
     } catch (error) {
       ErrorService.handleError(error);
 
-      return response.status(400).json({
-        message: "COULD_NOT_DELETE",
-      });
+      return ResponseService.internalServerError(response, { message: "FLASHCARD_NOT_DELETED" });
     }
   }
 }
