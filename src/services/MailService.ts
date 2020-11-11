@@ -1,4 +1,4 @@
-import mailer from "nodemailer";
+import * as mailer from "nodemailer";
 
 import { email_user, email_password, web_url } from "../config";
 

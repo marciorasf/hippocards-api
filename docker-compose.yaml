@@ -2,29 +2,29 @@ version: "3"
 
 services:
   api:
-    container_name: flashcards-api
+    container_name: flashcards_api
     build:
       context: .
       dockerfile: Dockerfile.development
-    restart: unless-stopped
+    restart: always
     env_file: .env
     environment:
       PORT: 3333
+      DB_HOST: flashcards_postgres
     volumes:
-      - .:/usr/app
+      - .:/usr/app/
       - node_modules:/usr/app/node_modules
     networks:
       - app-connect
     ports:
       - 3333:3333
-    depends_on:
-      - postgres
-
+      - 9229:9229
+    command: sh -c "npm run prisma:migrate && /usr/app/node_modules/.bin/ts-node-dev --inspect=0.0.0.0:9229 --respawn --transpile-only --ignore-watch node_modules src/server.ts"
 
   postgres:
-    container_name: flashcards-postgres
+    container_name: flashcards_postgres
     image: postgres:13
-    restart: unless-stopped
+    restart: always
     environment:
       POSTGRES_DB: $DB_NAME
       POSTGRES_USER: $DB_USER

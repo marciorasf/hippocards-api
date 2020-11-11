@@ -1,5 +1,5 @@
 {
-  "name": "student-planner-api",
+  "name": "flashcards-api",
   "version": "1.0.0",
   "main": "index.js",
   "author": "Marcio Souza Filho <marciorasf@gmail.com>",
@@ -7,27 +7,21 @@
   "scripts": {
     "build": "tsc -b",
     "lint": "eslint src/** --fix",
-    "prisma:generate": "prisma generate",
-    "start": "node dist/server.js",
-    "start:dev": "ts-node-dev --inspect=0.0.0.0:9229 --respawn --transpile-only --ignore-watch node_modules src/server.ts",
     "dev": "sudo docker-compose up",
-    "prisma:migrate": "prisma migrate save --experimental && yarn prisma migrate up --experimental",
-    "db:clean": "ts-node ./src/database/clean.ts",
-    "db:populate": "ts-node ./src/database/populate.ts",
-    "docker:build": "sudo docker build -t marciorasf/flashcards-api .",
-    "production": "docker:build && sudo docker push marciorasf/flashcards-api"
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate save --experimental && prisma migrate up --experimental",
+    "docker:build": "sudo docker build --force-rm -t marciorasf/flashcards-api ."
   },
   "dependencies": {
     "@prisma/client": "^2.4.1",
+    "@prisma/cli": "^2.4.1",
     "bcrypt": "^5.0.0",
     "cors": "^2.8.5",
-    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "nodemailer": "^6.4.11"
   },
   "devDependencies": {
-    "@prisma/cli": "^2.4.1",
     "@types/bcrypt": "^3.0.0",
     "@types/cors": "^2.8.7",
     "@types/express": "^4.17.7",

@@ -1,17 +1,20 @@
-FROM node:12-alpine
+FROM node:13
 
 # Create app folder
 WORKDIR /usr/app
 
-# Copy files and folders
-COPY . .
+# Workaround to Error: libc.musl-x86_64.so.1: cannot open shared object file: No such file or directory
+RUN apt-get update
+RUN apt-get install musl-dev openssl -y
+RUN ln -s /usr/lib/x86_64-linux-musl/libc.so /lib/libc.musl-x86_64.so.1
+
+# Copy package.json
+COPY package*.json prisma ./
 
 # Install dependencies
-RUN yarn
+RUN npm install
 
-# Generate prisma files
-RUN yarn prisma:generate
+# Copy other files
+COPY . .
 
-EXPOSE 3333
-
-CMD ["yarn", "start:dev"]
+RUN npm run prisma:generate

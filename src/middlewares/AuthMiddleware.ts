@@ -1,5 +1,5 @@
 import { Response, NextFunction, Request } from "express";
-import jwt from "jsonwebtoken";
+import * as jwt from "jsonwebtoken";
 
 import { secret } from "../config";
 import ErrorService from "../services/ErrorService";
