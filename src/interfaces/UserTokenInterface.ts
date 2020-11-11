@@ -1,7 +1,7 @@
-import { Response } from "express";
+import { Request } from "express";
 
 import { User } from "@prisma/client";
 
-export interface UserTokenResponse extends Response {
+export interface UserTokenRequest extends Request {
   user: User;
 }

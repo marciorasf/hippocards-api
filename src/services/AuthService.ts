@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 
 import { PrismaClient } from "@prisma/client";
 
+import { secret } from "../config";
 import { UserAuth } from "../interfaces/AuthInterface";
 
 const prisma = new PrismaClient();
@@ -31,7 +32,7 @@ class AuthService {
   }
 
   generateJwt(userId: number) {
-    return jwt.sign({ userId }, process.env.SECRET, {
+    return jwt.sign({ userId }, secret, {
       expiresIn: 86400,
     });
   }

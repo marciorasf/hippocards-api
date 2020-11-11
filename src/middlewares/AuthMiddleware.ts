@@ -1,11 +1,10 @@
 import { Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
+import { secret } from "../config";
 import { AuthRequest } from "../interfaces/AuthInterface";
 import ErrorService from "../services/ErrorService";
 import ResponseService from "../services/ResponseService";
-
-const secret = process.env.SECRET;
 
 export default async function AuthMiddleware(
   request: AuthRequest,

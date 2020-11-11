@@ -1,7 +1,8 @@
 import cors from "cors";
 import express from "express";
-import "./middlewares/AuthMiddleware";
 
+import "./middlewares/AuthMiddleware";
+import { environment, port } from "./config";
 import routes from "./routes";
 
 const app = express();
@@ -18,7 +19,7 @@ app.use(function (request, response, next) {
 app.use("/api", routes);
 
 // Get of static files should be the last
-if (process.env.NODE_ENV === "production") {
+if (environment) {
   const baseDir = `${__dirname}/react/`;
 
   app.use(express.static(`${baseDir}`));
@@ -26,8 +27,6 @@ if (process.env.NODE_ENV === "production") {
   app.get("/*", (request, response) => response.sendFile("index.html", { root: baseDir }));
 }
 
-const { PORT } = process.env;
-
-app.listen(PORT, () => {
-  console.log(`Running on PORT: ${PORT}`);
+app.listen(port, () => {
+  console.log(`Running on PORT: ${port}`);
 });

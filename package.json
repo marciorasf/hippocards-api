@@ -6,13 +6,17 @@
   "license": "MIT",
   "scripts": {
     "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files --no-copy-ignored",
-    "start": "node -r dotenv/config dist/server.js",
-    "dev": "NODE_ENV='development' PORT=3333 ts-node-dev --transpile-only --inspect -r dotenv/config --respawn --ignore-watch node_modules --no-notify ./src/server.ts",
-    "dev:resources": "docker-compose up",
-    "prisma:migrate": "npx prisma generate && yarn prisma migrate save --experimental && yarn prisma migrate up --experimental",
+    "start": "node dist/server.js",
+    "start:dev": "ts-node-dev --transpile-only --inspect --respawn --ignore-watch node_modules --no-notify src/server.ts",
+    "dev": "sudo docker-compose up",
+    "dev:new": "yarn dev --build --force-recreate",
+    "prisma:generate": "yarn prisma generate",
+    "prisma:migrate": "yarn prisma migrate save --experimental && yarn prisma migrate up --experimental",
     "db:clean": "ts-node ./src/database/clean.ts",
     "db:populate": "ts-node ./src/database/populate.ts",
-    "lint": "npx eslint src --fix"
+    "lint": "npx eslint src/** --fix",
+    "docker:build": "sudo docker build -f Dockerfile.production -t marciorasf/flashcards-api .",
+    "production": "yarn build && yarn docker:build"
   },
   "dependencies": {
     "@prisma/client": "^2.4.1",
@@ -20,6 +24,7 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "global": "^4.4.0",
     "jsonwebtoken": "^8.5.1",
     "nodemailer": "^6.4.11"
   },
@@ -34,6 +39,7 @@
     "@types/express": "^4.17.7",
     "@types/jsonwebtoken": "^8.5.0",
     "@types/node": "^14.0.24",
+    "@types/nodemailer": "^6.4.0",
     "@typescript-eslint/eslint-plugin": "^3.6.1",
     "@typescript-eslint/parser": "^3.6.1",
     "babel-plugin-module-resolver": "^4.0.0",
@@ -44,7 +50,7 @@
     "eslint-plugin-import-helpers": "^1.1.0",
     "eslint-plugin-prettier": "^3.1.4",
     "prettier": "^2.0.5",
-    "ts-node": "^8.10.2",
+    "ts-node": "^9.0.0",
     "ts-node-dev": "^1.0.0-pre.51",
     "typescript": "^3.9.7"
   }

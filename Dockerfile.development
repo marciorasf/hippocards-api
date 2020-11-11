@@ -1,0 +1,17 @@
+FROM node:12-alpine
+
+# Create app folder
+WORKDIR /usr/app
+
+# Copy files and folders
+COPY . .
+
+# Install dependencies
+RUN yarn
+
+# Generate prisma files
+RUN yarn prisma:generate
+
+EXPOSE 3333
+
+CMD ["yarn", "start:dev"]
