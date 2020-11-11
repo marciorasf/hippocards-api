@@ -1,8 +1,7 @@
-import { Response } from "express";
+import { Request, Response } from "express";
 
 import { FlashcardCreateInput, FlashcardUpdateInput, Flashcard } from "@prisma/client";
 
-import { AuthRequest } from "../interfaces/AuthInterface";
 import CategoryService from "../services/CategoryService";
 import ErrorService from "../services/ErrorService";
 import FlashcardService from "../services/FlashcardService";
@@ -10,8 +9,8 @@ import ResponseService from "../services/ResponseService";
 import convertFilterValue from "../utils/convertFilterValue";
 
 class FlashcardController {
-  async create(request: AuthRequest, response: Response) {
-    const { userId } = request;
+  async create(request: Request, response: Response) {
+    const { userId } = response.locals;
     const { question, answer, category } = request.body;
 
     let payload: FlashcardCreateInput = {
@@ -64,7 +63,7 @@ class FlashcardController {
     }
   }
 
-  async getById(request: AuthRequest, response: Response) {
+  async getById(request: Request, response: Response) {
     const flashcardId = Number(request.query.flashcardId);
 
     try {
@@ -78,8 +77,8 @@ class FlashcardController {
     }
   }
 
-  async getAll(request: AuthRequest, response: Response) {
-    const { userId } = request;
+  async getAll(_request: Request, response: Response) {
+    const { userId } = response.locals;
 
     if (!userId) {
       return ResponseService.badRequest(response, { message: "MISSING_USER_ID" });
@@ -96,21 +95,22 @@ class FlashcardController {
     }
   }
 
-  async getRandom(request: AuthRequest, response: Response) {
-    const { userId, query } = request;
+  async getRandom(request: Request, response: Response) {
+    const { query } = request;
+    const { userId } = response.locals;
 
     if (!userId) {
       return ResponseService.badRequest(response, { message: "MISSING_USER_ID" });
     }
 
-    let flashcard: Flashcard;
+    let flashcard: Flashcard | null;
 
     try {
       const isBookmarked = convertFilterValue(query?.isBookmarked as string);
 
       const isKnown = convertFilterValue(query?.isKnown as string);
 
-      const categoryId = query?.categoryId && Number(query.categoryId);
+      const categoryId = query?.categoryId ? +query.categoryId : undefined;
 
       const filters = {
         isBookmarked,
@@ -145,7 +145,7 @@ class FlashcardController {
     }
   }
 
-  async update(request: AuthRequest, response: Response) {
+  async update(request: Request, response: Response) {
     const { question, answer, isBookmarked, isKnown, categoryId } = request.body;
     const flashcardId = Number(request.query.flashcardId);
 
@@ -178,8 +178,9 @@ class FlashcardController {
     }
   }
 
-  async delete(request: AuthRequest, response: Response) {
+  async delete(request: Request, response: Response) {
     const flashcardId = Number(request.query.flashcardId);
+
     try {
       await FlashcardService.delete(flashcardId);
 

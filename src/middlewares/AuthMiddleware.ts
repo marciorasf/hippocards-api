@@ -1,31 +1,25 @@
-import { Response, NextFunction } from "express";
+import { Response, NextFunction, Request } from "express";
 import jwt from "jsonwebtoken";
 
 import { secret } from "../config";
-import { AuthRequest } from "../interfaces/AuthInterface";
 import ErrorService from "../services/ErrorService";
 import ResponseService from "../services/ResponseService";
 
-export default async function AuthMiddleware(
-  request: AuthRequest,
-  response: Response,
-  next: NextFunction
-) {
+export default function AuthMiddleware(request: Request, response: Response, next: NextFunction) {
   const token = request.headers["x-access-token"] as string;
 
   if (!token) {
-    return ResponseService.badRequest(response, { message: "MISSING_TOKEN" });
-  }
+    ResponseService.badRequest(response, { message: "MISSING_TOKEN" });
+  } else {
+    try {
+      const decoded = jwt.verify(token, secret) as Record<"userId", number>;
+      response.locals.userId = decoded.userId;
 
-  // eslint-disable-next-line
-  jwt.verify(token, secret, function (error, decoded: any) {
-    if (error) {
+      next();
+    } catch (error) {
       ErrorService.handleError(error);
 
-      return ResponseService.unauthorized(response);
+      ResponseService.unauthorized(response);
     }
-
-    request.userId = decoded.userId;
-    next();
-  });
+  }
 }

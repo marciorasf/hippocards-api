@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 
 import { UserCreateInput } from "@prisma/client";
 
-import { UserTokenRequest } from "../interfaces/UserTokenInterface";
 import ErrorService from "../services/ErrorService";
 import MailService from "../services/MailService";
 import ResponseService from "../services/ResponseService";
@@ -28,9 +27,9 @@ class UserController {
     }
   }
 
-  async updatePassword(request: UserTokenRequest, response: Response) {
+  async updatePassword(request: Request, response: Response) {
     const { newPassword } = request.body;
-    const { user } = request;
+    const { user } = response.locals;
 
     try {
       await UserService.updatePassword(user.id, newPassword);

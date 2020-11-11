@@ -1,15 +1,14 @@
-import { Response } from "express";
+import { Request, Response } from "express";
 
 import { CategoryCreateInput, CategoryUpdateInput } from "@prisma/client";
 
-import { AuthRequest } from "../interfaces/AuthInterface";
 import CategoryService from "../services/CategoryService";
 import ErrorService from "../services/ErrorService";
 import ResponseService from "../services/ResponseService";
 
 class CategoryController {
-  async create(request: AuthRequest, response: Response) {
-    const { userId } = request;
+  async create(request: Request, response: Response) {
+    const { userId } = response.locals;
     const { name } = request.body;
 
     const payload: CategoryCreateInput = {
@@ -36,8 +35,8 @@ class CategoryController {
     }
   }
 
-  async getAll(request: AuthRequest, response: Response) {
-    const { userId } = request;
+  async getAll(_request: Request, response: Response) {
+    const { userId } = response.locals;
 
     if (!userId) {
       return response.status(400).json({
@@ -58,7 +57,7 @@ class CategoryController {
     }
   }
 
-  async update(request: AuthRequest, response: Response) {
+  async update(request: Request, response: Response) {
     const { name } = request.body;
     const categoryId = Number(request.query.categoryId);
 
@@ -79,7 +78,7 @@ class CategoryController {
     }
   }
 
-  async delete(request: AuthRequest, response: Response) {
+  async delete(request: Request, response: Response) {
     const categoryId = Number(request.query.categoryId);
 
     try {

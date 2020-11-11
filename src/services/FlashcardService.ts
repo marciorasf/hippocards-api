@@ -23,7 +23,11 @@ class FlashcardService {
     });
   }
 
-  async getRandom(userId: number, currentFlashcardId: number, filters: FlashcardFilters) {
+  async getRandom(
+    userId: number,
+    currentFlashcardId: number | undefined,
+    filters: FlashcardFilters
+  ) {
     const nFlashcards = await prisma.flashcard.count({
       where: {
         userId,
@@ -76,7 +80,7 @@ class FlashcardService {
         id: flashcardId,
       },
       data: {
-        views: flashcard.views + 1,
+        views: (flashcard?.views || 0) + 1,
       },
     });
   }

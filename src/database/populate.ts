@@ -1,4 +1,4 @@
-import { PrismaClient, UserCreateInput, FlashcardCreateInput } from "@prisma/client";
+import { PrismaClient, UserCreateInput, FlashcardCreateWithoutUserInput } from "@prisma/client";
 
 import UserService from "../services/UserService";
 
@@ -11,15 +11,17 @@ function getTemplateUser(): UserCreateInput {
   };
 }
 
-function getTemplateFlashcards(nCards: number): FlashcardCreateInput[] {
+function getTemplateFlashcards(nCards: number): FlashcardCreateWithoutUserInput[] {
   function generateTemplateFlashcard(id: number) {
-    return {
+    const templateFlashcard: FlashcardCreateWithoutUserInput = {
       question: `This is a template question ${id}`,
       answer: `This is a template answer ${id}`,
       isBookmarked: id % 5 === 0,
       isKnown: id % 5 === 1,
       views: 0,
     };
+
+    return templateFlashcard;
   }
 
   const flashcardArray = [];

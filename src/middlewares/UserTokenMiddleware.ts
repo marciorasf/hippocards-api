@@ -1,12 +1,11 @@
-import { Response, NextFunction } from "express";
+import { Response, NextFunction, Request } from "express";
 
-import { UserTokenRequest } from "../interfaces/UserTokenInterface";
 import ErrorService from "../services/ErrorService";
 import ResponseService from "../services/ResponseService";
 import UserTokenService from "../services/UserTokenService";
 
 export default async function UserTokenMiddleware(
-  request: UserTokenRequest,
+  request: Request,
   response: Response,
   next: NextFunction
 ) {
@@ -16,14 +15,14 @@ export default async function UserTokenMiddleware(
     const user = await UserTokenService.getUserByUserToken(token);
 
     if (user) {
-      request.user = user;
+      response.locals.user = user;
       next();
     } else {
-      return ResponseService.badRequest(response, { message: "INVALID_TOKEN" });
+      ResponseService.badRequest(response, { message: "INVALID_TOKEN" });
     }
   } catch (error) {
     ErrorService.handleError(error);
 
-    return ResponseService.internalServerError(response, { error });
+    ResponseService.internalServerError(response, { error });
   }
 }
