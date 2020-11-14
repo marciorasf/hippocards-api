@@ -29,7 +29,6 @@ RUN npm install --production
 
 COPY --from=0 /usr/app/prisma ./prisma
 COPY --from=0 /usr/app/dist ./dist
-COPY .env .
 
 RUN npm run prisma:generate
 
