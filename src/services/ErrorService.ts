@@ -1,8 +1,8 @@
-import { environment } from "../config";
+import { node_env } from "../config";
 
 class ErrorService {
   handleError(error: Error) {
-    if (environment === "development") {
+    if (node_env === "development") {
       this.handleErrorDevelopment(error);
     } else {
       this.handleErrorProduction(error);

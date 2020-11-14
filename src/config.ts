@@ -1,4 +1,4 @@
-export const environment = process.env.NODE_ENV;
+export const node_env = process.env.NODE_ENV;
 export const port = process.env.PORT;
 
 export const secret = process.env.SECRET as string;
