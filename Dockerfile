@@ -6,14 +6,14 @@ RUN apt-get update
 RUN apt-get install musl-dev openssl -y
 RUN ln -s /usr/lib/x86_64-linux-musl/libc.so /lib/libc.musl-x86_64.so.1
 
-COPY package*.json ./
+COPY package.json yarn.lock ./
 
-RUN npm install
+RUN yarn
 
 COPY . .
 
-RUN npm run prisma:generate
-RUN npm run build
+RUN yarn prisma:generate
+RUN yarn build
 
 # Stage 2
 FROM node:13
@@ -25,12 +25,12 @@ RUN ln -s /usr/lib/x86_64-linux-musl/libc.so /lib/libc.musl-x86_64.so.1
 
 COPY package*.json ./
 
-RUN npm install --production
+RUN yarn --only=production
 
 COPY --from=0 /usr/app/prisma ./prisma
 COPY --from=0 /usr/app/dist ./dist
 
-RUN npm run prisma:generate
+RUN yarn prisma:generate
 
 ENV NODE_ENV=production
 
