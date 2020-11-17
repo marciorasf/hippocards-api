@@ -9,5 +9,6 @@ Check the application running on <https://marciorasf-flashcards.herokuapp.com>
 - [ ] Sanitize and validate inputs
 - [ ] Implement tests
 - [ ] Configure a CI/CD
+- [ ] Improve error handling
 
 ## BUGS 
