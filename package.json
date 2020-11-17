@@ -9,8 +9,7 @@
     "lint": "eslint src/** --fix",
     "dev": "sudo docker-compose up",
     "prisma:generate": "prisma generate",
-    "prisma:migrate": "prisma migrate save --experimental && prisma migrate up --experimental",
-    "docker:build": "sudo docker build --force-rm -t marciorasf/flashcards-api ."
+    "prisma:migrate": "prisma migrate save --experimental && prisma migrate up --experimental"
   },
   "dependencies": {
     "@prisma/client": "^2.4.1",
