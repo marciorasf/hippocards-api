@@ -5,6 +5,7 @@ import { email_from, email_api_user, email_api_key, web_url } from "../config";
 
 class MailService {
   options = {
+    secure: false,
     auth: {
       api_user: email_api_user,
       api_key: email_api_key,
