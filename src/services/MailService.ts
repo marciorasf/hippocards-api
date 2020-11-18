@@ -1,22 +1,21 @@
 import * as mailer from "nodemailer";
+import * as sgTransport from "nodemailer-sendgrid-transport";
 
-import { email_user, email_password, web_url } from "../config";
+import { email_from, email_api_user, email_api_key, web_url } from "../config";
 
 class MailService {
-  origin = mailer.createTransport({
-    service: "gmail",
-    host: "smtp.gmail.com",
-    port: 587,
-    secure: false,
+  options = {
     auth: {
-      user: email_user,
-      pass: email_password,
+      api_user: email_api_user,
+      api_key: email_api_key,
     },
-  });
+  };
+
+  client = mailer.createTransport(sgTransport(this.options));
 
   mountForgotPasswordEmail(userEmail: string, token: string) {
-    const emailConfig = {
-      from: email_user,
+    const email = {
+      from: email_from,
       to: userEmail,
       subject: "Flashcards: Password recovery",
       text: `
@@ -27,11 +26,11 @@ http://${web_url}/change-password/${token}
 If you did not request this, please ignore this email.`,
     };
 
-    return emailConfig;
+    return email;
   }
 
   async sendForgotPasswordEmail(userEmail: string, token: string) {
-    return this.origin.sendMail(this.mountForgotPasswordEmail(userEmail, token));
+    return this.client.sendMail(this.mountForgotPasswordEmail(userEmail, token));
   }
 }
 export default new MailService();

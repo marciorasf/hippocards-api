@@ -10,7 +10,7 @@ export default class ResponseService {
   }
 
   static noContent(response: Response) {
-    return response.status(204);
+    return response.status(204).json();
   }
 
   static badRequest(response: Response, data: any) {

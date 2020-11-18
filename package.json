@@ -12,13 +12,14 @@
     "prisma:migrate": "prisma migrate save --experimental && prisma migrate up --experimental"
   },
   "dependencies": {
-    "@prisma/client": "^2.4.1",
     "@prisma/cli": "^2.4.1",
+    "@prisma/client": "^2.4.1",
     "bcrypt": "^5.0.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
-    "nodemailer": "^6.4.11"
+    "nodemailer": "^6.4.11",
+    "nodemailer-sendgrid-transport": "^0.2.0"
   },
   "devDependencies": {
     "@types/bcrypt": "^3.0.0",
