@@ -1,3 +1,3 @@
 export default function convertBooleanToNumber(value: boolean) {
-  return value ? 1 : 0;
+  return value === true ? 1 : 0;
 }

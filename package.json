@@ -7,6 +7,7 @@
   "scripts": {
     "build": "tsc -b",
     "lint": "eslint src/** --fix",
+    "test": "jest",
     "dev": "sudo docker-compose up",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate save --experimental && prisma migrate up --experimental"
@@ -25,6 +26,7 @@
     "@types/bcrypt": "^3.0.0",
     "@types/cors": "^2.8.7",
     "@types/express": "^4.17.7",
+    "@types/jest": "^26.0.15",
     "@types/jsonwebtoken": "^8.5.0",
     "@types/node": "^14.0.24",
     "@types/nodemailer": "^6.4.0",
@@ -36,7 +38,9 @@
     "eslint-plugin-import": "^2.21.2",
     "eslint-plugin-import-helpers": "^1.1.0",
     "eslint-plugin-prettier": "^3.1.4",
+    "jest": "^26.6.3",
     "prettier": "^2.0.5",
+    "ts-jest": "^26.4.4",
     "ts-node-dev": "^1.0.0-pre.51",
     "typescript": "^3.9.7"
   }
