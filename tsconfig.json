@@ -13,18 +13,19 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "moduleResolution": "node",
-    "removeComments": true,
+    "allowSyntheticDefaultImports": false,
+    "emitDecoratorMetadata": true,
+    "esModuleInterop": false,
+    "experimentalDecorators": true,
+    "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
-    "strictNullChecks": true,
-    "strictFunctionTypes": true,
+    "noImplicitReturns": true,
     "noImplicitThis": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "allowSyntheticDefaultImports": false,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true
+    "removeComments": true,
+    "strictFunctionTypes": true,
+    "strictNullChecks": true
   },
   "exclude": [
     "node_modules"
