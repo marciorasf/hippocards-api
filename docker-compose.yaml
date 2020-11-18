@@ -19,7 +19,7 @@ services:
     ports:
       - 3333:3333
       - 9229:9229
-    command: sh -c "yarn prisma:migrate && /usr/app/node_modules/.bin/ts-node-dev --inspect=0.0.0.0:9229 --respawn --transpile-only --ignore-watch node_modules src/server.ts"
+    command: yarn dev
 
   postgres:
     container_name: flashcards-postgres
