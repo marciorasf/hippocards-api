@@ -6,8 +6,7 @@ Check the application running on <https://marciorasf-flashcards.herokuapp.com>
 
 ## TODO
 
-- [ ] Implement tests
 - [ ] Improve error handling
-- [ ] Improve password recovery email 
+- [ ] Improve password recovery email
 
-## BUGS 
+## BUGS
