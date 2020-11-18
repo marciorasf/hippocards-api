@@ -1,4 +1,5 @@
 #!/bin/sh
-heroku login
-git push heroku master
-heroku run yarn prisma:migrate
+sudo heroku login
+sudo heroku container:login
+sudo heroku container:push web
+sudo heroku container:release web
