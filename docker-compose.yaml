@@ -2,7 +2,7 @@ version: "3"
 
 services:
   api:
-    container_name: flashcards_api
+    container_name: flashcards-api
     build:
       context: .
       dockerfile: Dockerfile.development
@@ -10,7 +10,7 @@ services:
     env_file: .env
     environment:
       PORT: 3333
-      DB_HOST: flashcards_postgres
+      DB_HOST: flashcards-postgres
     volumes:
       - .:/usr/app/
       - node_modules:/usr/app/node_modules
@@ -22,7 +22,7 @@ services:
     command: sh -c "yarn prisma:migrate && /usr/app/node_modules/.bin/ts-node-dev --inspect=0.0.0.0:9229 --respawn --transpile-only --ignore-watch node_modules src/server.ts"
 
   postgres:
-    container_name: flashcards_postgres
+    container_name: flashcards-postgres
     image: postgres:13
     restart: unless-stopped
     environment:
