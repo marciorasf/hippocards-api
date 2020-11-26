@@ -7,8 +7,8 @@
   "scripts": {
     "build": "tsc -b",
     "lint": "eslint src/** --fix",
-    "test": "jest",
-    "dev": "yarn prisma:migrate && /usr/app/node_modules/.bin/ts-node-dev --inspect=0.0.0.0:9229 --respawn --transpile-only --ignore-watch node_modules src/server.ts",
+    "test": "DATABASE_URL=postgresql://marciorasf:1234@flashcards-postgres-test:5432/flashcards?schema=public yarn prisma:migrate --y && jest",
+    "dev": "ts-node-dev --inspect=0.0.0.0:9229 --respawn --transpile-only --ignore-watch node_modules src/server.ts",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate save --experimental && prisma migrate up --experimental"
   },

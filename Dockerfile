@@ -1,5 +1,5 @@
 # Stage 1
-FROM node:13
+FROM node:12
 WORKDIR /usr/app
 
 RUN apt-get update
@@ -16,7 +16,7 @@ RUN yarn prisma:generate
 RUN yarn build
 
 # Stage 2
-FROM node:13
+FROM node:12
 WORKDIR /usr/app
 
 RUN apt-get update
