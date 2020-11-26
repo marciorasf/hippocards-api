@@ -6,7 +6,6 @@ FROM node:12
 EXPOSE 3333 9229 9230
 
 WORKDIR /usr/app
-COPY package.json yarn.lock ./
 
 COPY . .
 

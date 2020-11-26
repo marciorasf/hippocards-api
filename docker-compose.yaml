@@ -14,7 +14,6 @@ services:
       DB_HOST: flashcards-postgres
     volumes:
       - .:/usr/app:delegated
-      - node_modules:/usr/node_modules
     networks:
       - app-connect
     ports:
@@ -52,7 +51,6 @@ services:
       - app-connect
 
 volumes:
-  node_modules:
   postgres:
   postgres-test:
 
