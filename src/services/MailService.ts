@@ -5,11 +5,8 @@ import { email_from, email_api_user, email_api_key, web_url } from "../config";
 
 class MailService {
   options = {
-    secure: false,
-    port: 587,
     auth: {
-      api_user: email_api_user,
-      api_key: email_api_key,
+      api_key: "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",
     },
   };
 
