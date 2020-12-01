@@ -8,7 +8,7 @@
     "build": "tsc -b",
     "lint": "eslint src/** --fix",
     "test": "DATABASE_URL=postgresql://marciorasf:1234@flashcards-postgres-test:5432/flashcards?schema=public yarn prisma:migrate --y && jest",
-    "dev": "ts-node-dev --inspect=0.0.0.0:9229 --respawn --transpile-only --ignore-watch node_modules src/server.ts",
+    "dev": "ts-node-dev -r dotenv/config --inspect=0.0.0.0:9229 --respawn --transpile-only --ignore-watch node_modules src/server.ts",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate save --experimental && prisma migrate up --experimental"
   },
@@ -33,6 +33,7 @@
     "@types/supertest": "^2.0.10",
     "@typescript-eslint/eslint-plugin": "^3.6.1",
     "@typescript-eslint/parser": "^3.6.1",
+    "dotenv": "^8.2.0",
     "eslint": "^7.4.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-config-prettier": "^6.11.0",
