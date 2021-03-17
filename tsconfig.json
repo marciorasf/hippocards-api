@@ -8,29 +8,31 @@
       "es2017",
       "esnext.asynciterable"
     ],
-    "allowJs": true,
+    "skipLibCheck": true,
     "sourceMap": true,
     "outDir": "./dist",
-    "rootDir": "./src",
     "moduleResolution": "node",
-    "allowSyntheticDefaultImports": false,
-    "emitDecoratorMetadata": true,
-    "esModuleInterop": false,
-    "experimentalDecorators": true,
-    "noFallthroughCasesInSwitch": true,
+    "removeComments": true,
     "noImplicitAny": true,
-    "noImplicitReturns": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
     "noImplicitThis": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "removeComments": true,
-    "strictFunctionTypes": true,
-    "strictNullChecks": true
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "resolveJsonModule": true,
+    "baseUrl": "."
   },
   "exclude": [
     "node_modules"
   ],
   "include": [
-    "src/**/*"
+    "./src/**/*.tsx",
+    "./src/**/*.ts"
   ]
 }
