@@ -5,20 +5,6 @@ import { PrismaClient, UserTokenCreateInput } from "@prisma/client";
 const prisma = new PrismaClient();
 
 class UserTokenService {
-  async createForgotPasswordUserToken(userId: number) {
-    const token = this.generateUserTokenToken();
-
-    return this.createUserToken({
-      token,
-      expiresIn: String(Date.now() + 3600000), // 1 hour
-      User: {
-        connect: {
-          id: userId,
-        },
-      },
-    });
-  }
-
   async createUserToken(data: UserTokenCreateInput) {
     return prisma.userToken.create({ data });
   }
@@ -29,7 +15,7 @@ class UserTokenService {
     return token;
   }
 
-  async getUserByUserToken(token: string) {
+  async retrieveUserByUserToken(token: string) {
     const userToken = await prisma.userToken.findOne({ where: { token }, include: { User: {} } });
 
     if (!userToken || +userToken?.expiresIn < Date.now()) {

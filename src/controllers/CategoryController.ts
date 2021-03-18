@@ -31,35 +31,29 @@ class CategoryController {
     } catch (error) {
       ErrorService.handleError(error);
 
-      return ResponseService.internalServerError(response, { message: "CATEGORY_NOT_CREATED" });
+      return ResponseService.internalServerError(response, { message: "category_not_created" });
     }
   }
 
-  async getAll(_request: Request, response: Response) {
+  async retrieveAll(_request: Request, response: Response) {
     const { userId } = response.locals;
 
-    if (!userId) {
-      return response.status(400).json({
-        error: "MISSING_USER_ID",
-      });
-    }
-
     try {
-      const categories = await CategoryService.getAll(userId);
+      const categories = await CategoryService.retrieveAll(userId);
 
       return ResponseService.ok(response, { categories });
     } catch (error) {
       ErrorService.handleError(error);
 
       return ResponseService.internalServerError(response, {
-        message: "CATEGORIES_NOT_GOT",
+        message: "CATEGORIES_NOT_RETRIEVED",
       });
     }
   }
 
   async update(request: Request, response: Response) {
     const { name } = request.body;
-    const categoryId = Number(request.query.categoryId);
+    const categoryId = Number(request.params.id);
 
     const payload: CategoryUpdateInput = {
       name,
@@ -88,7 +82,7 @@ class CategoryController {
     } catch (error) {
       ErrorService.handleError(error);
 
-      return ResponseService.internalServerError(response, { message: "CATEGORY_NOT_DELETED" });
+      return ResponseService.internalServerError(response, { message: "category_not_deleted" });
     }
   }
 }

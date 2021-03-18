@@ -1,10 +1,16 @@
-export const node_env = process.env.NODE_ENV;
-export const port = process.env.PORT;
+import "dotenv/config";
 
-export const secret = process.env.SECRET as string;
-export const salt_rounds = process.env.SALT_ROUNDS;
+export const __node_env__ = process.env.NODE_ENV;
+export const __is_dev_env__ = __node_env__ === "development";
 
-export const email_api_key = process.env.EMAIL_API_KEY;
-export const email_from = process.env.EMAIL_FROM;
+export const __port__ = process.env.PORT;
 
-export const web_url = process.env.WEB_URL;
+export const __secret__ = process.env.SECRET as string;
+export const __salt_rounds__ = process.env.SALT_ROUNDS;
+
+export const __cookies__ = {
+  auth: {
+    name: "@flashcards/auth-token",
+    options: {},
+  },
+};

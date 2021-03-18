@@ -11,11 +11,11 @@ class FlashcardService {
     });
   }
 
-  async getById(flashcardId: number) {
+  async retrieveById(flashcardId: number) {
     return prisma.flashcard.findOne({ where: { id: flashcardId } });
   }
 
-  async getAll(userId: number) {
+  async retrieveAll(userId: number) {
     return prisma.flashcard.findMany({
       where: {
         userId,
@@ -23,7 +23,7 @@ class FlashcardService {
     });
   }
 
-  async getRandom(
+  async retrieveRandom(
     userId: number,
     currentFlashcardId: number | undefined,
     filters: FlashcardFilters

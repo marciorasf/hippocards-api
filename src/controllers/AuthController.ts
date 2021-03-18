@@ -14,8 +14,12 @@ class AuthenticationController {
     try {
       const { user, token } = await AuthService.authenticate(payload);
 
-      return ResponseService.ok(response, { user, token });
+      AuthService.setCookie(response, token);
+
+      return ResponseService.ok(response, { user });
     } catch (error) {
+      AuthService.clearCookie(response);
+
       ErrorService.handleError(error);
 
       return ResponseService.badRequest(response, { message: error.message });
