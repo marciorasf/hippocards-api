@@ -4,14 +4,14 @@ import UserService from "../services/UserService";
 
 const prisma = new PrismaClient();
 
-function getTemplateUser(): UserCreateInput {
+function retrieveTemplateUser(): UserCreateInput {
   return {
     email: "marciorasf@gmail.com",
     password: "1234",
   };
 }
 
-function getTemplateFlashcards(nCards: number): FlashcardCreateWithoutUserInput[] {
+function retrieveTemplateFlashcards(nCards: number): FlashcardCreateWithoutUserInput[] {
   function generateTemplateFlashcard(id: number) {
     const templateFlashcard: FlashcardCreateWithoutUserInput = {
       question: `This is a template question ${id}`,
@@ -33,7 +33,7 @@ function getTemplateFlashcards(nCards: number): FlashcardCreateWithoutUserInput[
 }
 
 async function populate(nFlashcards: number) {
-  const user = getTemplateUser();
+  const user = retrieveTemplateUser();
 
   let userId: number;
   try {
@@ -49,7 +49,7 @@ async function populate(nFlashcards: number) {
 
   console.log("Start populating flashcards");
 
-  const flashcards = getTemplateFlashcards(nFlashcards);
+  const flashcards = retrieveTemplateFlashcards(nFlashcards);
 
   await Promise.all(
     flashcards.map((flashcard) =>

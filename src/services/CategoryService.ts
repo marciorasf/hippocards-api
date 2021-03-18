@@ -9,7 +9,7 @@ class CategoryService {
     });
   }
 
-  async getAll(userId: number) {
+  async retrieveAll(userId: number) {
     return prisma.category.findMany({
       where: {
         userId,

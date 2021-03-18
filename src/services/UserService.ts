@@ -1,14 +1,14 @@
-import * as bcrypt from "bcrypt";
+import bcrypt from "bcrypt";
 
 import { PrismaClient, UserCreateInput } from "@prisma/client";
 
-import { salt_rounds } from "../config";
+import { __salt_rounds__ } from "../config";
 
 const prisma = new PrismaClient();
 
 class UserService {
   async create(user: UserCreateInput) {
-    const hashedPassword = await bcrypt.hash(user.password, Number(salt_rounds));
+    const hashedPassword = await bcrypt.hash(user.password, Number(__salt_rounds__));
     return prisma.user.create({
       data: {
         ...user,
@@ -26,7 +26,7 @@ class UserService {
   }
 
   async updatePassword(id: number, newPassword: string) {
-    const hashedPassword = await bcrypt.hash(newPassword, Number(salt_rounds));
+    const hashedPassword = await bcrypt.hash(newPassword, Number(__salt_rounds__));
     return prisma.user.update({
       data: {
         password: hashedPassword,

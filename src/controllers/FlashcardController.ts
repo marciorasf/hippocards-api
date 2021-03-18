@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 
-import { FlashcardCreateInput, FlashcardUpdateInput, Flashcard } from "@prisma/client";
+import { Flashcard, FlashcardCreateInput, FlashcardUpdateInput } from "@prisma/client";
 
 import CategoryService from "../services/CategoryService";
 import ErrorService from "../services/ErrorService";
@@ -8,10 +8,17 @@ import FlashcardService from "../services/FlashcardService";
 import ResponseService from "../services/ResponseService";
 import convertFilterValue from "../utils/convertFilterValue";
 
+type Category = {
+  id?: number;
+  isNew: boolean;
+  name?: string;
+};
+
 class FlashcardController {
   async create(request: Request, response: Response) {
     const { userId } = response.locals;
-    const { question, answer, category } = request.body;
+    const { question, answer } = request.body;
+    const category = request.body.category as Category;
 
     let payload: FlashcardCreateInput = {
       question,
@@ -30,8 +37,12 @@ class FlashcardController {
       let categoryId: number;
 
       if (category.isNew) {
+        if (!category.name) {
+          throw Error("CATEGORY_NAME_NOT_PROVIDED");
+        }
+
         const newCategory = await CategoryService.create({
-          name: category.name,
+          name: category.name as string,
           user: {
             connect: {
               id: userId,
@@ -41,7 +52,7 @@ class FlashcardController {
 
         categoryId = newCategory.id;
       } else {
-        categoryId = category.id;
+        categoryId = category.id as number;
       }
 
       payload = {
@@ -59,49 +70,45 @@ class FlashcardController {
     } catch (error) {
       ErrorService.handleError(error);
 
-      return ResponseService.badRequest(response, { message: "FLASHCARD_NOT_CREATED" });
+      return ResponseService.badRequest(response, { message: "flashcard_not_created" });
     }
   }
 
-  async getById(request: Request, response: Response) {
-    const flashcardId = Number(request.query.flashcardId);
+  async retrieveById(request: Request, response: Response) {
+    const flashcardId = Number(request.params.id);
+
+    if (!flashcardId) {
+      throw Error("flashcard_id_not_provided");
+    }
 
     try {
-      const flashcard = await FlashcardService.getById(flashcardId);
+      const flashcard = await FlashcardService.retrieveById(flashcardId);
 
       return ResponseService.ok(response, { flashcard });
     } catch (error) {
       ErrorService.handleError(error);
 
-      return ResponseService.notFound(response, { message: "FLASHCARD_NOT_GOT" });
+      return ResponseService.notFound(response, { message: "flashcard_not_retrieved" });
     }
   }
 
-  async getAll(_request: Request, response: Response) {
+  async retrieveAll(_request: Request, response: Response) {
     const { userId } = response.locals;
 
-    if (!userId) {
-      return ResponseService.badRequest(response, { message: "MISSING_USER_ID" });
-    }
-
     try {
-      const flashcards = await FlashcardService.getAll(userId);
+      const flashcards = await FlashcardService.retrieveAll(userId);
 
       return ResponseService.ok(response, { flashcards });
     } catch (error) {
       ErrorService.handleError(error);
 
-      return ResponseService.notFound(response, { message: "FLASHCARDS_NOT_GOT" });
+      return ResponseService.notFound(response, { message: "flashcards_not_retrieved" });
     }
   }
 
-  async getRandom(request: Request, response: Response) {
+  async retrieveRandom(request: Request, response: Response) {
     const { query } = request;
     const { userId } = response.locals;
-
-    if (!userId) {
-      return ResponseService.badRequest(response, { message: "MISSING_USER_ID" });
-    }
 
     let flashcard: Flashcard | null;
 
@@ -120,7 +127,7 @@ class FlashcardController {
 
       const currentFlashcardId = query?.currentFlashcardId ? +query?.currentFlashcardId : undefined;
 
-      flashcard = await FlashcardService.getRandom(userId, currentFlashcardId, filters);
+      flashcard = await FlashcardService.retrieveRandom(userId, currentFlashcardId, filters);
 
       // There is no flashcard or at least not a different one
       if (!flashcard) {
@@ -129,7 +136,7 @@ class FlashcardController {
     } catch (error) {
       ErrorService.handleError(error);
 
-      return ResponseService.internalServerError(response, { message: "FLASHCARD_NOT_GOT" });
+      return ResponseService.internalServerError(response, { message: "flashcard_not_got" });
     }
 
     try {
@@ -141,13 +148,13 @@ class FlashcardController {
     } catch (error) {
       ErrorService.handleError(error);
 
-      return ResponseService.internalServerError(response, { message: "FLASHCARD_NOT_UPDATED" });
+      return ResponseService.internalServerError(response, { message: "flashcard_not_updated" });
     }
   }
 
   async update(request: Request, response: Response) {
     const { question, answer, isBookmarked, isKnown, categoryId } = request.body;
-    const flashcardId = Number(request.query.flashcardId);
+    const flashcardId = Number(request.params.id);
 
     let payload: FlashcardUpdateInput = {
       question,
@@ -174,12 +181,12 @@ class FlashcardController {
     } catch (error) {
       ErrorService.handleError(error);
 
-      return ResponseService.internalServerError(response, { message: "FLASHCARD_NOT_UPDATED" });
+      return ResponseService.internalServerError(response, { message: "flashcard_not_updated" });
     }
   }
 
   async delete(request: Request, response: Response) {
-    const flashcardId = Number(request.query.flashcardId);
+    const flashcardId = Number(request.params.id);
 
     try {
       await FlashcardService.delete(flashcardId);
@@ -188,7 +195,7 @@ class FlashcardController {
     } catch (error) {
       ErrorService.handleError(error);
 
-      return ResponseService.internalServerError(response, { message: "FLASHCARD_NOT_DELETED" });
+      return ResponseService.internalServerError(response, { message: "flashcard_not_deleted" });
     }
   }
 }

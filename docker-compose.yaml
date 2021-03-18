@@ -16,25 +16,8 @@ services:
     networks:
       - app-connect
 
-  postgres-test:
-    container_name: flashcards-postgres-test
-    image: postgres:13
-    restart: "no"
-    environment:
-      POSTGRES_DB: $DB_NAME
-      POSTGRES_USER: $DB_USER
-      POSTGRES_PASSWORD: $DB_PASSWORD
-    volumes:
-      - ./resources/postgresql-test:/var/lib/postgresql-test/data
-    ports:
-      - 5433:5432
-    networks:
-      - app-connect
-
 volumes:
   postgres:
-  postgres-test:
-
 
 networks:
   app-connect:

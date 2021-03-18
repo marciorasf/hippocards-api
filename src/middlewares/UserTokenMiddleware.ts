@@ -12,7 +12,7 @@ export default async function UserTokenMiddleware(
   const { token } = request.body;
 
   try {
-    const user = await UserTokenService.getUserByUserToken(token);
+    const user = await UserTokenService.retrieveUserByUserToken(token);
 
     if (user) {
       response.locals.user = user;

@@ -1,6 +1,6 @@
-import * as cors from "cors";
-import * as express from "express";
-import { Request, Response, NextFunction } from "express";
+import cookieParser from "cookie-parser";
+import cors from "cors";
+import express, { Request, Response, NextFunction } from "express";
 
 import "./middlewares/AuthMiddleware";
 import routes from "./routes";
@@ -8,6 +8,7 @@ import routes from "./routes";
 const app = express();
 
 app.use(cors());
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
