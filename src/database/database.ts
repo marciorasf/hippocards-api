@@ -1,6 +1,6 @@
 import { createConnection } from "typeorm";
 
-import { __database_url__ } from "./env-variables";
+import { __database_url__ } from "../env-variables";
 
 createConnection({
   type: "postgres",

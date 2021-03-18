@@ -15,12 +15,12 @@ export class User {
   @Column()
   password: string;
 
-  @OneToMany((_type) => Flashcard, (flashcard) => flashcard)
+  @OneToMany(() => Flashcard, (flashcard) => flashcard.user)
   flashcards: Flashcard[];
 
-  @OneToMany((_type) => Category, (category) => category)
+  @OneToMany(() => Category, (category) => category.user)
   categories: Category[];
 
-  @OneToMany((_type) => UserToken, (userToken) => userToken)
+  @OneToMany(() => UserToken, (userToken) => userToken.user)
   userTokens: UserToken[];
 }

@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, OneToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne } from "typeorm";
 
 import { Category } from "./category";
 import { User } from "./user";
@@ -26,9 +26,9 @@ export class Flashcard {
   @CreateDateColumn()
   createdAt: Date;
 
-  @OneToOne((_type) => User, (user) => user)
+  @ManyToOne(() => User, (user) => user.flashcards)
   user: User;
 
-  @OneToOne((_type) => Category, (category) => category)
+  @ManyToOne(() => Category, (category) => category.flashcards)
   category: Category;
 }

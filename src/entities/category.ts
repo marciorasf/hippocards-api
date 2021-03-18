@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, OneToMany } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne } from "typeorm";
 
 import { Flashcard } from "./flashcard";
 import { User } from "./user";
@@ -11,9 +11,9 @@ export class Category {
   @Column()
   name: string;
 
-  @OneToOne((_type) => User, (user) => user)
+  @ManyToOne(() => User, (user) => user.categories)
   user: User;
 
-  @OneToMany((_type) => Flashcard, (flashcard) => flashcard)
+  @OneToMany(() => Flashcard, (flashcard) => flashcard.category)
   flashcards: Flashcard[];
 }

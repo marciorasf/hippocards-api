@@ -1,4 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
+
+import { User } from "./user";
 
 @Entity()
 export class UserToken {
@@ -10,4 +12,7 @@ export class UserToken {
 
   @Column()
   expiresIn: string;
+
+  @ManyToOne(() => User, (user) => user.categories)
+  user: User;
 }
