@@ -1,7 +1,7 @@
 import { Router } from "express";
 
-import FlashcardController from "../controllers/FlashcardController";
-import AuthMiddleware from "../middlewares/AuthMiddleware";
+import FlashcardController from "../controllers/flashcard";
+import AuthMiddleware from "../middlewares/auth";
 
 const router = Router();
 

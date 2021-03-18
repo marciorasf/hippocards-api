@@ -2,7 +2,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import express, { Request, Response, NextFunction } from "express";
 
-import "./middlewares/AuthMiddleware";
+import "./middlewares/auth";
 import routes from "./routes";
 
 const app = express();

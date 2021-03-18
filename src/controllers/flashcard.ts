@@ -2,11 +2,11 @@ import { Request, Response } from "express";
 
 import { Flashcard, FlashcardCreateInput, FlashcardUpdateInput } from "@prisma/client";
 
-import CategoryService from "../services/CategoryService";
-import ErrorService from "../services/ErrorService";
-import FlashcardService from "../services/FlashcardService";
-import ResponseService from "../services/ResponseService";
-import convertFilterValue from "../utils/convertFilterValue";
+import CategoryService from "../services/category";
+import ErrorService from "../services/error";
+import FlashcardService from "../services/flashcard";
+import ResponseService from "../services/response";
+import convertFilterValue from "../utils/conver-filter-value";
 
 type Category = {
   id?: number;

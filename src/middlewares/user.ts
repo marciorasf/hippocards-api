@@ -1,8 +1,8 @@
 import { Response, NextFunction, Request } from "express";
 
-import ErrorService from "../services/ErrorService";
-import ResponseService from "../services/ResponseService";
-import UserTokenService from "../services/UserTokenService";
+import ErrorService from "../services/error";
+import ResponseService from "../services/response";
+import UserTokenService from "../services/user-token";
 
 export default async function UserTokenMiddleware(
   request: Request,

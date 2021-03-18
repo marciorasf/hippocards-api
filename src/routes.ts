@@ -1,7 +1,7 @@
-import AuthRoutes from "./routes/AuthRoutes";
-import CategoryRoutes from "./routes/CategoryRoutes";
-import FlashcardRoutes from "./routes/FlashcardRoutes";
-import UserRoutes from "./routes/UserRoutes";
+import AuthRoutes from "./routes/auth";
+import CategoryRoutes from "./routes/category";
+import FlashcardRoutes from "./routes/flashcard";
+import UserRoutes from "./routes/user";
 
 const routes = [...AuthRoutes, ...CategoryRoutes, ...FlashcardRoutes, ...UserRoutes];
 

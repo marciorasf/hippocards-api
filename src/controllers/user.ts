@@ -2,9 +2,9 @@ import { Request, Response } from "express";
 
 import { UserCreateInput } from "@prisma/client";
 
-import ErrorService from "../services/ErrorService";
-import ResponseService from "../services/ResponseService";
-import UserService from "../services/UserService";
+import ErrorService from "../services/error";
+import ResponseService from "../services/response";
+import UserService from "../services/user";
 
 class UserController {
   async create(request: Request, response: Response) {

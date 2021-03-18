@@ -2,9 +2,9 @@ import { Request, Response } from "express";
 
 import { CategoryCreateInput, CategoryUpdateInput } from "@prisma/client";
 
-import CategoryService from "../services/CategoryService";
-import ErrorService from "../services/ErrorService";
-import ResponseService from "../services/ResponseService";
+import CategoryService from "../services/category";
+import ErrorService from "../services/error";
+import ResponseService from "../services/response";
 
 class CategoryController {
   async create(request: Request, response: Response) {

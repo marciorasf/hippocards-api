@@ -1,6 +1,6 @@
 import { PrismaClient, FlashcardCreateInput, FlashcardUpdateInput } from "@prisma/client";
 
-import { FlashcardFilters } from "../interfaces/FlashcardInterface";
+import { FlashcardFilters } from "../interfaces/flashcard";
 
 const prisma = new PrismaClient();
 

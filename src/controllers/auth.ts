@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 
-import { UserAuth } from "../interfaces/AuthInterface";
-import AuthService from "../services/AuthService";
-import ErrorService from "../services/ErrorService";
-import ResponseService from "../services/ResponseService";
+import { UserAuth } from "../interfaces/auth";
+import AuthService from "../services/auth";
+import ErrorService from "../services/error";
+import ResponseService from "../services/response";
 
 class AuthenticationController {
   async authenticate(request: Request, response: Response) {
