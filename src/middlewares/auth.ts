@@ -1,7 +1,7 @@
 import { Response, NextFunction, Request } from "express";
 import jwt from "jsonwebtoken";
 
-import { __cookies__, __secret__ } from "../config";
+import { __cookies__, __secret__ } from "../env-variables";
 import ErrorService from "../services/error";
 import ResponseService from "../services/response";
 

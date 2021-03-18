@@ -14,3 +14,5 @@ export const __cookies__ = {
     options: {},
   },
 };
+
+export const __database_url__ = process.env.DATABASE_URL;

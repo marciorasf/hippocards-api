@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 
 import { PrismaClient } from "@prisma/client";
 
-import { __secret__, __cookies__ } from "../config";
+import { __secret__, __cookies__ } from "../env-variables";
 import { UserAuth } from "../interfaces/auth";
 
 const prisma = new PrismaClient();

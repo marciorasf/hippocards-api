@@ -2,7 +2,7 @@ import bcrypt from "bcrypt";
 
 import { PrismaClient, UserCreateInput } from "@prisma/client";
 
-import { __salt_rounds__ } from "../config";
+import { __salt_rounds__ } from "../env-variables";
 
 const prisma = new PrismaClient();
 
