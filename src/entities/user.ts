@@ -2,7 +2,6 @@ import { Entity, PrimaryGeneratedColumn, Column, OneToMany, BaseEntity } from "t
 
 import { Category } from "./category";
 import { Flashcard } from "./flashcard";
-import { UserToken } from "./user-token";
 
 @Entity()
 export class User extends BaseEntity {
@@ -20,7 +19,4 @@ export class User extends BaseEntity {
 
   @OneToMany(() => Category, (category) => category.user)
   categories: Category[];
-
-  @OneToMany(() => UserToken, (userToken) => userToken.user)
-  userTokens: UserToken[];
 }
