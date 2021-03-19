@@ -2,16 +2,13 @@ import bcrypt from "bcrypt";
 import { Response } from "express";
 import jwt from "jsonwebtoken";
 
-import { PrismaClient } from "@prisma/client";
-
+import { User } from "../entities/user";
 import { __secret__, __cookies__ } from "../env-variables";
 import { UserAuth } from "../interfaces/auth";
 
-const prisma = new PrismaClient();
-
 class AuthService {
   async authenticate({ email, password }: UserAuth) {
-    const user = await prisma.user.findOne({ where: { email } });
+    const user = await User.findOne({ where: { email } });
 
     if (!user) {
       throw new Error("user_not_found");
