@@ -1,5 +1,4 @@
-import "reflect-metadata";
-import "./database/index";
+import "./database";
 import "./middlewares/auth";
 import cookieParser from "cookie-parser";
 import cors from "cors";
