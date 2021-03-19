@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import CategoryService from "../services/category";
 import ErrorService from "../services/error";
 import ResponseService from "../services/response";
+import removeUndefinedValues from "../utils/remove-undefined-values";
 
 class CategoryController {
   async create(request: Request, response: Response) {
@@ -48,9 +49,12 @@ class CategoryController {
     const categoryId = Number(request.params.id);
 
     try {
-      const category = await CategoryService.update(categoryId, {
-        name,
-      });
+      const category = await CategoryService.update(
+        categoryId,
+        removeUndefinedValues({
+          name,
+        })
+      );
 
       return ResponseService.ok(response, { category });
     } catch (error) {

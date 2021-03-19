@@ -21,13 +21,13 @@ export class Flashcard extends BaseEntity {
   @Column()
   answer!: string;
 
-  @Column()
+  @Column({ default: false })
   isBookmarked!: boolean;
 
-  @Column()
+  @Column({ default: false })
   isKnown!: boolean;
 
-  @Column()
+  @Column({ default: 0 })
   views!: number;
 
   @CreateDateColumn()

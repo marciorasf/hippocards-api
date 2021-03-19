@@ -1,12 +1,11 @@
 import { Request, Response } from "express";
 
-import { Flashcard, FlashcardCreateInput, FlashcardUpdateInput } from "@prisma/client";
-
 import CategoryService from "../services/category";
 import ErrorService from "../services/error";
 import FlashcardService from "../services/flashcard";
 import ResponseService from "../services/response";
-import convertFilterValue from "../utils/conver-filter-value";
+import convertFilterValue from "../utils/convert-filter-value";
+import removeUndefinedValues from "../utils/remove-undefined-values";
 
 type Category = {
   id?: number;
@@ -20,19 +19,6 @@ class FlashcardController {
     const { question, answer } = request.body;
     const category = request.body.category as Category;
 
-    let payload: FlashcardCreateInput = {
-      question,
-      answer,
-      isBookmarked: false,
-      isKnown: false,
-      views: 0,
-      user: {
-        connect: {
-          id: userId,
-        },
-      },
-    };
-
     try {
       let categoryId: number;
 
@@ -43,11 +29,7 @@ class FlashcardController {
 
         const newCategory = await CategoryService.create({
           name: category.name as string,
-          user: {
-            connect: {
-              id: userId,
-            },
-          },
+          user: userId,
         });
 
         categoryId = newCategory.id;
@@ -55,16 +37,15 @@ class FlashcardController {
         categoryId = category.id as number;
       }
 
-      payload = {
-        ...payload,
-        category: {
-          connect: {
-            id: categoryId,
-          },
-        },
-      };
-
-      const flashcard = await FlashcardService.create(payload);
+      const flashcard = await FlashcardService.create({
+        question,
+        answer,
+        isBookmarked: false,
+        isKnown: false,
+        views: 0,
+        user: userId,
+        category: categoryId,
+      });
 
       return ResponseService.created(response, { flashcard });
     } catch (error) {
@@ -110,8 +91,6 @@ class FlashcardController {
     const { query } = request;
     const { userId } = response.locals;
 
-    let flashcard: Flashcard | null;
-
     try {
       const isBookmarked = convertFilterValue(query?.isBookmarked as string);
 
@@ -119,27 +98,21 @@ class FlashcardController {
 
       const categoryId = query?.categoryId ? +query.categoryId : undefined;
 
-      const filters = {
+      const filters = removeUndefinedValues({
         isBookmarked,
         isKnown,
         categoryId,
-      };
+      });
 
       const currentFlashcardId = query?.currentFlashcardId ? +query?.currentFlashcardId : undefined;
 
-      flashcard = await FlashcardService.retrieveRandom(userId, currentFlashcardId, filters);
+      const flashcard = await FlashcardService.retrieveRandom(userId, filters, currentFlashcardId);
 
       // There is no flashcard or at least not a different one
       if (!flashcard) {
         return ResponseService.notFound(response);
       }
-    } catch (error) {
-      ErrorService.handleError(error);
 
-      return ResponseService.internalServerError(response, { message: "flashcard_not_got" });
-    }
-
-    try {
       if (flashcard) {
         FlashcardService.incrementViews(flashcard.id);
       }
@@ -147,8 +120,7 @@ class FlashcardController {
       return ResponseService.ok(response, { flashcard });
     } catch (error) {
       ErrorService.handleError(error);
-
-      return ResponseService.internalServerError(response, { message: "flashcard_not_updated" });
+      return ResponseService.internalServerError(response, { message: "flashcard_not_retrieved" });
     }
   }
 
@@ -156,26 +128,17 @@ class FlashcardController {
     const { question, answer, isBookmarked, isKnown, categoryId } = request.body;
     const flashcardId = Number(request.params.id);
 
-    let payload: FlashcardUpdateInput = {
-      question,
-      answer,
-      isBookmarked,
-      isKnown,
-    };
-
-    if (categoryId) {
-      payload = {
-        ...payload,
-        category: {
-          connect: {
-            id: categoryId,
-          },
-        },
-      };
-    }
-
     try {
-      const flashcard = await FlashcardService.update(flashcardId, payload);
+      const flashcard = await FlashcardService.update(
+        flashcardId,
+        removeUndefinedValues({
+          question,
+          answer,
+          isBookmarked,
+          isKnown,
+          category: categoryId,
+        })
+      );
 
       return ResponseService.ok(response, { flashcard });
     } catch (error) {
