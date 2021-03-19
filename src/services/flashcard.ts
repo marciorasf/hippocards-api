@@ -3,24 +3,20 @@ import { getRepository } from "typeorm";
 import { Flashcard } from "../entities/flashcard";
 import { FlashcardFilters } from "../interfaces/flashcard";
 
-type CreateData = {
+interface CommonData {
   question: string;
   answer: string;
   isBookmarked: boolean;
   isKnown: boolean;
-  views: number;
-  user: any;
   category: any;
-};
+}
 
-type UpdateData = {
-  question?: string;
-  answer?: string;
-  isBookmarked?: boolean;
-  isKnown?: boolean;
-  views?: number;
-  category?: any;
-};
+interface CreateData extends CommonData {
+  user: any;
+  views: number;
+}
+
+type UpdateData = Partial<CommonData>;
 
 class FlashcardService {
   async create(data: CreateData) {

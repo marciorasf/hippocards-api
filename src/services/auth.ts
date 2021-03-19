@@ -4,10 +4,14 @@ import jwt from "jsonwebtoken";
 
 import { User } from "../entities/user";
 import { __secret__, __cookies__ } from "../env-variables";
-import { UserAuth } from "../interfaces/auth";
+
+type AuthData = {
+  email: string;
+  password: string;
+};
 
 class AuthService {
-  async authenticate({ email, password }: UserAuth) {
+  async authenticate({ email, password }: AuthData) {
     const user = await User.findOne({ where: { email } });
 
     if (!user) {

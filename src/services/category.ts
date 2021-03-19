@@ -1,13 +1,14 @@
 import { Category } from "../entities/category";
 
-type CreateData = {
+interface CommonData {
   name: string;
-  user: any;
-};
+}
 
-type UpdateData = {
-  name?: string;
-};
+interface CreateData extends CommonData {
+  user: any;
+}
+
+type UpdateData = Partial<CommonData>;
 
 class CategoryService {
   async create(data: CreateData) {
