@@ -1,10 +1,17 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  ManyToOne,
+  BaseEntity,
+} from "typeorm";
 
 import { Category } from "./category";
 import { User } from "./user";
 
 @Entity()
-export class Flashcard {
+export class Flashcard extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 

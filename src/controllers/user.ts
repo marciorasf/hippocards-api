@@ -20,7 +20,7 @@ class UserController {
       ErrorService.handleError(error);
 
       return ResponseService.badRequest(response, {
-        message: error.code === "P2002" ? "email_in_use" : "error",
+        message: error.code === "23505" ? "email_in_use" : "error",
       });
     }
   }

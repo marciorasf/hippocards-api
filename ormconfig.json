@@ -6,11 +6,12 @@
   "username": "marciorasf",
   "password": "1234",
   "database": "flashcards",
-  "entities": [
-    "./src/entities/*.ts"
+  "logging": true,
+  "synchronize": true,
+  "migrations":[
+    "dist/database/migrations/*.js"
   ],
   "cli": {
-    "entitiesDir": "./src/entities",
-    "migrationsDir": "./src/database/migrations"
+    "migrationsDir": "src/database/migrations"
   }
 }
