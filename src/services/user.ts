@@ -1,14 +1,15 @@
 import bcrypt from "bcrypt";
 
-import { PrismaClient, UserCreateInput } from "@prisma/client";
-
 import { User } from "../entities/user";
 import { __salt_rounds__ } from "../env-variables";
 
-const prisma = new PrismaClient();
+type CreateData = {
+  email: string;
+  password: string;
+};
 
 class UserService {
-  async create(user: UserCreateInput) {
+  async create(user: CreateData) {
     const hashedPassword = await bcrypt.hash(user.password, Number(__salt_rounds__));
 
     return User.create({
@@ -18,23 +19,20 @@ class UserService {
   }
 
   async getByEmail(email: string) {
-    return prisma.user.findOne({ where: { email } });
-  }
-
-  async updatePassword(id: number, newPassword: string) {
-    const hashedPassword = await bcrypt.hash(newPassword, Number(__salt_rounds__));
-    return prisma.user.update({
-      data: {
-        password: hashedPassword,
-      },
+    return User.find({
       where: {
-        id,
+        email,
       },
     });
   }
 
+  async updatePassword(id: number, newPassword: string) {
+    const hashedPassword = await bcrypt.hash(newPassword, Number(__salt_rounds__));
+    return User.update({ id }, { password: hashedPassword });
+  }
+
   async existsUserWithEmail(email: string) {
-    const user = await prisma.user.findOne({ where: { email } });
+    const user = await User.find({ where: { email } });
     return Boolean(user);
   }
 }

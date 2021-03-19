@@ -1,7 +1,5 @@
 import { Request, Response } from "express";
 
-import { UserCreateInput } from "@prisma/client";
-
 import ErrorService from "../services/error";
 import ResponseService from "../services/response";
 import UserService from "../services/user";
@@ -10,10 +8,11 @@ class UserController {
   async create(request: Request, response: Response) {
     const { email, password } = request.body;
 
-    const payload: UserCreateInput = { email, password };
-
     try {
-      const user = await UserService.create(payload);
+      const user = await UserService.create({
+        email,
+        password,
+      });
 
       return ResponseService.created(response, { userId: user.id });
     } catch (error) {
