@@ -1,7 +1,5 @@
 import { Request, Response } from "express";
 
-import { CategoryCreateInput, CategoryUpdateInput } from "@prisma/client";
-
 import CategoryService from "../services/category";
 import ErrorService from "../services/error";
 import ResponseService from "../services/response";
@@ -11,17 +9,11 @@ class CategoryController {
     const { userId } = response.locals;
     const { name } = request.body;
 
-    const payload: CategoryCreateInput = {
-      name,
-      user: {
-        connect: {
-          id: userId,
-        },
-      },
-    };
-
     try {
-      const category = await CategoryService.create(payload);
+      const category = await CategoryService.create({
+        name,
+        user: userId,
+      });
 
       if (!category) {
         throw new Error();
@@ -55,12 +47,10 @@ class CategoryController {
     const { name } = request.body;
     const categoryId = Number(request.params.id);
 
-    const payload: CategoryUpdateInput = {
-      name,
-    };
-
     try {
-      const category = await CategoryService.update(categoryId, payload);
+      const category = await CategoryService.update(categoryId, {
+        name,
+      });
 
       return ResponseService.ok(response, { category });
     } catch (error) {

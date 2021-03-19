@@ -1,35 +1,44 @@
-import { PrismaClient, CategoryCreateInput, CategoryUpdateInput } from "@prisma/client";
+import { Category } from "../entities/category";
 
-const prisma = new PrismaClient();
+type CreateData = {
+  name: string;
+  user: any;
+};
+
+type UpdateData = {
+  name?: string;
+};
 
 class CategoryService {
-  async create(data: CategoryCreateInput) {
-    return prisma.category.create({
-      data,
-    });
+  async create(data: CreateData) {
+    return Category.create(data).save();
   }
 
   async retrieveAll(userId: number) {
-    return prisma.category.findMany({
+    return Category.find({
       where: {
-        userId,
+        user: userId,
       },
     });
   }
 
-  async update(categoryId: number, data: CategoryUpdateInput) {
-    return prisma.category.update({
-      where: { id: categoryId },
-      data,
-    });
-  }
+  async update(categoryId: number, data: UpdateData) {
+    await Category.update(
+      {
+        id: categoryId,
+      },
+      data
+    );
 
-  async delete(categoryId: number) {
-    return prisma.category.delete({
+    return Category.findOne({
       where: {
         id: categoryId,
       },
     });
+  }
+
+  async delete(categoryId: number) {
+    return Category.delete({ id: categoryId });
   }
 }
 
