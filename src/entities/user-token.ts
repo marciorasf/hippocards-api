@@ -5,14 +5,14 @@ import { User } from "./user";
 @Entity()
 export class UserToken extends BaseEntity {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
 
   @Column({ unique: true })
-  token: string;
+  token!: string;
 
   @Column()
   expiresIn: string;
 
   @ManyToOne(() => User, (user) => user.categories)
-  user: User;
+  user!: User;
 }

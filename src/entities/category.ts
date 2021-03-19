@@ -6,13 +6,13 @@ import { User } from "./user";
 @Entity()
 export class Category extends BaseEntity {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
 
   @Column()
-  name: string;
+  name!: string;
 
   @ManyToOne(() => User, (user) => user.categories)
-  user: User;
+  user!: User;
 
   @OneToMany(() => Flashcard, (flashcard) => flashcard.category)
   flashcards: Flashcard[];

@@ -7,13 +7,13 @@ import { UserToken } from "./user-token";
 @Entity()
 export class User extends BaseEntity {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
 
   @Column({ unique: true })
-  email: string;
+  email!: string;
 
   @Column()
-  password: string;
+  password!: string;
 
   @OneToMany(() => Flashcard, (flashcard) => flashcard.user)
   flashcards: Flashcard[];

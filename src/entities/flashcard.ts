@@ -13,29 +13,29 @@ import { User } from "./user";
 @Entity()
 export class Flashcard extends BaseEntity {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
 
   @Column()
-  question: string;
+  question!: string;
 
   @Column()
-  answer: string;
+  answer!: string;
 
   @Column()
-  isBookmarked: boolean;
+  isBookmarked!: boolean;
 
   @Column()
-  isKnown: boolean;
+  isKnown!: boolean;
 
   @Column()
-  views: number;
+  views!: number;
 
   @CreateDateColumn()
-  createdAt: Date;
+  createdAt!: Date;
 
   @ManyToOne(() => User, (user) => user.flashcards)
-  user: User;
+  user!: User;
 
   @ManyToOne(() => Category, (category) => category.flashcards)
-  category: Category;
+  category!: Category;
 }
