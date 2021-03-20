@@ -8,7 +8,7 @@ type CreateData = {
   password: string;
 };
 
-export default {
+const userService = {
   async create(user: CreateData) {
     const hashedPassword = await bcrypt.hash(user.password, Number(__salt_rounds__));
 
@@ -36,3 +36,5 @@ export default {
     return Boolean(user);
   },
 };
+
+export default userService;

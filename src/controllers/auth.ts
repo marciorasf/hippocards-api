@@ -4,7 +4,7 @@ import authService from "../services/auth";
 import errorService from "../services/error";
 import responseService from "../services/response";
 
-export default {
+const authController = {
   async login(request: Request, response: Response) {
     const { email, password } = request.body;
 
@@ -37,3 +37,5 @@ export default {
     return responseService.noContent(response);
   },
 };
+
+export default authController;

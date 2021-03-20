@@ -4,7 +4,7 @@ import errorService from "../services/error";
 import responseService from "../services/response";
 import userService from "../services/user";
 
-export default {
+const userController = {
   async create(request: Request, response: Response) {
     const { email, password } = request.body;
 
@@ -36,3 +36,5 @@ export default {
     }
   },
 };
+
+export default userController;

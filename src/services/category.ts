@@ -10,7 +10,7 @@ interface CreateData extends CommonData {
 
 type UpdateData = Partial<CommonData>;
 
-export default {
+const categoryService = {
   async create(data: CreateData) {
     return Category.create(data).save();
   },
@@ -42,3 +42,5 @@ export default {
     return Category.delete({ id: categoryId });
   },
 };
+
+export default categoryService;

@@ -1,6 +1,6 @@
 import { Response } from "express";
 
-export default {
+const responseService = {
   ok(response: Response, data?: any) {
     return response.status(200).json(data);
   },
@@ -33,3 +33,5 @@ export default {
     return response.status(500).json(data);
   },
 };
+
+export default responseService;

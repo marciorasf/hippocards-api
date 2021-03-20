@@ -18,7 +18,7 @@ interface CreateData extends CommonData {
 
 type UpdateData = Partial<CommonData>;
 
-export default {
+const flashcardService = {
   async create(data: CreateData) {
     return Flashcard.create(data).save();
   },
@@ -96,3 +96,5 @@ export default {
     });
   },
 };
+
+export default flashcardService;

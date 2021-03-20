@@ -11,7 +11,7 @@ type AuthData = {
   password: string;
 };
 
-export default {
+const authService = {
   async authenticate({ email, password }: AuthData) {
     const user = await User.findOne({ where: { email } });
 
@@ -48,3 +48,5 @@ export default {
     });
   },
 };
+
+export default authService;

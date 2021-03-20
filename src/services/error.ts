@@ -1,6 +1,6 @@
 import { __node_env__ } from "../config/environment";
 
-export default {
+const errorService = {
   handleError(error: Error) {
     if (__node_env__ === "development") {
       this.handleErrorDevelopment(error);
@@ -17,3 +17,5 @@ export default {
     console.log({ error });
   },
 };
+
+export default errorService;

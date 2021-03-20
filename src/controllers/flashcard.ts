@@ -13,7 +13,7 @@ type Category = {
   name?: string;
 };
 
-export default {
+const flashcardController = {
   async create(request: Request, response: Response) {
     const { userId } = response.locals;
     const { question, answer } = request.body;
@@ -162,3 +162,5 @@ export default {
     }
   },
 };
+
+export default flashcardController;

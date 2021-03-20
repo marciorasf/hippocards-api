@@ -5,7 +5,7 @@ import errorService from "../services/error";
 import responseService from "../services/response";
 import removeUndefinedValues from "../utils/remove-undefined-values";
 
-export default {
+const categoryController = {
   async create(request: Request, response: Response) {
     const { userId } = response.locals;
     const { name } = request.body;
@@ -80,3 +80,5 @@ export default {
     }
   },
 };
+
+export default categoryController;
