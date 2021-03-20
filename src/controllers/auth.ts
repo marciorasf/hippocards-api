@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import authService from "../services/auth";
 import errorService from "../services/error";
 import responseService from "../services/response";
+import userService from "../services/user";
 
 const authController = {
   async login(request: Request, response: Response) {
@@ -34,7 +35,17 @@ const authController = {
   },
 
   async ok(_request: Request, response: Response) {
-    return responseService.noContent(response);
+    const { userId } = response.locals;
+    try {
+      const user = await userService.retrieveOne({ id: userId });
+
+      delete user?.password;
+
+      return responseService.ok(response, { user });
+    } catch (err) {
+      errorService.handleError(err);
+      return responseService.badRequest(response, { message: "user_not_retrieved" });
+    }
   },
 };
 

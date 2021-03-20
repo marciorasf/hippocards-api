@@ -8,7 +8,7 @@ const router = Router();
 const authRoutes = [
   router.post("/login", authController.login),
   router.get("/logout", authController.logout),
-  router.get("/check", authMiddleware, authController.ok),
+  router.get("/ok", authMiddleware, authController.ok),
 ];
 
 export default authRoutes;

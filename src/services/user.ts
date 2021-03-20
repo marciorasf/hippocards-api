@@ -8,6 +8,11 @@ type CreateData = {
   password: string;
 };
 
+type RetrieveWhere = {
+  id?: number;
+  email?: string;
+};
+
 const userService = {
   async create(user: CreateData) {
     const hashedPassword = await bcrypt.hash(user.password, Number(__salt_rounds__));
@@ -18,11 +23,9 @@ const userService = {
     }).save();
   },
 
-  async getByEmail(email: string) {
-    return User.find({
-      where: {
-        email,
-      },
+  async retrieveOne(where: RetrieveWhere) {
+    return User.findOne({
+      where,
     });
   },
 

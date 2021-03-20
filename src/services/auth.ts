@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 
 import { __cookies__ } from "../config/cookies";
 import { __secret__ } from "../config/encrypt";
-import { User } from "../entities/user";
+import userService from "./user";
 
 type AuthData = {
   email: string;
@@ -13,7 +13,7 @@ type AuthData = {
 
 const authService = {
   async authenticate({ email, password }: AuthData) {
-    const user = await User.findOne({ where: { email } });
+    const user = await userService.retrieveOne({ email });
 
     if (!user) {
       throw new Error("user_not_found");
