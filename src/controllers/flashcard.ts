@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 
-import CategoryService from "../services/category";
-import ErrorService from "../services/error";
-import FlashcardService from "../services/flashcard";
-import ResponseService from "../services/response";
+import categoryService from "../services/category";
+import errorService from "../services/error";
+import flashcardService from "../services/flashcard";
+import responseService from "../services/response";
 import convertFilterValue from "../utils/convert-filter-value";
 import removeUndefinedValues from "../utils/remove-undefined-values";
 
@@ -13,7 +13,7 @@ type Category = {
   name?: string;
 };
 
-class FlashcardController {
+export default {
   async create(request: Request, response: Response) {
     const { userId } = response.locals;
     const { question, answer } = request.body;
@@ -27,7 +27,7 @@ class FlashcardController {
           throw Error("CATEGORY_NAME_NOT_PROVIDED");
         }
 
-        const newCategory = await CategoryService.create({
+        const newCategory = await categoryService.create({
           name: category.name as string,
           user: userId,
         });
@@ -37,7 +37,7 @@ class FlashcardController {
         categoryId = category.id as number;
       }
 
-      const flashcard = await FlashcardService.create({
+      const flashcard = await flashcardService.create({
         question,
         answer,
         isBookmarked: false,
@@ -47,13 +47,13 @@ class FlashcardController {
         category: categoryId,
       });
 
-      return ResponseService.created(response, { flashcard });
+      return responseService.created(response, { flashcard });
     } catch (error) {
-      ErrorService.handleError(error);
+      errorService.handleError(error);
 
-      return ResponseService.badRequest(response, { message: "flashcard_not_created" });
+      return responseService.badRequest(response, { message: "flashcard_not_created" });
     }
-  }
+  },
 
   async retrieveById(request: Request, response: Response) {
     const flashcardId = Number(request.params.id);
@@ -63,29 +63,29 @@ class FlashcardController {
     }
 
     try {
-      const flashcard = await FlashcardService.retrieveById(flashcardId);
+      const flashcard = await flashcardService.retrieveById(flashcardId);
 
-      return ResponseService.ok(response, { flashcard });
+      return responseService.ok(response, { flashcard });
     } catch (error) {
-      ErrorService.handleError(error);
+      errorService.handleError(error);
 
-      return ResponseService.notFound(response, { message: "flashcard_not_retrieved" });
+      return responseService.notFound(response, { message: "flashcard_not_retrieved" });
     }
-  }
+  },
 
   async retrieveAll(_request: Request, response: Response) {
     const { userId } = response.locals;
 
     try {
-      const flashcards = await FlashcardService.retrieveAll(userId);
+      const flashcards = await flashcardService.retrieveAll(userId);
 
-      return ResponseService.ok(response, { flashcards });
+      return responseService.ok(response, { flashcards });
     } catch (error) {
-      ErrorService.handleError(error);
+      errorService.handleError(error);
 
-      return ResponseService.notFound(response, { message: "flashcards_not_retrieved" });
+      return responseService.notFound(response, { message: "flashcards_not_retrieved" });
     }
-  }
+  },
 
   async retrieveRandom(request: Request, response: Response) {
     const { query } = request;
@@ -106,30 +106,30 @@ class FlashcardController {
 
       const currentFlashcardId = query?.currentFlashcardId ? +query?.currentFlashcardId : undefined;
 
-      const flashcard = await FlashcardService.retrieveRandom(userId, filters, currentFlashcardId);
+      const flashcard = await flashcardService.retrieveRandom(userId, filters, currentFlashcardId);
 
       // There is no flashcard or at least not a different one
       if (!flashcard) {
-        return ResponseService.notFound(response);
+        return responseService.notFound(response);
       }
 
       if (flashcard) {
-        FlashcardService.incrementViews(flashcard.id);
+        flashcardService.incrementViews(flashcard.id);
       }
 
-      return ResponseService.ok(response, { flashcard });
+      return responseService.ok(response, { flashcard });
     } catch (error) {
-      ErrorService.handleError(error);
-      return ResponseService.internalServerError(response, { message: "flashcard_not_retrieved" });
+      errorService.handleError(error);
+      return responseService.internalServerError(response, { message: "flashcard_not_retrieved" });
     }
-  }
+  },
 
   async update(request: Request, response: Response) {
     const { question, answer, isBookmarked, isKnown, categoryId } = request.body;
     const flashcardId = Number(request.params.id);
 
     try {
-      const flashcard = await FlashcardService.update(
+      const flashcard = await flashcardService.update(
         flashcardId,
         removeUndefinedValues({
           question,
@@ -140,27 +140,25 @@ class FlashcardController {
         })
       );
 
-      return ResponseService.ok(response, { flashcard });
+      return responseService.ok(response, { flashcard });
     } catch (error) {
-      ErrorService.handleError(error);
+      errorService.handleError(error);
 
-      return ResponseService.internalServerError(response, { message: "flashcard_not_updated" });
+      return responseService.internalServerError(response, { message: "flashcard_not_updated" });
     }
-  }
+  },
 
   async delete(request: Request, response: Response) {
     const flashcardId = Number(request.params.id);
 
     try {
-      await FlashcardService.delete(flashcardId);
+      await flashcardService.delete(flashcardId);
 
-      return ResponseService.noContent(response);
+      return responseService.noContent(response);
     } catch (error) {
-      ErrorService.handleError(error);
+      errorService.handleError(error);
 
-      return ResponseService.internalServerError(response, { message: "flashcard_not_deleted" });
+      return responseService.internalServerError(response, { message: "flashcard_not_deleted" });
     }
-  }
-}
-
-export default new FlashcardController();
+  },
+};

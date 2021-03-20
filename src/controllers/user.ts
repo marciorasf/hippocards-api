@@ -1,40 +1,38 @@
 import { Request, Response } from "express";
 
-import ErrorService from "../services/error";
-import ResponseService from "../services/response";
-import UserService from "../services/user";
+import errorService from "../services/error";
+import responseService from "../services/response";
+import userService from "../services/user";
 
-class UserController {
+export default {
   async create(request: Request, response: Response) {
     const { email, password } = request.body;
 
     try {
-      const user = await UserService.create({
+      const user = await userService.create({
         email,
         password,
       });
 
-      return ResponseService.created(response, { userId: user.id });
+      return responseService.created(response, { userId: user.id });
     } catch (error) {
-      ErrorService.handleError(error);
+      errorService.handleError(error);
 
-      return ResponseService.badRequest(response, {
+      return responseService.badRequest(response, {
         message: error.code === "23505" ? "email_in_use" : "error",
       });
     }
-  }
+  },
 
   async updatePassword(request: Request, response: Response) {
     const { newPassword } = request.body;
     const { user } = response.locals;
 
     try {
-      await UserService.updatePassword(user.id, newPassword);
-      return ResponseService.noContent(response);
+      await userService.updatePassword(user.id, newPassword);
+      return responseService.noContent(response);
     } catch (error) {
-      return ResponseService.badRequest(response, { message: "password_not_updated" });
+      return responseService.badRequest(response, { message: "password_not_updated" });
     }
-  }
-}
-
-export default new UserController();
+  },
+};

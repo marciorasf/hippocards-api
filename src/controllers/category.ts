@@ -1,17 +1,17 @@
 import { Request, Response } from "express";
 
-import CategoryService from "../services/category";
-import ErrorService from "../services/error";
-import ResponseService from "../services/response";
+import categoryService from "../services/category";
+import errorService from "../services/error";
+import responseService from "../services/response";
 import removeUndefinedValues from "../utils/remove-undefined-values";
 
-class CategoryController {
+export default {
   async create(request: Request, response: Response) {
     const { userId } = response.locals;
     const { name } = request.body;
 
     try {
-      const category = await CategoryService.create({
+      const category = await categoryService.create({
         name,
         user: userId,
       });
@@ -20,65 +20,63 @@ class CategoryController {
         throw new Error();
       }
 
-      return ResponseService.created(response, { category });
+      return responseService.created(response, { category });
     } catch (error) {
-      ErrorService.handleError(error);
+      errorService.handleError(error);
 
-      return ResponseService.internalServerError(response, { message: "category_not_created" });
+      return responseService.internalServerError(response, { message: "category_not_created" });
     }
-  }
+  },
 
   async retrieveAll(_request: Request, response: Response) {
     const { userId } = response.locals;
 
     try {
-      const categories = await CategoryService.retrieveAll(userId);
+      const categories = await categoryService.retrieveAll(userId);
 
-      return ResponseService.ok(response, { categories });
+      return responseService.ok(response, { categories });
     } catch (error) {
-      ErrorService.handleError(error);
+      errorService.handleError(error);
 
-      return ResponseService.internalServerError(response, {
+      return responseService.internalServerError(response, {
         message: "CATEGORIES_NOT_RETRIEVED",
       });
     }
-  }
+  },
 
   async update(request: Request, response: Response) {
     const { name } = request.body;
     const categoryId = Number(request.params.id);
 
     try {
-      const category = await CategoryService.update(
+      const category = await categoryService.update(
         categoryId,
         removeUndefinedValues({
           name,
         })
       );
 
-      return ResponseService.ok(response, { category });
+      return responseService.ok(response, { category });
     } catch (error) {
-      ErrorService.handleError(error);
+      errorService.handleError(error);
 
-      return ResponseService.internalServerError(response, {
+      return responseService.internalServerError(response, {
         message: "CATEGORY_NOT_UPDATED",
       });
     }
-  }
+  },
 
   async delete(request: Request, response: Response) {
     const categoryId = Number(request.query.categoryId);
 
     try {
-      await CategoryService.delete(categoryId);
+      await categoryService.delete(categoryId);
 
-      return ResponseService.noContent(response);
+      return responseService.noContent(response);
     } catch (error) {
-      ErrorService.handleError(error);
+      errorService.handleError(error);
 
-      return ResponseService.internalServerError(response, { message: "category_not_deleted" });
+      return responseService.internalServerError(response, { message: "category_not_deleted" });
     }
-  }
-}
-
-export default new CategoryController();
+  },
+};

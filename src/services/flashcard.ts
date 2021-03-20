@@ -18,14 +18,14 @@ interface CreateData extends CommonData {
 
 type UpdateData = Partial<CommonData>;
 
-class FlashcardService {
+export default {
   async create(data: CreateData) {
     return Flashcard.create(data).save();
-  }
+  },
 
   async retrieveById(flashcardId: number) {
     return Flashcard.findOne({ where: { id: flashcardId } });
-  }
+  },
 
   async retrieveAll(userId: number) {
     return Flashcard.find({
@@ -33,7 +33,7 @@ class FlashcardService {
         user: userId,
       },
     });
-  }
+  },
 
   async retrieveRandom(userId: number, filters: FlashcardFilters, currentFlashcardId?: number) {
     const query = getRepository(Flashcard)
@@ -61,7 +61,7 @@ class FlashcardService {
     const randomFlashcard = query.getOne();
 
     return randomFlashcard;
-  }
+  },
 
   async update(flashcardId: number, data: UpdateData) {
     await Flashcard.update({ id: flashcardId }, data);
@@ -71,7 +71,7 @@ class FlashcardService {
         id: flashcardId,
       },
     });
-  }
+  },
 
   async incrementViews(flashcardId: number) {
     const flashcard = await Flashcard.findOneOrFail({
@@ -88,13 +88,11 @@ class FlashcardService {
         views: flashcard.views + 1,
       }
     );
-  }
+  },
 
   async delete(flashcardId: number) {
     return Flashcard.delete({
       id: flashcardId,
     });
-  }
-}
-
-export default new FlashcardService();
+  },
+};

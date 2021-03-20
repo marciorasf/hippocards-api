@@ -10,10 +10,10 @@ interface CreateData extends CommonData {
 
 type UpdateData = Partial<CommonData>;
 
-class CategoryService {
+export default {
   async create(data: CreateData) {
     return Category.create(data).save();
-  }
+  },
 
   async retrieveAll(userId: number) {
     return Category.find({
@@ -21,7 +21,7 @@ class CategoryService {
         user: userId,
       },
     });
-  }
+  },
 
   async update(categoryId: number, data: UpdateData) {
     await Category.update(
@@ -36,11 +36,9 @@ class CategoryService {
         id: categoryId,
       },
     });
-  }
+  },
 
   async delete(categoryId: number) {
     return Category.delete({ id: categoryId });
-  }
-}
-
-export default new CategoryService();
+  },
+};

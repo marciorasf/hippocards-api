@@ -1,11 +1,11 @@
 import { createConnection } from "typeorm";
 import "reflect-metadata";
 
-import { __database_url__ } from "./config";
+import { __postgres_url__ } from "./config/postgres";
 import entities from "./entities";
 
 createConnection({
   type: "postgres",
-  url: __database_url__,
+  url: __postgres_url__,
   entities,
 });

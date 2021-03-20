@@ -2,7 +2,8 @@ import bcrypt from "bcrypt";
 import { Response } from "express";
 import jwt from "jsonwebtoken";
 
-import { __secret__, __cookies__ } from "../config";
+import { __cookies__ } from "../config/cookies";
+import { __secret__ } from "../config/encrypt";
 import { User } from "../entities/user";
 
 type AuthData = {
@@ -10,7 +11,7 @@ type AuthData = {
   password: string;
 };
 
-class AuthService {
+export default {
   async authenticate({ email, password }: AuthData) {
     const user = await User.findOne({ where: { email } });
 
@@ -31,21 +32,19 @@ class AuthService {
     }
 
     throw new Error("wrong_password");
-  }
+  },
 
   setCookie(response: Response, token: string) {
     response.cookie(__cookies__.auth.name, token, __cookies__.auth.options);
-  }
+  },
 
   clearCookie(response: Response) {
     response.clearCookie(__cookies__.auth.name);
-  }
+  },
 
   generateJwt(userId: number) {
     return jwt.sign({ userId }, __secret__, {
       expiresIn: 86400,
     });
-  }
-}
-
-export default new AuthService();
+  },
+};

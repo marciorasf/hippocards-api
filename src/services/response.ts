@@ -1,35 +1,35 @@
 import { Response } from "express";
 
-export default class ResponseService {
-  static ok(response: Response, data?: any) {
+export default {
+  ok(response: Response, data?: any) {
     return response.status(200).json(data);
-  }
+  },
 
-  static created(response: Response, data?: any) {
+  created(response: Response, data?: any) {
     return response.status(201).json(data);
-  }
+  },
 
-  static noContent(response: Response) {
+  noContent(response: Response) {
     return response.status(204).json();
-  }
+  },
 
-  static badRequest(response: Response, data?: any) {
+  badRequest(response: Response, data?: any) {
     return response.status(400).json(data);
-  }
+  },
 
-  static unauthorized(response: Response, data?: any) {
+  unauthorized(response: Response, data?: any) {
     return response.status(401).json(data);
-  }
+  },
 
-  static forbidden(response: Response, data?: any) {
+  forbidden(response: Response, data?: any) {
     return response.status(403).json(data);
-  }
+  },
 
-  static notFound(response: Response, data?: any) {
+  notFound(response: Response, data?: any) {
     return response.status(404).json(data);
-  }
+  },
 
-  static internalServerError(response: Response, data?: any) {
+  internalServerError(response: Response, data?: any) {
     return response.status(500).json(data);
-  }
-}
+  },
+};
