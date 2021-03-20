@@ -5,7 +5,7 @@ import ErrorService from "../services/error";
 import ResponseService from "../services/response";
 
 class AuthenticationController {
-  async authenticate(request: Request, response: Response) {
+  async login(request: Request, response: Response) {
     const { email, password } = request.body;
 
     try {
@@ -18,12 +18,23 @@ class AuthenticationController {
 
       return ResponseService.ok(response, { user });
     } catch (error) {
-      AuthService.clearCookie(response);
-
       ErrorService.handleError(error);
-
       return ResponseService.badRequest(response, { message: error.message });
     }
+  }
+
+  async logout(_request: Request, response: Response) {
+    try {
+      AuthService.clearCookie(response);
+      return ResponseService.noContent(response);
+    } catch (error) {
+      ErrorService.handleError(error);
+      return ResponseService.badRequest(response, { message: error.message });
+    }
+  }
+
+  async ok(_request: Request, response: Response) {
+    return ResponseService.noContent(response);
   }
 }
 

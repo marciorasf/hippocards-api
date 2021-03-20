@@ -1,11 +1,11 @@
 import { Response, NextFunction, Request } from "express";
 import jwt from "jsonwebtoken";
 
-import { __cookies__, __secret__ } from "../env-variables";
+import { __cookies__, __secret__ } from "../config";
 import ErrorService from "../services/error";
 import ResponseService from "../services/response";
 
-export default function AuthMiddleware(request: Request, response: Response, next: NextFunction) {
+export default function authMiddleware(request: Request, response: Response, next: NextFunction) {
   const token = request.cookies[__cookies__.auth.name];
 
   if (!token) {

@@ -1,4 +1,4 @@
-import { __node_env__ } from "../env-variables";
+import { __node_env__ } from "../config";
 
 class ErrorService {
   handleError(error: Error) {

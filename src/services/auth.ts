@@ -2,8 +2,8 @@ import bcrypt from "bcrypt";
 import { Response } from "express";
 import jwt from "jsonwebtoken";
 
+import { __secret__, __cookies__ } from "../config";
 import { User } from "../entities/user";
-import { __secret__, __cookies__ } from "../env-variables";
 
 type AuthData = {
   email: string;

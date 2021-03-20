@@ -1,17 +1,17 @@
 import { Router } from "express";
 
 import FlashcardController from "../controllers/flashcard";
-import AuthMiddleware from "../middlewares/auth";
+import authMiddleware from "../middlewares/auth";
 
 const router = Router();
 
 const flashcardRoutes = [
-  router.post("/flashcard", AuthMiddleware, FlashcardController.create),
-  router.get("/flashcard/random", AuthMiddleware, FlashcardController.retrieveRandom),
-  router.get("/flashcard/:id", AuthMiddleware, FlashcardController.retrieveById),
-  router.get("/flashcards", AuthMiddleware, FlashcardController.retrieveAll),
-  router.put("/flashcard/:id", AuthMiddleware, FlashcardController.update),
-  router.delete("/flashcard/:id", AuthMiddleware, FlashcardController.delete),
+  router.post("/flashcard", authMiddleware, FlashcardController.create),
+  router.get("/flashcard/random", authMiddleware, FlashcardController.retrieveRandom),
+  router.get("/flashcard/:id", authMiddleware, FlashcardController.retrieveById),
+  router.get("/flashcards", authMiddleware, FlashcardController.retrieveAll),
+  router.put("/flashcard/:id", authMiddleware, FlashcardController.update),
+  router.delete("/flashcard/:id", authMiddleware, FlashcardController.delete),
 ];
 
 export default flashcardRoutes;

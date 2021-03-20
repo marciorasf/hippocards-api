@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 
+import { __salt_rounds__ } from "../config";
 import { User } from "../entities/user";
-import { __salt_rounds__ } from "../env-variables";
 
 type CreateData = {
   email: string;

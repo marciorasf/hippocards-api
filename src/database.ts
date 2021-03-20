@@ -1,8 +1,8 @@
 import { createConnection } from "typeorm";
 import "reflect-metadata";
 
+import { __database_url__ } from "./config";
 import entities from "./entities";
-import { __database_url__ } from "./env-variables";
 
 createConnection({
   type: "postgres",
