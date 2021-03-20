@@ -1,19 +1,19 @@
 import { __node_env__ } from "../config/environment";
 
 const errorService = {
-  handleError(error: Error) {
+  handle(error: Error) {
     if (__node_env__ === "development") {
-      this.handleErrorDevelopment(error);
+      this.handleInDevelopment(error);
     } else {
-      this.handleErrorProduction(error);
+      this.handleInProduction(error);
     }
   },
 
-  handleErrorDevelopment(error: Error) {
+  handleInDevelopment(error: Error) {
     console.log({ error });
   },
 
-  handleErrorProduction(error: Error) {
+  handleInProduction(error: Error) {
     console.log({ error });
   },
 };

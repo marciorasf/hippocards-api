@@ -15,11 +15,11 @@ const userController = {
       });
 
       return responseService.created(response, { userId: user.id });
-    } catch (error) {
-      errorService.handleError(error);
+    } catch (err) {
+      errorService.handle(err);
 
       return responseService.badRequest(response, {
-        message: error.code === "23505" ? "email_in_use" : "error",
+        message: err.code === "23505" ? "email_in_use" : "error",
       });
     }
   },
@@ -31,7 +31,7 @@ const userController = {
     try {
       await userService.updatePassword(user.id, newPassword);
       return responseService.noContent(response);
-    } catch (error) {
+    } catch (err) {
       return responseService.badRequest(response, { message: "password_not_updated" });
     }
   },

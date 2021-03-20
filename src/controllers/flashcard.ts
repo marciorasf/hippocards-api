@@ -48,8 +48,8 @@ const flashcardController = {
       });
 
       return responseService.created(response, { flashcard });
-    } catch (error) {
-      errorService.handleError(error);
+    } catch (err) {
+      errorService.handle(err);
 
       return responseService.badRequest(response, { message: "flashcard_not_created" });
     }
@@ -66,8 +66,8 @@ const flashcardController = {
       const flashcard = await flashcardService.retrieveById(flashcardId);
 
       return responseService.ok(response, { flashcard });
-    } catch (error) {
-      errorService.handleError(error);
+    } catch (err) {
+      errorService.handle(err);
 
       return responseService.notFound(response, { message: "flashcard_not_retrieved" });
     }
@@ -80,8 +80,8 @@ const flashcardController = {
       const flashcards = await flashcardService.retrieveAll(userId);
 
       return responseService.ok(response, { flashcards });
-    } catch (error) {
-      errorService.handleError(error);
+    } catch (err) {
+      errorService.handle(err);
 
       return responseService.notFound(response, { message: "flashcards_not_retrieved" });
     }
@@ -118,8 +118,8 @@ const flashcardController = {
       }
 
       return responseService.ok(response, { flashcard });
-    } catch (error) {
-      errorService.handleError(error);
+    } catch (err) {
+      errorService.handle(err);
       return responseService.internalServerError(response, { message: "flashcard_not_retrieved" });
     }
   },
@@ -141,8 +141,8 @@ const flashcardController = {
       );
 
       return responseService.ok(response, { flashcard });
-    } catch (error) {
-      errorService.handleError(error);
+    } catch (err) {
+      errorService.handle(err);
 
       return responseService.internalServerError(response, { message: "flashcard_not_updated" });
     }
@@ -155,8 +155,8 @@ const flashcardController = {
       await flashcardService.delete(flashcardId);
 
       return responseService.noContent(response);
-    } catch (error) {
-      errorService.handleError(error);
+    } catch (err) {
+      errorService.handle(err);
 
       return responseService.internalServerError(response, { message: "flashcard_not_deleted" });
     }

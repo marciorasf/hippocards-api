@@ -21,8 +21,8 @@ const categoryController = {
       }
 
       return responseService.created(response, { category });
-    } catch (error) {
-      errorService.handleError(error);
+    } catch (err) {
+      errorService.handle(err);
 
       return responseService.internalServerError(response, { message: "category_not_created" });
     }
@@ -35,8 +35,8 @@ const categoryController = {
       const categories = await categoryService.retrieveAll(userId);
 
       return responseService.ok(response, { categories });
-    } catch (error) {
-      errorService.handleError(error);
+    } catch (err) {
+      errorService.handle(err);
 
       return responseService.internalServerError(response, {
         message: "CATEGORIES_NOT_RETRIEVED",
@@ -57,8 +57,8 @@ const categoryController = {
       );
 
       return responseService.ok(response, { category });
-    } catch (error) {
-      errorService.handleError(error);
+    } catch (err) {
+      errorService.handle(err);
 
       return responseService.internalServerError(response, {
         message: "CATEGORY_NOT_UPDATED",
@@ -73,8 +73,8 @@ const categoryController = {
       await categoryService.delete(categoryId);
 
       return responseService.noContent(response);
-    } catch (error) {
-      errorService.handleError(error);
+    } catch (err) {
+      errorService.handle(err);
 
       return responseService.internalServerError(response, { message: "category_not_deleted" });
     }

@@ -17,8 +17,8 @@ export default function authMiddleware(request: Request, response: Response, nex
       response.locals.userId = decoded.userId;
 
       next();
-    } catch (error) {
-      ErrorService.handleError(error);
+    } catch (err) {
+      ErrorService.handle(err);
 
       ResponseService.unauthorized(response);
     }

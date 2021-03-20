@@ -18,9 +18,9 @@ const authController = {
       authService.setCookie(response, token);
 
       return responseService.ok(response, { user });
-    } catch (error) {
-      errorService.handleError(error);
-      return responseService.badRequest(response, { message: error.message });
+    } catch (err) {
+      errorService.handle(err);
+      return responseService.badRequest(response, { message: err.message });
     }
   },
 
@@ -28,9 +28,9 @@ const authController = {
     try {
       authService.clearCookie(response);
       return responseService.noContent(response);
-    } catch (error) {
-      errorService.handleError(error);
-      return responseService.badRequest(response, { message: error.message });
+    } catch (err) {
+      errorService.handle(err);
+      return responseService.badRequest(response, { message: err.message });
     }
   },
 
@@ -43,7 +43,7 @@ const authController = {
 
       return responseService.ok(response, { user });
     } catch (err) {
-      errorService.handleError(err);
+      errorService.handle(err);
       return responseService.badRequest(response, { message: "user_not_retrieved" });
     }
   },
