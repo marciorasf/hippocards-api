@@ -24,7 +24,7 @@ const categoryService = {
   },
 
   async retrieveOne(categoryId: number) {
-    return Category.find({
+    return Category.findOne({
       where: {
         id: categoryId,
       },
