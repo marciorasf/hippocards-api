@@ -23,6 +23,15 @@ const categoryService = {
     });
   },
 
+  async retrieveOne(categoryId: number) {
+    return Category.find({
+      where: {
+        id: categoryId,
+      },
+      relations: ["flashcards"],
+    });
+  },
+
   async update(categoryId: number, data: UpdateData) {
     await Category.update(
       {

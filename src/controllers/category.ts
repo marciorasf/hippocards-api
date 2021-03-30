@@ -39,7 +39,23 @@ const categoryController = {
       errorService.handle(err);
 
       return responseService.internalServerError(response, {
-        message: "CATEGORIES_NOT_RETRIEVED",
+        message: "categories_not_retrieved",
+      });
+    }
+  },
+
+  async retrieveOne(request: Request, response: Response) {
+    const categoryId = Number(request.params.id);
+
+    try {
+      const category = await categoryService.retrieveOne(categoryId);
+
+      return responseService.ok(response, { category });
+    } catch (err) {
+      errorService.handle(err);
+
+      return responseService.internalServerError(response, {
+        message: "category_not_retrieved",
       });
     }
   },
@@ -61,13 +77,13 @@ const categoryController = {
       errorService.handle(err);
 
       return responseService.internalServerError(response, {
-        message: "CATEGORY_NOT_UPDATED",
+        message: "category_not_updated",
       });
     }
   },
 
   async delete(request: Request, response: Response) {
-    const categoryId = Number(request.query.categoryId);
+    const categoryId = Number(request.params.id);
 
     try {
       await categoryService.delete(categoryId);
