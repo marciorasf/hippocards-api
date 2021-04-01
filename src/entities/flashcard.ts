@@ -33,9 +33,13 @@ export class Flashcard extends BaseEntity {
   @CreateDateColumn()
   createdAt!: Date;
 
-  @ManyToOne(() => User, (user) => user.flashcards)
+  @ManyToOne(() => User, (user) => user.flashcards, {
+    onDelete: "CASCADE",
+  })
   user!: User;
 
-  @ManyToOne(() => Category, (category) => category.flashcards)
+  @ManyToOne(() => Category, (category) => category.flashcards, {
+    onDelete: "CASCADE",
+  })
   category!: Category;
 }

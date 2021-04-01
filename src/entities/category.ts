@@ -11,7 +11,9 @@ export class Category extends BaseEntity {
   @Column()
   name!: string;
 
-  @ManyToOne(() => User, (user) => user.categories)
+  @ManyToOne(() => User, (user) => user.categories, {
+    onDelete: "CASCADE",
+  })
   user!: User;
 
   @OneToMany(() => Flashcard, (flashcard) => flashcard.category)
