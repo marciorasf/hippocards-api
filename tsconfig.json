@@ -26,17 +26,17 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "resolveJsonModule": true,
-    "baseUrl": ".",
+    "baseUrl": "./src",
     "paths": {
-        "@config/*": ["./src/config/*"],
-        "@controllers/*": ["./src/controllers/*"],
-        "@entities/*": ["./src/entities/*"],
-        "@interfaces/*": ["./src/interfaces/*"],
-        "@middlewares/*": ["./src/middlewares/*"],
-        "@routes/*": ["./src/routes/*"],
-        "@services/*": ["./src/services/*"],
-        "@utils/*": ["./src/utils/*"],
-        "@/*": ["./src/*"]
+        "@config/*": ["./config/*"],
+        "@controllers/*": ["./controllers/*"],
+        "@entities/*": ["./entities/*"],
+        "@interfaces/*": ["./interfaces/*"],
+        "@middlewares/*": ["./middlewares/*"],
+        "@routes/*": ["./routes/*"],
+        "@services/*": ["./services/*"],
+        "@utils/*": ["./utils/*"],
+        "@/*": ["./*"]
       }
   },
   "exclude": [
