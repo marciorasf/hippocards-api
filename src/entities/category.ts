@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne, BaseEntity } from "typeorm";
 
-import { Flashcard } from "./flashcard";
-import { User } from "./user";
+import { Flashcard } from "@entities/flashcard";
+import { User } from "@entities/user";
 
 @Entity()
 export class Category extends BaseEntity {

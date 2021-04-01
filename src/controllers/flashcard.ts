@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 
-import errorService from "../services/error";
-import flashcardService from "../services/flashcard";
-import responseService from "../services/response";
-import convertFilterValue from "../utils/convert-filter-value";
-import removeUndefinedValues from "../utils/remove-undefined-values";
+import errorService from "@services/error";
+import flashcardService from "@services/flashcard";
+import responseService from "@services/response";
+import convertFilterValue from "@utils/convert-filter-value";
+import removeUndefinedValues from "@utils/remove-undefined-values";
 
 const flashcardController = {
   async create(request: Request, response: Response) {

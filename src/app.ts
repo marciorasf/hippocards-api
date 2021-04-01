@@ -1,10 +1,10 @@
-import "./database";
-import "./middlewares/auth";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import express from "express";
 
-import routes from "./routes";
+import "@/database";
+import "@middlewares/auth";
+import routes from "@/routes";
 
 const app = express();
 

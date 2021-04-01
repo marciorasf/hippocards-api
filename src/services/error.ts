@@ -1,4 +1,4 @@
-import { __node_env__ } from "../config/environment";
+import { __node_env__ } from "@config/environment";
 
 const errorService = {
   handle(error: Error) {

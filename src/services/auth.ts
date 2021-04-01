@@ -2,9 +2,9 @@ import bcrypt from "bcrypt";
 import { Response } from "express";
 import jwt from "jsonwebtoken";
 
-import { __cookies__ } from "../config/cookies";
-import { __secret__ } from "../config/encrypt";
-import userService from "./user";
+import { __cookies__ } from "@config/cookies";
+import { __secret__ } from "@config/encrypt";
+import userService from "@services/user";
 
 type AuthData = {
   email: string;

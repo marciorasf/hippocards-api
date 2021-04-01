@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 
-import authService from "../services/auth";
-import errorService from "../services/error";
-import responseService from "../services/response";
-import userService from "../services/user";
+import authService from "@services/auth";
+import errorService from "@services/error";
+import responseService from "@services/response";
+import userService from "@services/user";
 
 const authController = {
   async login(request: Request, response: Response) {

@@ -1,8 +1,8 @@
 import { createConnection } from "typeorm";
 import "reflect-metadata";
 
-import { __postgres_url__ } from "./config/postgres";
-import entities from "./entities";
+import entities from "@/entities";
+import { __postgres_url__ } from "@config/postgres";
 
 createConnection({
   type: "postgres",

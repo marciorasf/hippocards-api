@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 
-import errorService from "../services/error";
-import responseService from "../services/response";
-import userService from "../services/user";
+import errorService from "@services/error";
+import responseService from "@services/response";
+import userService from "@services/user";
 
 const userController = {
   async create(request: Request, response: Response) {

@@ -1,4 +1,4 @@
-import { Category } from "../entities/category";
+import { Category } from "@entities/category";
 
 interface CommonData {
   name: string;

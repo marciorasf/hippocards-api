@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 
-import categoryService from "../services/category";
-import errorService from "../services/error";
-import responseService from "../services/response";
-import removeUndefinedValues from "../utils/remove-undefined-values";
+import categoryService from "@services/category";
+import errorService from "@services/error";
+import responseService from "@services/response";
+import removeUndefinedValues from "@utils/remove-undefined-values";
 
 const categoryController = {
   async create(request: Request, response: Response) {
