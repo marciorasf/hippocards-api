@@ -26,7 +26,18 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "resolveJsonModule": true,
-    "baseUrl": "."
+    "baseUrl": ".",
+    "paths": {
+        "@config/*": ["./src/config/*"],
+        "@controllers/*": ["./src/controllers/*"],
+        "@entities/*": ["./src/entities/*"],
+        "@interfaces/*": ["./src/interfaces/*"],
+        "@middlewares/*": ["./src/middlewares/*"],
+        "@routes/*": ["./src/routes/*"],
+        "@services/*": ["./src/services/*"],
+        "@utils/*": ["./src/utils/*"],
+        "@/*": ["./src/*"]
+      }
   },
   "exclude": [
     "node_modules"

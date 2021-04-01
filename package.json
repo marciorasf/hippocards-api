@@ -11,7 +11,8 @@
     "typeorm": "node --require ts-node/register ./node_modules/typeorm/cli.js",
     "dev:resources": "docker-compose up",
     "dev:db:reset": "./scripts/reset-db.sh",
-    "dev": "nodemon dist/index"
+    "dev": "nodemon dist/index",
+    "start": "node -r module-alias/register dist/index"
   },
   "dependencies": {
     "bcrypt": "^5.0.0",
@@ -21,6 +22,7 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.21",
+    "module-alias": "^2.2.2",
     "pg": "^8.5.1",
     "reflect-metadata": "^0.1.13",
     "ts-node": "^9.1.1",
@@ -41,6 +43,7 @@
     "eslint": "^7.4.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-config-prettier": "^6.11.0",
+    "eslint-import-resolver-typescript": "^2.4.0",
     "eslint-plugin-import": "^2.21.2",
     "eslint-plugin-import-helpers": "^1.1.0",
     "eslint-plugin-prettier": "^3.1.4",
@@ -50,5 +53,16 @@
     "supertest": "^6.0.1",
     "ts-jest": "^26.4.4",
     "typescript": "^3.9.7"
+  },
+  "_moduleAliases": {
+    "@config": "./dist/config/",
+    "@controllers": "./dist/controllers/",
+    "@entities": "./dist/entities/",
+    "@interfaces": "./dist/interfaces/",
+    "@middlewares": "./dist/middlewares/",
+    "@routes": "./dist/routes/",
+    "@services": "./dist/services/",
+    "@utils": "./dist/utils/",
+    "@": "./dist/"
   }
 }
