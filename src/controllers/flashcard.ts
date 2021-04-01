@@ -1,42 +1,17 @@
 import { Request, Response } from "express";
 
-import categoryService from "../services/category";
 import errorService from "../services/error";
 import flashcardService from "../services/flashcard";
 import responseService from "../services/response";
 import convertFilterValue from "../utils/convert-filter-value";
 import removeUndefinedValues from "../utils/remove-undefined-values";
 
-type Category = {
-  id?: number;
-  isNew: boolean;
-  name?: string;
-};
-
 const flashcardController = {
   async create(request: Request, response: Response) {
     const { userId } = response.locals;
-    const { question, answer } = request.body;
-    const category = request.body.category as Category;
+    const { question, answer, categoryId } = request.body;
 
     try {
-      let categoryId: number;
-
-      if (category.isNew) {
-        if (!category.name) {
-          throw Error("CATEGORY_NAME_NOT_PROVIDED");
-        }
-
-        const newCategory = await categoryService.create({
-          name: category.name as string,
-          user: userId,
-        });
-
-        categoryId = newCategory.id;
-      } else {
-        categoryId = category.id as number;
-      }
-
       const flashcard = await flashcardService.create({
         question,
         answer,

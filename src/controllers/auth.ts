@@ -39,12 +39,16 @@ const authController = {
     try {
       const user = await userService.retrieveOne({ id: userId });
 
+      if (!user) {
+        return responseService.unauthorized(response);
+      }
+
       delete user?.password;
 
       return responseService.ok(response, { user });
     } catch (err) {
       errorService.handle(err);
-      return responseService.badRequest(response, { message: "user_not_retrieved" });
+      return responseService.internalServerError(response, { message: "user_not_retrieved" });
     }
   },
 };

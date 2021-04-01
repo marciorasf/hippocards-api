@@ -9,9 +9,12 @@
   "logging": true,
   "synchronize": true,
   "migrations":[
-    "dist/database/migrations/*.js"
+    "./src/database/migrations/*.ts"
+  ],
+  "entities":[
+    "./src/entities/*.ts"
   ],
   "cli": {
-    "migrationsDir": "src/database/migrations"
+    "migrationsDir": "./src/database/migrations"
   }
 }

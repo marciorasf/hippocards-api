@@ -8,4 +8,6 @@ createConnection({
   type: "postgres",
   url: __postgres_url__,
   entities,
+  synchronize: true,
+  logging: false,
 });
