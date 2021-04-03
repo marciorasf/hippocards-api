@@ -32,6 +32,7 @@ const flashcardService = {
       where: {
         user: userId,
       },
+      order: { id: "ASC" },
     });
   },
 

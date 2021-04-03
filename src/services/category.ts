@@ -20,6 +20,7 @@ const categoryService = {
       where: {
         user: userId,
       },
+      order: { id: "ASC" },
     });
   },
 
@@ -28,6 +29,7 @@ const categoryService = {
       where: {
         user: userId,
       },
+      order: { id: "ASC" },
       relations: ["flashcards"],
     });
   },
