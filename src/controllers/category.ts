@@ -32,9 +32,36 @@ const categoryController = {
     const { userId } = response.locals;
 
     try {
-      const categories = await categoryService.retrieveAll(userId);
+      const categories = await categoryService.retrieveAllWithFlashcards(userId);
 
-      return responseService.ok(response, { categories });
+      const categoriesWithFlashcardsInfo = categories.map((category) => {
+        const flashcardsCount = category.flashcards.length;
+        let isKnownCount = 0;
+        let isBookmarkedCount = 0;
+
+        category.flashcards.forEach((flashcard) => {
+          if (flashcard.isKnown) {
+            isKnownCount += 1;
+          }
+
+          if (flashcard.isBookmarked) {
+            isBookmarkedCount += 1;
+          }
+        });
+
+        delete category?.flashcards;
+
+        return {
+          ...category,
+          flashcardsInfo: {
+            flashcardsCount,
+            isKnownCount,
+            isBookmarkedCount,
+          },
+        };
+      });
+
+      return responseService.ok(response, { categories: categoriesWithFlashcardsInfo });
     } catch (err) {
       errorService.handle(err);
 
