@@ -48,7 +48,7 @@ const categoryController = {
     const categoryId = Number(request.params.id);
 
     try {
-      const category = await categoryService.retrieveOne(categoryId);
+      const category = await categoryService.retrieveOneWithFlashcards(categoryId);
 
       return responseService.ok(response, { category });
     } catch (err) {

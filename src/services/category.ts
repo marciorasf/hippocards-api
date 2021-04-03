@@ -23,7 +23,24 @@ const categoryService = {
     });
   },
 
+  async retrieveAllWithFlashcards(userId: number) {
+    return Category.find({
+      where: {
+        user: userId,
+      },
+      relations: ["flashcards"],
+    });
+  },
+
   async retrieveOne(categoryId: number) {
+    return Category.findOne({
+      where: {
+        id: categoryId,
+      },
+    });
+  },
+
+  async retrieveOneWithFlashcards(categoryId: number) {
     return Category.findOne({
       where: {
         id: categoryId,
