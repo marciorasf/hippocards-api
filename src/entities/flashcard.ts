@@ -7,8 +7,8 @@ import {
   BaseEntity,
 } from "typeorm";
 
-import { Category } from "@entities/category";
-import { User } from "@entities/user";
+import { Category } from "./category";
+import { User } from "./user";
 
 @Entity()
 export class Flashcard extends BaseEntity {
