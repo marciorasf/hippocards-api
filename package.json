@@ -12,7 +12,8 @@
     "dev:resources": "docker-compose up",
     "dev:db:reset": "./scripts/reset-db.sh",
     "dev": "nodemon dist/index",
-    "start": "node -r module-alias/register dist/index"
+    "start": "node -r module-alias/register dist/index",
+    "postinstall": "tsc -b"
   },
   "dependencies": {
     "bcrypt": "^5.0.0",
@@ -64,5 +65,6 @@
     "@services": "./dist/services/",
     "@utils": "./dist/utils/",
     "@": "./dist/"
-  }
+  },
+  "engines": {"node": "12.22.0"}
 }
