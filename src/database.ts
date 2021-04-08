@@ -13,5 +13,6 @@ createConnection({
   logging: true,
   extra: {
     ssl: true,
+    rejectUnauthorized: false,
   },
 });
