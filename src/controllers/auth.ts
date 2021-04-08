@@ -15,19 +15,7 @@ const authController = {
         password,
       });
 
-      authService.setCookie(response, token);
-
-      return responseService.ok(response, { user });
-    } catch (err) {
-      errorService.handle(err);
-      return responseService.badRequest(response, { message: err.message });
-    }
-  },
-
-  async logout(_request: Request, response: Response) {
-    try {
-      authService.clearCookie(response);
-      return responseService.noContent(response);
+      return responseService.ok(response, { user, token });
     } catch (err) {
       errorService.handle(err);
       return responseService.badRequest(response, { message: err.message });

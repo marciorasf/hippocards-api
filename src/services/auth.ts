@@ -1,8 +1,6 @@
 import bcrypt from "bcrypt";
-import { Response } from "express";
 import jwt from "jsonwebtoken";
 
-import { __cookies__ } from "@config/cookies";
 import { __secret__ } from "@config/encrypt";
 import userService from "@services/user";
 
@@ -32,14 +30,6 @@ const authService = {
     }
 
     throw new Error("wrong_password");
-  },
-
-  setCookie(response: Response, token: string) {
-    response.cookie(__cookies__.auth.name, token, __cookies__.auth.options);
-  },
-
-  clearCookie(response: Response) {
-    response.clearCookie(__cookies__.auth.name);
   },
 
   generateJwt(userId: number) {

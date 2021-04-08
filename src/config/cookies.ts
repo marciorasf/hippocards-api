@@ -9,7 +9,7 @@ type Cookies = {
 
 export const __cookies__: Cookies = {
   auth: {
-    name: "@flashcards/auth-token",
+    name: "flashcards_auth-token",
     options: {
       httpOnly: true,
     },
