@@ -12,7 +12,7 @@
     "dev:resources": "docker-compose up",
     "dev:db:reset": "./scripts/reset-db.sh",
     "dev": "nodemon dist/index",
-    "start": "node -r module-alias/register dist/index",
+    "start": "NODE_TLS_REJECT_UNAUTHORIZED=0 && node -r module-alias/register dist/index",
     "postinstall": "tsc -b"
   },
   "dependencies": {
