@@ -11,8 +11,7 @@ createConnection({
   entities,
   synchronize: __is_dev_env__,
   logging: __is_prod_env__,
-  extra: {
-    ssl: __is_prod_env__,
+  ssl: {
     rejectUnauthorized: false,
   },
 });
