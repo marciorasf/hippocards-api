@@ -6,9 +6,9 @@ services:
     image: postgres:13-alpine
     restart: "no"
     environment:
-      POSTGRES_DB: $DB_NAME
-      POSTGRES_USER: $DB_USER
-      POSTGRES_PASSWORD: $DB_PASSWORD
+      POSTGRES_DB: flashcards
+      POSTGRES_USER: marciorasf
+      POSTGRES_PASSWORD: 1234
     ports:
       - 5432:5432
     volumes:
