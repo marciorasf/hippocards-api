@@ -12,13 +12,13 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - ./resources/postgresql:/var/lib/postgresql/data
+      - flashcards-postgres:/var/lib/postgresql/data
     networks:
-      - app-connect
+      - flashcards-net
 
 volumes:
-  postgres:
+  flashcards-postgres:
 
 networks:
-  app-connect:
+  flashcards-net:
     driver: bridge
