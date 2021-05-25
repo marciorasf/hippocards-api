@@ -2,7 +2,6 @@ import { createConnection } from "typeorm";
 import "reflect-metadata";
 
 import entities from "@/entities";
-import { __is_dev_env__ } from "@config/environment";
 import {
   __postgres_host__,
   __postgres_database__,
