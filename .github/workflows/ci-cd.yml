@@ -13,56 +13,56 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       
-      - name: install dependencies
+      - name: Install dependencies
         run: yarn
       
-      - name: build typescript
+      - name: Build typescript
         run: yarn build
           
-#   deploy-image:
-#     runs-on: ubuntu-latest
+  deploy-image:
+    runs-on: ubuntu-latest
     
-#     steps:
-#       - uses: actions/checkout@v2
+    steps:
+      - uses: actions/checkout@v2
       
-#       - name: Docker Login
-#         uses: docker/login-action@v1.9.0
-#         with:
-#           username: ${{secrets.DOCKERHUB_USERNAME}}
-#           password: ${{secrets.DOCKERHUB_PASSWORD}}
-#           logout: true
+      - name: Docker Login
+        uses: docker/login-action@v1.9.0
+        with:
+          username: ${{secrets.DOCKERHUB_USERNAME}}
+          password: ${{secrets.DOCKERHUB_PASSWORD}}
+          logout: true
         
-#       - name: Build and push Docker images
-#         uses: docker/build-push-action@v2.4.0
-#         with:
-#           context: .
-#           file: ./Dockerfile
-#           push: true
-#           tags: |
-#             ${{secrets.DOCKERHUB_USERNAME}}/flashcards-api:${{ github.run_id }}
-#             ${{secrets.DOCKERHUB_USERNAME}}/flashcards-api:latest
-#           github-token: ${{ github.token }}
+      - name: Build and push Docker images
+        uses: docker/build-push-action@v2.4.0
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: |
+            ${{secrets.DOCKERHUB_USERNAME}}/flashcards-api:${{ github.run_id }}
+            ${{secrets.DOCKERHUB_USERNAME}}/flashcards-api:latest
+          github-token: ${{ github.token }}
   
-#   deploy-caprover:
-#     needs: [build]
+  deploy-caprover:
+    needs: [build]
     
-#     runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
         
-#     steps:
-#     - uses: actions/checkout@v2
-#       with:
-#         ref: caprover-releases
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        ref: caprover-releases
     
-#     - name: Set captain-definition new image
-#       uses: jossef/action-set-json-field@v1
-#       with:
-#         file: captain-definition
-#         field: imageName
-#         value: ${{secrets.DOCKERHUB_USERNAME}}/flashcards-api:${{ github.run_id }}
+    - name: Set captain-definition new image
+      uses: jossef/action-set-json-field@v1
+      with:
+        file: captain-definition
+        field: imageName
+        value: ${{secrets.DOCKERHUB_USERNAME}}/flashcards-api:${{ github.run_id }}
         
-#     - name: Git Auto Commit
-#       uses: stefanzweifel/git-auto-commit-action@v4.11.0
-#       with:
-#         commit_message: update image tag to ${{ github.run_id }}
-#         branch: caprover-releases
-#         push_options: --force
+    - name: Git Auto Commit
+      uses: stefanzweifel/git-auto-commit-action@v4.11.0
+      with:
+        commit_message: update image tag to ${{ github.run_id }}
+        branch: caprover-releases
+        push_options: --force
