@@ -2,20 +2,26 @@ import { createConnection } from "typeorm";
 import "reflect-metadata";
 
 import entities from "@/entities";
-import { __is_dev_env__, __is_prod_env__ } from "@config/environment";
-import { __postgres_url__ } from "@config/postgres";
+import { __is_dev_env__ } from "@config/environment";
+import {
+  __postgres_host__,
+  __postgres_database__,
+  __postgres_password__,
+  __postgres_port__,
+  __postgres_username__,
+  __postgres_logging__,
+  __postgres_schema__,
+} from "@config/postgres";
 
 createConnection({
   type: "postgres",
-  url: __postgres_url__,
+  host: __postgres_host__,
+  port: __postgres_port__,
+  database: __postgres_database__,
+  schema: __postgres_schema__,
+  username: __postgres_username__,
+  password: __postgres_password__,
   entities,
-  synchronize: __is_dev_env__,
-  logging: __is_prod_env__,
-  ...(__is_prod_env__
-    ? {
-        ssl: {
-          rejectUnauthorized: false,
-        },
-      }
-    : {}),
+  synchronize: false,
+  logging: __postgres_logging__,
 });

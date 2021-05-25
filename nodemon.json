@@ -1,6 +1,8 @@
 {
-  "watch": ["dist"],
+  "watch": [
+    "dist"
+  ],
   "ext": "js",
   "ignore": [],
-  "exec": "node -r module-alias/register --inspect=9229"
+  "exec": "node -r module-alias/register --inspect=3002"
 }

@@ -6,4 +6,4 @@ POSTGRES_APP_NAME="flashcards-postgres"
 CLEAR_DATABASE_QUERIES="DROP SCHEMA public CASCADE; CREATE SCHEMA public;"
 
 # Drop all tables from database
-sudo docker exec -i ${POSTGRES_APP_NAME} psql --host $POSTGRES_DB_HOST --username $POSTGRES_DB_USER --dbname $POSTGRES_DB_NAME -c "${CLEAR_DATABASE_QUERIES}"
+docker exec -i ${POSTGRES_APP_NAME} psql --host $POSTGRES_DB_HOST --username $POSTGRES_DB_USER --dbname $POSTGRES_DB_NAME -c "${CLEAR_DATABASE_QUERIES}"
