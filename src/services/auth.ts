@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 
 import userService from "@services/user";
-import generateToken from "@utils/generate-jwt";
+import generateToken from "@utils/generate-token";
 
 type AuthData = {
   email: string;
