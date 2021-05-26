@@ -2,7 +2,7 @@ import bcrypt from "bcrypt";
 
 import { __salt_rounds__ } from "@config/encrypt";
 import { User } from "@entities/user";
-import generateToken from "@utils/generate-jwt";
+import generateToken from "@utils/generate-token";
 
 type CreateData = {
   email: string;
@@ -12,6 +12,7 @@ type CreateData = {
 type RetrieveWhere = {
   id?: number;
   email?: string;
+  recoverPasswordToken?: string;
 };
 
 const userService = {
@@ -49,6 +50,10 @@ const userService = {
     const token = generateToken({ email }, oneHour);
 
     return User.update({ email }, { recoverPasswordToken: token });
+  },
+
+  async removeRecoverPasswordTokenById(id: number) {
+    return User.update({ id }, { recoverPasswordToken: null });
   },
 };
 
