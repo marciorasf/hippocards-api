@@ -1,4 +1,12 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, BaseEntity } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToMany,
+  BaseEntity,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from "typeorm";
 
 import { Category } from "./category";
 import { Flashcard } from "./flashcard";
@@ -13,6 +21,12 @@ export class User extends BaseEntity {
 
   @Column()
   password!: string;
+
+  @CreateDateColumn()
+  createdAt!: Date;
+
+  @UpdateDateColumn()
+  updatedAt!: Date;
 
   @OneToMany(() => Flashcard, (flashcard) => flashcard.user)
   flashcards: Flashcard[];

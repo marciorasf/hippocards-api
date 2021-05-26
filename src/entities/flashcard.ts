@@ -5,6 +5,7 @@ import {
   CreateDateColumn,
   ManyToOne,
   BaseEntity,
+  UpdateDateColumn,
 } from "typeorm";
 
 import { Category } from "./category";
@@ -32,6 +33,9 @@ export class Flashcard extends BaseEntity {
 
   @CreateDateColumn()
   createdAt!: Date;
+
+  @UpdateDateColumn()
+  updatedAt!: Date;
 
   @ManyToOne(() => User, (user) => user.flashcards, {
     onDelete: "CASCADE",
