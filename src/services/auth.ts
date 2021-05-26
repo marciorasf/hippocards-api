@@ -1,8 +1,7 @@
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
 
-import { __secret__ } from "@config/encrypt";
 import userService from "@services/user";
+import generateToken from "@utils/generate-jwt";
 
 type AuthData = {
   email: string;
@@ -25,17 +24,11 @@ const authService = {
           id: user.id,
           email: user.email,
         },
-        token: this.generateJwt(user.id),
+        token: generateToken({ userId: user.id }),
       };
     }
 
     throw new Error("wrong_password");
-  },
-
-  generateJwt(userId: number) {
-    return jwt.sign({ userId }, __secret__, {
-      expiresIn: 86400,
-    });
   },
 };
 
