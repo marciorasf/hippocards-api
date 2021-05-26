@@ -2,6 +2,7 @@ import bcrypt from "bcrypt";
 
 import { __salt_rounds__ } from "@config/encrypt";
 import { User } from "@entities/user";
+import generateToken from "@utils/generate-jwt";
 
 type CreateData = {
   email: string;
@@ -41,6 +42,13 @@ const userService = {
     } catch (err) {
       return false;
     }
+  },
+
+  async addRecoverPasswordToken(email: string) {
+    const oneHour = 60 * 60;
+    const token = generateToken({ email }, oneHour);
+
+    return User.update({ email }, { recoverPasswordToken: token });
   },
 };
 
