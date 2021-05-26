@@ -45,11 +45,13 @@ const userService = {
     }
   },
 
-  async addRecoverPasswordToken(email: string) {
+  async addRecoverPasswordTokenAndReturnToken(email: string) {
     const oneHour = 60 * 60;
     const token = generateToken({ email }, oneHour);
 
-    return User.update({ email }, { recoverPasswordToken: token });
+    await User.update({ email }, { recoverPasswordToken: token });
+
+    return token;
   },
 
   async removeRecoverPasswordTokenById(id: number) {
