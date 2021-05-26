@@ -22,6 +22,11 @@ export class User extends BaseEntity {
   @Column()
   password!: string;
 
+  @Column({
+    nullable: true,
+  })
+  recoverPasswordToken: string;
+
   @CreateDateColumn()
   createdAt!: Date;
 
