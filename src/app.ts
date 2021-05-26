@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api", routes);
 
 app.get("/", function (_req, res) {
-  res.send("<h2>Hello! This is the api of marciorasf-flashcards</h2>");
+  res.send("<h2>Hello from hippocards api</h2>");
 });
 
 export default app;
