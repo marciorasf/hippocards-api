@@ -24,8 +24,10 @@ export class User extends BaseEntity {
 
   @Column({
     nullable: true,
+    unique: true,
+    type: "text",
   })
-  recoverPasswordToken: string;
+  recoverPasswordToken: string | null;
 
   @CreateDateColumn()
   createdAt!: Date;
