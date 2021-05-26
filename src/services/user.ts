@@ -35,8 +35,12 @@ const userService = {
   },
 
   async existsUserWithEmail(email: string) {
-    const user = await User.find({ where: { email } });
-    return Boolean(user);
+    try {
+      await User.findOneOrFail({ where: { email } });
+      return true;
+    } catch (err) {
+      return false;
+    }
   },
 };
 
