@@ -39,6 +39,23 @@ const authController = {
       return responseService.internalServerError(response, { message: "user_not_retrieved" });
     }
   },
+
+  async recoverPassword(request: Request, response: Response) {
+    const { email } = request.body;
+
+    try {
+      const userExists = await userService.existsUserWithEmail(email);
+
+      if (!userExists) {
+        return responseService.notFound(response);
+      }
+
+      return responseService.noContent(response);
+    } catch (err) {
+      errorService.handle(err);
+      return responseService.badRequest(response, { message: err.message });
+    }
+  },
 };
 
 export default authController;
