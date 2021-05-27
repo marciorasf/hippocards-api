@@ -9,9 +9,13 @@ const tokenService = {
     });
   },
 
-  verify(token) {
-    return jwt.verify(token, __secret__)
-  }
+  verify(token: string) {
+    try {
+      return jwt.verify(token, __secret__);
+    } catch (err) {
+      return false;
+    }
+  },
 };
 
 export default tokenService;

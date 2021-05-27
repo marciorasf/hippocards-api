@@ -1,6 +1,5 @@
 import { Response, NextFunction, Request } from "express";
 
-import ErrorService from "@services/error";
 import ResponseService from "@services/response";
 import tokenService from "@services/token";
 
@@ -12,15 +11,13 @@ export default function authMiddleware(request: Request, response: Response, nex
   } else {
     const token = authorization.replace("Bearer ", "");
 
-    try {
-      const decoded = tokenService.verify(token) as Record<"userId", number>;
-      response.locals.userId = decoded.userId;
-
-      next();
-    } catch (err) {
-      ErrorService.handle(err);
-
-      ResponseService.unauthorized(response);
+    const decoded = tokenService.verify(token) as Record<"userId", number>;
+    if (!decoded) {
+      return ResponseService.unauthorized(response);
     }
+
+    response.locals.userId = decoded.userId;
+
+    next();
   }
 }
