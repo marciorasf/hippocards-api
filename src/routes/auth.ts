@@ -7,7 +7,6 @@ const router = Router();
 
 const authRoutes = [
   router.post("/login", authController.login),
-  router.post("/recover-password", authController.recoverPassword),
   router.get("/ok", authMiddleware, authController.ok),
 ];
 

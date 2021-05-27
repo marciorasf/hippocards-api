@@ -6,7 +6,8 @@ const router = Router();
 
 const userRoutes = [
   router.post("/users", userController.create),
-  router.get("/recoverPasswordToken/:token", userController.verifyRecoverPasswordToken)
+  router.post("/recover-password", userController.recoverPassword),
+  router.get("/recoverPasswordToken/:token", userController.verifyRecoverPasswordToken),
 ];
 
 export default userRoutes;
