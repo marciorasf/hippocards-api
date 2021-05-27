@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 
+import tokenService from "@services/token";
 import userService from "@services/user";
-import generateToken from "@utils/generate-token";
 
 type AuthData = {
   email: string;
@@ -25,7 +25,7 @@ const authService = {
           id: user.id,
           email: user.email,
         },
-        token: generateToken({ userId: user.id }, sevenDaysInSeconds),
+        token: tokenService.generateToken({ userId: user.id }, sevenDaysInSeconds),
       };
     }
 
