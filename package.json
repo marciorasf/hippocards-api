@@ -15,6 +15,7 @@
     "start": "NODE_TLS_REJECT_UNAUTHORIZED=0 && node -r module-alias/register dist/index"
   },
   "dependencies": {
+    "aws-sdk": "^2.914.0",
     "bcrypt": "^5.0.0",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
