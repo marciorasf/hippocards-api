@@ -8,6 +8,10 @@ const tokenService = {
       expiresIn: expiresInSeconds,
     });
   },
+
+  verify(token) {
+    return jwt.verify(token, __secret__)
+  }
 };
 
 export default tokenService;

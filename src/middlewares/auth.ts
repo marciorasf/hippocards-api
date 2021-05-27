@@ -1,9 +1,8 @@
 import { Response, NextFunction, Request } from "express";
-import jwt from "jsonwebtoken";
 
-import { __secret__ } from "@config/encrypt";
 import ErrorService from "@services/error";
 import ResponseService from "@services/response";
+import tokenService from "@services/token";
 
 export default function authMiddleware(request: Request, response: Response, next: NextFunction) {
   const { authorization } = request.headers;
@@ -14,7 +13,7 @@ export default function authMiddleware(request: Request, response: Response, nex
     const token = authorization.replace("Bearer ", "");
 
     try {
-      const decoded = jwt.verify(token, __secret__) as Record<"userId", number>;
+      const decoded = tokenService.verify(token) as Record<"userId", number>;
       response.locals.userId = decoded.userId;
 
       next();
