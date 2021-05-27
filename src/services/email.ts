@@ -33,7 +33,9 @@ const emailService = {
       Body: {
         Text: {
           Charset: "UTF-8",
-          Data: `You can change your password at ${__client_url__}${__client_change_password_path__}${token}`,
+          Data: `You can change your password at ${__client_url__}${__client_change_password_path__}${token}
+
+          This link expires in 1 hour.`,
         },
       },
     };
