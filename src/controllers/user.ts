@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 
 import errorService from "@services/error";
 import responseService from "@services/response";
+import tokenService from "@services/token";
 import userService from "@services/user";
 
 const userController = {
@@ -33,6 +34,32 @@ const userController = {
       return responseService.noContent(response);
     } catch (err) {
       return responseService.badRequest(response, { message: "password_not_updated" });
+    }
+  },
+
+  async verifyRecoverPasswordToken(request: Request, response: Response) {
+    const { token } = request.params;
+
+    try {
+      const decoded = tokenService.verify(token) as Record<"email", string>;
+      if (!decoded) {
+        return responseService.forbidden(response, { message: "invalid_token" });
+      }
+
+      const { email } = decoded;
+
+      const user = userService.retrieveOne({
+        email,
+        recoverPasswordToken: token,
+      });
+
+      if (!user) {
+        return responseService.notFound(response);
+      }
+
+      return responseService.noContent(response);
+    } catch (err) {
+      return responseService.internalServerError(response);
     }
   },
 };
