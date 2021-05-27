@@ -19,12 +19,13 @@ const authService = {
     const isCorrect = await bcrypt.compare(password, user.password);
 
     if (isCorrect) {
+      const sevenDaysInSeconds = 60 * 60 * 24 * 7;
       return {
         user: {
           id: user.id,
           email: user.email,
         },
-        token: generateToken({ userId: user.id }),
+        token: generateToken({ userId: user.id }, sevenDaysInSeconds),
       };
     }
 
