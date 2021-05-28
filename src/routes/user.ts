@@ -7,7 +7,7 @@ const router = Router();
 const userRoutes = [
   router.post("/users", userController.create),
   router.post("/recover-password", userController.recoverPassword),
-  router.get("/recoverPasswordToken/:token", userController.verifyRecoverPasswordToken),
+  router.get("/recover-password-token/:token", userController.verifyRecoverPasswordToken),
   router.put("/change-password", userController.updatePassword),
 ];
 

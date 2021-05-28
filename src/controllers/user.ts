@@ -55,7 +55,7 @@ const userController = {
       const userExists = await userService.existsUserWithEmail(email);
 
       if (!userExists) {
-        return responseService.notFound(response);
+        return responseService.notFound(response, { message: "user_not_found" });
       }
 
       const token = await userService.addRecoverPasswordTokenAndReturnToken(email);
