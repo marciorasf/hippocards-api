@@ -18,6 +18,6 @@ export default function authMiddleware(request: Request, response: Response, nex
 
     response.locals.userId = decoded.userId;
 
-    next();
+    return next();
   }
 }

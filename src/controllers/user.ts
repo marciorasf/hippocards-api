@@ -27,10 +27,20 @@ const userController = {
   },
 
   async updatePassword(request: Request, response: Response) {
-    const { newPassword } = request.body;
-    const { user } = response.locals;
+    const { newPassword, token } = request.body;
 
     try {
+      const isTokenValid = tokenService.verify(token);
+      if (!isTokenValid) {
+        return responseService.unauthorized(response, { message: "invalid_token" });
+      }
+
+      const user = await userService.retrieveOne({ recoverPasswordToken: token });
+
+      if (!user) {
+        return responseService.notFound(response, { message: "user_not_found" });
+      }
+
       await userService.updatePassword(user.id, newPassword);
       return responseService.noContent(response);
     } catch (err) {
