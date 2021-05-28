@@ -27,7 +27,7 @@ const userController = {
   },
 
   async updatePassword(request: Request, response: Response) {
-    const { newPassword, token } = request.body;
+    const { password, token } = request.body;
 
     try {
       const isTokenValid = tokenService.verify(token);
@@ -41,7 +41,7 @@ const userController = {
         return responseService.notFound(response, { message: "user_not_found" });
       }
 
-      await userService.updatePassword(user.id, newPassword);
+      await userService.updatePassword(user.id, password);
       return responseService.noContent(response);
     } catch (err) {
       return responseService.badRequest(response, { message: "password_not_updated" });
