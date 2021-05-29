@@ -1,4 +1,4 @@
-# Hippocards WEB
+# Hippocards API
 
 Hippocards is a tool that helps people studying with flashcards.
 
