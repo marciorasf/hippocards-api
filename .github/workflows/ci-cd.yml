@@ -41,8 +41,8 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |
-            ${{secrets.DOCKERHUB_USERNAME}}/flashcards-api:${{ github.run_id }}
-            ${{secrets.DOCKERHUB_USERNAME}}/flashcards-api:latest
+            ${{secrets.DOCKERHUB_USERNAME}}/hippocards-api:${{ github.run_id }}
+            ${{secrets.DOCKERHUB_USERNAME}}/hippocards-api:latest
           github-token: ${{ github.token }}
   
   deploy-caprover:
@@ -60,7 +60,7 @@ jobs:
       with:
         file: captain-definition
         field: imageName
-        value: ${{secrets.DOCKERHUB_USERNAME}}/flashcards-api:${{ github.run_id }}
+        value: ${{secrets.DOCKERHUB_USERNAME}}/hippocards-api:${{ github.run_id }}
         
     - name: Git Auto Commit
       uses: stefanzweifel/git-auto-commit-action@v4.11.0
