@@ -1,3 +1,5 @@
+import { getRepository } from "typeorm";
+
 import { Category } from "@entities/category";
 
 interface CommonData {
@@ -43,12 +45,12 @@ const categoryService = {
   },
 
   async retrieveOneWithFlashcards(categoryId: number) {
-    return Category.findOne({
-      where: {
-        id: categoryId,
-      },
-      relations: ["flashcards"],
-    });
+    return getRepository(Category)
+      .createQueryBuilder("category")
+      .where("category.id = :id", { id: categoryId })
+      .leftJoinAndSelect("category.flashcards", "flashcards")
+      .orderBy("flashcards.createdAt", "DESC")
+      .getOne();
   },
 
   async update(categoryId: number, data: UpdateData) {
