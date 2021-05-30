@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 
 import categoryService from "@services/category";
 import errorService from "@services/error";
+import flashcardService from "@services/flashcard";
 import responseService from "@services/response";
 import removeUndefinedValues from "@utils/remove-undefined-values";
 
@@ -120,6 +121,19 @@ const categoryController = {
       errorService.handle(err);
 
       return responseService.internalServerError(response, { message: "category_not_deleted" });
+    }
+  },
+
+  async setFlashcardsAsUnknown(request: Request, response: Response) {
+    const categoryId = Number(request.params.id);
+
+    try {
+      await flashcardService.setAllAsUnknownByCategoryId(categoryId);
+      return responseService.noContent(response);
+    } catch (err) {
+      errorService.handle(err);
+
+      return responseService.internalServerError(response, { message: "flashcards_not_updated" });
     }
   },
 };

@@ -96,6 +96,19 @@ const flashcardService = {
       id: flashcardId,
     });
   },
+
+  async setAllAsUnknownByCategoryId(categoryId: number) {
+    return Flashcard.update(
+      {
+        category: {
+          id: categoryId,
+        },
+      },
+      {
+        isKnown: false,
+      }
+    );
+  },
 };
 
 export default flashcardService;
